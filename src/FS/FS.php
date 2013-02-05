@@ -29,7 +29,7 @@
       } else if( $reference == 'production' ) {
         $this->baseUrl =  'https://familysearch.org';
       } else {
-        $this->baseUrl = 'https://sandbox.familsearch.org';
+        $this->baseUrl = 'https://sandbox.familysearch.org';
       }
       
       // Instantiate HTTP client
@@ -41,8 +41,8 @@
      * Begin OAuth2 Authorization by redirecting the user
      * to the authorize endpoint with the necessary parameters
      */
-    public function OAuth2Authorize($redirectUri) {
-      header('Location: ' . getOAuth2AuthorizeUrl($redirectUri));
+    public function startOAuth2Authorization($redirectUri) {
+      header('Location: ' . $this->getOAuth2AuthorizeUrl($redirectUri));
       exit;
     }
     
@@ -52,7 +52,7 @@
      */
     public function getOAuth2AuthorizeUrl($redirectUri) {
       $discovery = $this->getDiscovery();
-      $authorizeUrl = $discovery['http://oauth.net/core/2.0/endpoint/authorize'];
+      $authorizeUrl = $discovery['http://oauth.net/core/2.0/endpoint/authorize']['href'];
       return $authorizeUrl . '?response_type=code&client_id=' 
           . $this->devKey . '&redirect_uri=' . $redirectUri;
     }
@@ -62,13 +62,14 @@
      */
     public function getOAuth2AccessToken($code) {
       $discovery = $this->getdiscovery();
-      $tokenUrl = $discovery['http://oauth.net/core/2.0/endpoint/token']
+      $tokenUrl = $discovery['http://oauth.net/core/2.0/endpoint/token']['href']
           . '?grant_type=authorization_code&client_id=' . $this->devKey 
           . '&code=' . $code;
-      return $this->client
-        ->get($tokenUrl)
+      $response = $this->client
+        ->post($tokenUrl)
         ->send()
         ->json();
+      return $response['access_token'];
     }
     
     /**
@@ -76,13 +77,14 @@
      */
     public function getDiscovery() {
       if( !$this->discovery ) {
-        $this->discovery = $this->client
+        $response = $this->client
           ->get('/.well-known/app-meta')
           ->addHeader('Accept', 'application/x-gedcomx-atom+json')
           ->send()
           ->json();
+        $this->discovery = $response['links'];
       } 
-      return $this->discovery();
+      return $this->discovery;
     }
     
     /**
