@@ -2,6 +2,7 @@
 
   namespace FS;
   
+  use FS\Person;
   use Guzzle\Http\Client as Guzzle;
   
   /**
@@ -77,13 +78,33 @@
       if( !$this->discovery ) {
         $this->discovery = $this->client
           ->get('/.well-known/app-meta')
-          ->addHeader('application/x-gedcomx-atom+json')
+          ->addHeader('Accept', 'application/x-gedcomx-atom+json')
           ->send()
           ->json();
       } 
       return $this->discovery();
     }
-  
+    
+    /**
+     * Get the current user's person in the tree
+     */
+    public function getCurrentUserPerson() {
+      $discovery = $this->getDiscovery();
+      return getPerson($discovery['current-user-person']);
+    }
+    
+    /**
+     * Get a person
+     */
+    public function getPerson($personUri) {
+      $response = $this->client
+        ->get($personUri)
+        ->addHeader('Accept', 'application/x-fs-v1+json')
+        ->send()
+        ->json();
+      return new Person($response);
+    }
+    
   }
 
 ?>
