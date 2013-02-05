@@ -12,6 +12,7 @@
   
     private $baseUrl;
     private $devKey;
+    private $accessToken;
     private $client;
     private $discovery;
   
@@ -35,6 +36,14 @@
       // Instantiate HTTP client
       $this->client = new Guzzle($this->baseUrl);
       
+    }
+    
+    /**
+     * Store the access token obtained via OAuth2 so that
+     * subsequent API requests can be authenticated
+     */
+    public function setAccessToken($accessToken) {
+      $this->accessToken = $accessToken;
     }
     
     /**
@@ -92,7 +101,7 @@
      */
     public function getCurrentUserPerson() {
       $discovery = $this->getDiscovery();
-      return getPerson($discovery['current-user-person']);
+      return $this->getPerson($discovery['current-user-person']['href']);
     }
     
     /**
@@ -102,6 +111,7 @@
       $response = $this->client
         ->get($personUri)
         ->addHeader('Accept', 'application/x-fs-v1+json')
+        ->addHeader('Authorization', 'Bearer ' . $this->accessToken)
         ->send()
         ->json();
       return new Person($response);

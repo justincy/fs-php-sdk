@@ -14,7 +14,7 @@
      * Constructor for the Person Class
      */
     public function __construct($personData) {
-      $this->_person = $personData['persons'];
+      $this->_person = $personData['persons'][0];
       $this->_places = $personData['places'];
     }
     
@@ -22,14 +22,14 @@
      * Get the display name of the person
      */
     public function getName() {
-      return $this->_person['display']['name'];
+      return getAttrOrNull($this->_person, array('display', 'name'));
     }
     
     /**
      * Get the gender of the person
      */
     public function getGender() {
-      return $this->_person['display']['gender'];
+      return getAttrOrNull($this->_person, array('display','gender'));
     }
     
     /**
@@ -46,14 +46,14 @@
      * Get the birth place of the person
      */
     public function getBirthPlace() {
-      return FS\getAttrOrNull( $this->_person, array('display', 'birthPlace') );
+      return getAttrOrNull($this->_person, array('display', 'birthPlace'));
     }
     
     /**
      * Get the birth date of the person
      */
     public function getBirthDate() {
-      return FS\getAttrOrNull( $this->_person, array('display', 'birthDate') );
+      return getAttrOrNull($this->_person, array('display', 'birthDate'));
     }
   
   }
