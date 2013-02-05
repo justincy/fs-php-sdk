@@ -2,13 +2,13 @@
 
   namespace FS;
   
-  use FS\Person;
   use Guzzle\Http\Client as Guzzle;
+  use FS\Person;
   
   /**
    * Main FamilySearch Class
    */
-  class Client {
+  class Client extends Guzzle {
   
     private $baseUrl;
     private $devKey;
@@ -33,8 +33,8 @@
         $this->baseUrl = 'https://sandbox.familysearch.org';
       }
       
-      // Instantiate HTTP client
-      $this->client = new Guzzle($this->baseUrl);
+      // Instantiate Guzzle HTTP client
+      parent::__construct($this->baseUrl);
       
     }
     
@@ -74,8 +74,7 @@
       $tokenUrl = $discovery['http://oauth.net/core/2.0/endpoint/token']['href']
           . '?grant_type=authorization_code&client_id=' . $this->devKey 
           . '&code=' . $code;
-      $response = $this->client
-        ->post($tokenUrl)
+      $response = $this->post($tokenUrl)
         ->send()
         ->json();
       return $response['access_token'];
@@ -86,8 +85,7 @@
      */
     public function getDiscovery() {
       if( !$this->discovery ) {
-        $response = $this->client
-          ->get('/.well-known/app-meta')
+        $response = $this->get('/.well-known/app-meta')
           ->addHeader('Accept', 'application/x-gedcomx-atom+json')
           ->send()
           ->json();
@@ -108,13 +106,21 @@
      * Get a person
      */
     public function getPerson($personUri) {
-      $response = $this->client
-        ->get($personUri)
+      $response = $this->get($personUri)
         ->addHeader('Accept', 'application/x-fs-v1+json')
         ->addHeader('Authorization', 'Bearer ' . $this->accessToken)
         ->send()
         ->json();
       return new Person($response);
+    }
+    
+    /**
+     * Get a person and their relationships
+     */
+    public function getPersonWithRelationships($personUri) {
+      $ids = extractIds($personUri);
+      $personWithRelationshipsUri = '/platform/tree/persons-with-relationships?person=' . $ids[0];
+      return $this->getPerson($personWithRelationshipsUri);
     }
     
   }

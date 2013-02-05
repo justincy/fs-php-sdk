@@ -19,5 +19,14 @@
     }
     return $data;
   }
+  
+  /**
+   * Extracts ids from a string
+   */
+  function extractIds($string) {
+    $matches = array();
+    preg_match_all("/\/([0-9A-Z]{4}\-[0-9A-Z]{3})/", $string, $matches);
+    return $matches[1];
+  }
 
 ?>
