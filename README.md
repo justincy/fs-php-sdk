@@ -46,12 +46,13 @@ Visit https://familysearch.org/developers to sign up and gain access to the deve
   $fs->setAccessToken($_SESSION['fs-session']);
   
   // Get the current user person
-  $person = $fs->getCurrentUserPerson();
+  $response = $fs->getCurrentUserPerson();
+  $person = $response->getPerson();
   
   // Read and display the person's name and birth information
-  echo $person->getName();
-  echo $person->getBirthDate();
-  echo $person->getBirthPlace();
+  echo $person['display']['name'];
+  echo $person['display']['birthDate'];
+  echo $person['display']['birthPlace'];
 
 ?>
 ```
