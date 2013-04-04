@@ -98,7 +98,11 @@
      */
     public function getDiscoveryLink($rel) {
       $discovery = $this->getDiscovery();
-      return isset($discovery[$rel]) ? $discovery[$rel] : null;
+      if( isset($discovery[$rel]) ) {
+        return $discovery[$rel];
+      } else {
+        return null;
+      }
     }
     
     /**

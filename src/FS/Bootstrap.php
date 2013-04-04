@@ -4,6 +4,8 @@
   
   $files = array(
     'Enunciate-Models.php',
+    'Person.php',
+    'Name.php',
     'Response.php',
     'Client.php'
   );
