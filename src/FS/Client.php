@@ -87,6 +87,13 @@
     }
     
     /**
+     * Get a person
+     */
+    public function getPerson($personId) {
+      return $this->getFSJson($this->getDiscoveryLink('person-template'), array('pid' => $personId));
+    }
+    
+    /**
      * Get a person and all of their relationships
      */
     public function getPersonWithRelationships($personId) {
@@ -164,7 +171,7 @@
       $response = $request->send()->json();
       
       // Convert response to an object so we can add method extentions
-      return new Response($response);
+      return new Response($response, $this);
       
     }
     

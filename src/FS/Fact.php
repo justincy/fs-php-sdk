@@ -77,7 +77,7 @@
     }
     
     public function getNormalized() {
-      return $this->normalizedExtensions ? $this->normalizedExtension[0]->value : null;
+      return $this->normalizedExtensions ? $this->normalizedExtensions[0]->value : null;
     }
     
     public function __toString() {

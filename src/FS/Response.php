@@ -29,16 +29,26 @@
      * $response is an associative array obtained by parsing a
      * JSON response from the APIs
      */
-    public function __construct($response) {
+    public function __construct($response, $client) {
       if( !is_array($response) ) {
         throw new Exception("Invalid response data; array expected");
       }
       
       parent::__construct($response);
       
+      $this->client = $client;
+      
       // Replace person objects with our wrapper object
-      foreach($this->persons as $i => $oldPerson) {
-        $this->persons[$i] = new Person($oldPerson->toArray(), $this);
+      foreach($this->persons as $i => $person) {
+        $this->persons[$i] = new Person($person->toArray(), $this, $client);
+      }
+      
+      // Convert relationships
+      foreach($this->relationships as $i => $relationship) {
+        $this->relationships[$i] = new Relationship($relationship->toArray(), $client);
+      }
+      foreach($this->childAndParentsRelationships as $i => $relationship) {
+        $this->childAndParentsRelationships[$i] = new ChildAndParentsRelationship($relationship->toArray(), $client);
       }
     }
     

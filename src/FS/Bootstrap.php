@@ -7,6 +7,7 @@
     'Person.php',
     'Name.php',
     'Fact.php',
+    'Relationships.php',
     'Response.php',
     'Client.php'
   );

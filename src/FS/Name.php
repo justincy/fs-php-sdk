@@ -37,6 +37,10 @@
     public function getSurname() {
       return $this->getNamePart('http://gedcomx.org/Surname');
     }
+    
+    public function __toString() {
+      return $this->getText();
+    }
   
   }
   
