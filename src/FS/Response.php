@@ -38,7 +38,7 @@
       
       // Replace person objects with our wrapper object
       foreach($this->persons as $i => $oldPerson) {
-        $this->persons[$i] = new Person($oldPerson->toArray());
+        $this->persons[$i] = new Person($oldPerson->toArray(), $this);
       }
     }
     

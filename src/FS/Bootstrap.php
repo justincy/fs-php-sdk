@@ -6,6 +6,7 @@
     'Enunciate-Models.php',
     'Person.php',
     'Name.php',
+    'Fact.php',
     'Response.php',
     'Client.php'
   );

@@ -17,6 +17,15 @@
       return $this->nameForms[0]->fullText;
     }
     
+    public function getNameForm($lang) {
+      foreach($this->nameForms as $nameForm) {
+        if( $nameForm->lang == $lang ) {
+          return $nameForm;
+        }
+      }
+      return null;
+    }
+    
     public function getNamePart($type) {
       return $this->nameForms[0]->getNamePart($type);
     }
