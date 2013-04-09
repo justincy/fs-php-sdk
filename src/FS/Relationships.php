@@ -44,12 +44,28 @@
       
     }
     
+    public function hasFather() {
+      return isset($this->father);
+    }
+    
+    public function hasMother() {
+      return isset($this->mother);
+    }
+    
     public function getFather() {
-      return $this->getPerson($this->father->resource);
+      if( $this->father ) {
+        return $this->getPerson($this->father->resource);
+      } else {
+        return null;
+      }
     }
     
     public function getMother() {
-      return $this->getPerson($this->mother->resource);
+      if( $this->mother ) {
+        return $this->getPerson($this->mother->resource);
+      } else {
+        return null;
+      }
     }
     
     public function getChild() {
