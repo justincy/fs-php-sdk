@@ -2,7 +2,7 @@
 
 This is a PHP SDK for the [FamilySearch APIs](https://familysearch.org/developers).
 
-View the [sample code](https://github.com/justincy/php-sample-person-browser) that has been deployed to http://personbrowserphp-justincy.dotcloud.com.
+View the [sample code](https://github.com/justincy/php-sample-person-browser) that has been deployed to http://fs-php-sample-app.aws.af.cm/.
 
 ## Before Using the SDK
 
