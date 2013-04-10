@@ -50,9 +50,9 @@ Visit https://familysearch.org/developers to sign up and gain access to the deve
   $person = $response->getPerson();
   
   // Read and display the person's name and birth information
-  echo $person['display']['name'];
-  echo $person['display']['birthDate'];
-  echo $person['display']['birthPlace'];
+  echo $person->displayExtension->name;
+  echo $person->displayExtension->lifespan;
+  echo $person->displayExtension->birthDate;
 
 ?>
 ```
