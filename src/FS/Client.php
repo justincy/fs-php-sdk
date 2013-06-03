@@ -83,21 +83,21 @@
      * Get the current user's person in the tree
      */
     public function getCurrentUserPerson() {
-      return $this->getResource($this->getDiscoveryLink('current-user-person'));
+      return $this->getFS($this->getDiscoveryLink('current-user-person'));
     }
     
     /**
      * Get a person
      */
     public function getPerson($personId) {
-      return $this->getResource($this->getDiscoveryLink('person-template'), array('pid' => $personId));
+      return $this->getFS($this->getDiscoveryLink('person-template'), array('pid' => $personId));
     }
     
     /**
      * Get a person and all of their relationships
      */
     public function getPersonWithRelationships($personId) {
-      return $this->getResource($this->getDiscoveryLink('person-with-relationships-query'), array('person' => $personId));
+      return $this->getFS($this->getDiscoveryLink('person-with-relationships-query'), array('person' => $personId));
     }
     
     /**
@@ -117,16 +117,16 @@
      */
     public function getDiscovery() {
       if( !$this->discovery ) {
-        $response = $this->getResource('/.well-known/app-meta');
+        $response = $this->getFS('/.well-known/app-meta');
         $this->discovery = $response->links;
       } 
       return $this->discovery;
     }
     
     /**
-     * Fetch a resource
+     * Fetch a FamilySearch resource
      */
-    public function getResource($url, $templateVars = null) {
+    public function getFS($url, $templateVars = null) {
       
       // If $url is link object, then pull out the 'href' or 'template'.
       // This allows for link objects from the Discovery resource to
