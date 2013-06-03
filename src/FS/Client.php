@@ -83,21 +83,21 @@
      * Get the current user's person in the tree
      */
     public function getCurrentUserPerson() {
-      return $this->getFSJson($this->getDiscoveryLink('current-user-person'));
+      return $this->getResource($this->getDiscoveryLink('current-user-person'));
     }
     
     /**
      * Get a person
      */
     public function getPerson($personId) {
-      return $this->getFSJson($this->getDiscoveryLink('person-template'), array('pid' => $personId));
+      return $this->getResource($this->getDiscoveryLink('person-template'), array('pid' => $personId));
     }
     
     /**
      * Get a person and all of their relationships
      */
     public function getPersonWithRelationships($personId) {
-      return $this->getFSJson($this->getDiscoveryLink('person-with-relationships-query'), array('person' => $personId));
+      return $this->getResource($this->getDiscoveryLink('person-with-relationships-query'), array('person' => $personId));
     }
     
     /**
@@ -117,30 +117,16 @@
      */
     public function getDiscovery() {
       if( !$this->discovery ) {
-        $response = $this->getAtomJson('/.well-known/app-meta');
+        $response = $this->getResource('/.well-known/app-meta');
         $this->discovery = $response->links;
       } 
       return $this->discovery;
     }
     
     /**
-     * Fetch a resource using the "application/x-gedcomx-atom+json" media type
-     */
-    public function getAtomJson($url, $templateVars = null) {
-      return $this->getResource($url, 'application/x-gedcomx-atom+json', $templateVars);
-    }
-    
-    /**
-     * Fetch a resource using the "application/x-fs-v1+json" media type
-     */
-    public function getFSJson($url, $templateVars = null) {
-      return $this->getResource($url, 'application/x-fs-v1+json', $templateVars);
-    }
-    
-    /**
      * Fetch a resource
      */
-    public function getResource($url, $mediaType, $templateVars = null) {
+    public function getResource($url, $templateVars = null) {
       
       // If $url is link object, then pull out the 'href' or 'template'.
       // This allows for link objects from the Discovery resource to
@@ -163,7 +149,7 @@
       }
       
       $request = $this->get($getParams)
-        ->addHeader('Accept', $mediaType);
+        ->addHeader('Accept', 'application/x-fs-v1+json, application/x-gedcomx-atom+json, application/json');
       if( $this->accessToken ) {
         $request->addHeader('Authorization', 'Bearer ' . $this->accessToken);
       }
