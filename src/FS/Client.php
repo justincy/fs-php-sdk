@@ -87,6 +87,23 @@
     }
     
     /**
+     * Search for a person
+     */
+    public function personSearch($queryParams) {
+      
+      // Create a list of parameters in the name=value format
+      $formattedParams = array();
+      foreach($queryParams as $name => $value) {
+        $formattedParams[] = $name . ':' . (strpos($value, '"') === false ? '"' . $value . '"' : $value);
+      }
+      
+      // Concatenate the list with &
+      $query = implode('&', $formattedParams);
+      
+      return $this->getFS($this->getDiscoveryLink('person-search'), array('q' => $query));
+    }
+    
+    /**
      * Get a person
      */
     public function getPerson($personId) {
@@ -149,15 +166,21 @@
       }
       
       $request = $this->get($getParams)
-        ->addHeader('Accept', 'application/x-fs-v1+json, application/x-gedcomx-atom+json, application/json');
+        ->addHeader('Accept', 'application/x-fs-v1+json, application/x-gedcomx-atom+json');
       if( $this->accessToken ) {
         $request->addHeader('Authorization', 'Bearer ' . $this->accessToken);
       }
       
-      $response = $request->send()->json();
+      $response = $request->send();
+      $returnType = $response->getHeader('Content-Type');
+      $responseJson = $response->json();
       
       // Convert response to an object so we can add method extentions
-      return new Response($response, $this);
+      if( $returnType == 'application/x-fs-v1+json' ) {
+        return new Response($responseJson, $this);
+      } elseif( $returnType == 'application/x-gedcomx-atom+json' ) {
+        return new AtomResponse($responseJson, $this);
+      }
       
     }
     

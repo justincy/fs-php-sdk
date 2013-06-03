@@ -9,6 +9,7 @@
     'Fact.php',
     'Relationships.php',
     'Response.php',
+    'AtomResponse.php',
     'Client.php'
   );
   

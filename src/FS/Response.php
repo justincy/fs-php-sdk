@@ -31,7 +31,7 @@
      */
     public function __construct($response, $client) {
       if( !is_array($response) ) {
-        throw new Exception("Invalid response data; array expected");
+        throw new \Exception("Invalid response data; array expected");
       }
       
       parent::__construct($response);
