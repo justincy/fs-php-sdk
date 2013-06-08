@@ -90,17 +90,23 @@
      * Search for a person
      */
     public function personSearch($queryParams) {
-      
-      // Create a list of parameters in the name=value format
-      $formattedParams = array();
-      foreach($queryParams as $name => $value) {
-        $formattedParams[] = $name . ':' . (strpos($value, '"') === false ? '"' . $value . '"' : $value);
-      }
-      
-      // Concatenate the list with &
-      $query = implode('&', $formattedParams);
-      
+      $query = $this->processSearchQueryParams($queryParams);
       return $this->getFS($this->getDiscoveryLink('person-search'), array('q' => $query));
+    }
+    
+    /**
+     * Search for matches based on query parameters
+     */
+    public function personMatchesQuery($queryParams) {
+      $query = $this->processSearchQueryParams($queryParams);
+      return $this->getFS($this->getDiscoveryLink('person-matches-query'), array('q' => $query));
+    }
+    
+    /**
+     * Get a list of matches for an existing person
+     */
+    public function getPersonMatches($personId) {
+      return $this->getFS($this->getDiscoveryLink('person-matches-template', array('pid' => $personId)));
     }
     
     /**
@@ -185,10 +191,20 @@
     }
     
     /**
-     * Returns true if the given string is a URI
+     * Processes search and match query parameters from an array
+     * and returns a proper query string
      */
-    public static function isURI($str) {
-      return strpos($str, '/') !== false;
+    private function processSearchQueryParams($queryParams) {
+    
+      // Create a list of parameters in the name=value format
+      $formattedParams = array();
+      foreach($queryParams as $name => $value) {
+        $formattedParams[] = $name . ':' . (strpos($value, '"') === false ? '"' . $value . '"' : $value);
+      }
+      
+      // Concatenate the list with &
+      return implode('&', $formattedParams);
+    
     }
     
   }
