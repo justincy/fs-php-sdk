@@ -14,8 +14,12 @@
     
     // Stores facts that aren't birth, christening, death, or burial
     private $nonVitals = array();
+    
+    private $response;
   
     public function __construct($data, $response) {
+      
+      $this->response = $response;
       
       parent::__construct($data);
             
@@ -129,6 +133,13 @@
     
     public function getNonVitalFacts() {
       return $this->nonVitals;
+    }
+    
+    /**
+     * Get a list of possible matches for this person
+     */
+    public function getMatches() {
+      return $this->response->getClient()->getPersonMatches($this->id);
     }
     
   }

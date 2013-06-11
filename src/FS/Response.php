@@ -24,6 +24,9 @@
     // Have the child-and-parents relationships been processed
     // to separate the children from the parent relationships?
     private $processedChildAndParents = false;
+    
+    // The client object that created this request
+    private $client;
   
     /**
      * $response is an associative array obtained by parsing a
@@ -50,6 +53,10 @@
       foreach($this->childAndParentsRelationships as $i => $relationship) {
         $this->childAndParentsRelationships[$i] = new ChildAndParentsRelationship($relationship->toArray(), $client);
       }
+    }
+    
+    public function getClient() {
+      return $this->$client;
     }
     
     /**
