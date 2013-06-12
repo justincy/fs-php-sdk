@@ -83,7 +83,7 @@
      * Get the current user's person in the tree
      */
     public function getCurrentUserPerson() {
-      return $this->getFS($this->getDiscoveryLink('current-user-person'));
+      return $this->getDLink('current-user-person');
     }
     
     /**
@@ -91,7 +91,7 @@
      */
     public function personSearch($queryParams) {
       $query = $this->processSearchQueryParams($queryParams);
-      return $this->getFS($this->getDiscoveryLink('person-search'), array('q' => $query));
+      return $this->getDLink('person-search', array('q' => $query));
     }
     
     /**
@@ -99,28 +99,28 @@
      */
     public function personMatchesQuery($queryParams) {
       $query = $this->processSearchQueryParams($queryParams);
-      return $this->getFS($this->getDiscoveryLink('person-matches-query'), array('q' => $query));
+      return $this->getDLink('person-matches-query', array('q' => $query));
     }
     
     /**
      * Get a list of matches for an existing person
      */
     public function getPersonMatches($personId) {
-      return $this->getFS($this->getDiscoveryLink('person-matches-template', array('pid' => $personId)));
+      return $this->getDLink('person-matches-template', array('pid' => $personId));
     }
     
     /**
      * Get a person
      */
     public function getPerson($personId) {
-      return $this->getFS($this->getDiscoveryLink('person-template'), array('pid' => $personId));
+      return $this->getDLink('person-template', array('pid' => $personId));
     }
     
     /**
      * Get a person and all of their relationships
      */
     public function getPersonWithRelationships($personId) {
-      return $this->getFS($this->getDiscoveryLink('person-with-relationships-query'), array('person' => $personId));
+      return $this->getDLink('person-with-relationships-query', array('person' => $personId));
     }
     
     /**
@@ -144,6 +144,14 @@
         $this->discovery = $response->links;
       } 
       return $this->discovery;
+    }
+    
+    /**
+     * Wraps both getFS() and getDiscoveryLink() so that you can do
+     * $this->getDLink($rel) instead of $this->getFS($this->getDiscoveryLink($rel))
+     */
+    public function getDLink($rel, $templateVars = null) {
+      return $this->getFS($this->getDiscoveryLink($rel), $templateVars);
     }
     
     /**
