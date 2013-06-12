@@ -124,6 +124,13 @@
     }
     
     /**
+     * Get a list of spouse relationships for a person
+     */
+    public function getSpouseRelationships($personId) {
+      return $this->getDLink('spouse-relationships-template', array('pid' => $personId));
+    }
+    
+    /**
      * Get a link or template from the Discovery resource
      */
     public function getDiscoveryLink($rel) {
