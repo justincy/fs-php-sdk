@@ -111,7 +111,7 @@
         
         // Allow for multiple types to be given.
         // If an array isn't given, convert it to an array
-        if( !is_array($type) ) {
+        if( !is_array($types) ) {
           $types = array($types);
         }
         

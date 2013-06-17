@@ -7,6 +7,8 @@
     'Person.php',
     'Name.php',
     'Fact.php',
+    'Place.php',
+    'Date.php',
     'Relationships.php',
     'Response.php',
     'AtomResponse.php',

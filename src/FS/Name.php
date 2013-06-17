@@ -12,18 +12,17 @@
         $this->nameForms[$i] = new NameForm($nameForm->toArray());
       }
     }
+    
+    public function getType() {
+      return $this->type;
+    }
   
-    public function getText() {
+    public function getFullText() {
       return $this->nameForms[0]->fullText;
     }
     
-    public function getNameForm($lang) {
-      foreach($this->nameForms as $nameForm) {
-        if( $nameForm->lang == $lang ) {
-          return $nameForm;
-        }
-      }
-      return null;
+    public function getNameForms() {
+      return $this->nameForms;
     }
     
     public function getNamePart($type) {
@@ -54,6 +53,18 @@
         $this->parts[$i] = new NamePart($namePart->toArray());
       }
     }
+    
+    public function getNameParts() {
+      return $this->parts;
+    }
+    
+    public function getGivenName() {
+      return $this->getNamePart('http://gedcomx.org/Given');
+    }
+    
+    public function getSurname() {
+      return $this->getNamePart('http://gedcomx.org/Surname');
+    }
   
     public function getNamePart($type) {
       foreach($this->parts as $namePart) {
@@ -62,6 +73,10 @@
         }
       }
       return null;
+    }
+    
+    public function getFullText() {
+      return $this->fullText;
     }
   
   }

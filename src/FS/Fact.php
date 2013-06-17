@@ -16,7 +16,7 @@
       
       if( $this->place ) {
       
-        // IF a place reference exists, remove the # and use the 
+        // If a place reference exists, remove the # and use the 
         // place reference to lookup the place value from the response
         if( $this->place->descriptionRef ) {
           $placeId = substr($this->place->descriptionRef, 1);
@@ -25,7 +25,6 @@
               $this->place = new Place($place->toArray());
             }
           }
-          // TODO: should we throw an exception if we don't find the right place?
         }
         
         // If the place ref doesn't exist, take the original value
@@ -36,6 +35,10 @@
         
       }
       
+    }
+    
+    public function getType() {
+      return $this->type;
     }
     
     public function getDate() {
@@ -62,28 +65,4 @@
   
   }
   
-  class Place extends \Org\Gedcomx\Conclusion\PlaceDescription {
-  
-    public function __toString() {
-      return $this->names[0]->value;
-    }
-  
-  }
-  
-  class Date extends \Org\Gedcomx\Conclusion\DateInfo {
-  
-    public function getOriginal() {
-      return $this->original;
-    }
-    
-    public function getNormalized() {
-      return $this->normalizedExtensions ? $this->normalizedExtensions[0]->value : null;
-    }
-    
-    public function __toString() {
-      return $this->getNormalized() ? $this->getNormalized() : $this->getOriginal();
-    }
-  
-  }
-
 ?>
