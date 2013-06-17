@@ -1,6 +1,6 @@
 <?php
   
-  $phar = new Phar('FS.phar',0,'FS.phar');
+  $phar = new Phar('lib/FS.phar',0,'FS.phar');
   
   $stub = "<?php 
   Phar::mapPhar('FS.phar');
