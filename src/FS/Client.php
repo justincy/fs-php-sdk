@@ -9,6 +9,7 @@
    */
   class Client extends Guzzle {
   
+    private $reference;
     private $baseUrl;
     private $devKey;
     private $accessToken;
@@ -20,7 +21,7 @@
      */
     public function __construct($devKey, $reference = 'production', $baseUrl = null) {
       
-      // Save the devkey
+      $this->reference = $reference;
       $this->devKey = $devKey;      
       
       // Set the base url
@@ -35,6 +36,42 @@
       // Instantiate Guzzle HTTP client
       parent::__construct($this->baseUrl);
       
+    }
+    
+    /**
+     * Get a link or template from the Discovery resource
+     */
+    public function getDiscoveryLink($rel) {
+      $discovery = $this->getDiscovery();
+      if( isset($discovery[$rel]) ) {
+        return $discovery[$rel];
+      } else {
+        return null;
+      }
+    }
+    
+    /**
+     * Get the Discovery resource
+     */
+    public function getDiscovery() {
+      if( !$this->discovery ) {
+        $response = $this->getFS('/.well-known/app-meta');
+        $this->discovery = $response->links;
+        
+        // If we're using the mock api, update the discovery links
+        // so that they have the correct domain
+        if( $this->reference == 'mock-api' ) {
+          foreach($this->discovery as $rel => $link) {
+            if(isset($link->template)) {
+              $this->discovery[$rel]->template = str_replace('https://familysearch.org', $this->baseUrl, $link->template);
+            }
+            if(isset($link->href)) {
+              $this->discovery[$rel]->href = str_replace('https://familysearch.org', $this->baseUrl, $link->href);
+            }
+          }
+        }
+      } 
+      return $this->discovery;
     }
     
     /**
@@ -128,29 +165,6 @@
      */
     public function getSpouseRelationships($personId) {
       return $this->getDLink('spouse-relationships-template', array('pid' => $personId));
-    }
-    
-    /**
-     * Get a link or template from the Discovery resource
-     */
-    public function getDiscoveryLink($rel) {
-      $discovery = $this->getDiscovery();
-      if( isset($discovery[$rel]) ) {
-        return $discovery[$rel];
-      } else {
-        return null;
-      }
-    }
-    
-    /**
-     * Get the Discovery resource
-     */
-    public function getDiscovery() {
-      if( !$this->discovery ) {
-        $response = $this->getFS('/.well-known/app-meta');
-        $this->discovery = $response->links;
-      } 
-      return $this->discovery;
     }
     
     /**
