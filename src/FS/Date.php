@@ -3,13 +3,9 @@
   namespace FS;
 
   class Date extends \Org\Gedcomx\Conclusion\DateInfo {
-  
-    public function getOriginal() {
-      return $this->original;
-    }
-    
+      
     public function getNormalized() {
-      return $this->normalizedExtensions ? $this->normalizedExtensions[0]->value : null;
+      return $this->getNormalizedExtensions() ? $this->getNormalizedExtensions()[0]->getValue() : null;
     }
     
     public function __toString() {

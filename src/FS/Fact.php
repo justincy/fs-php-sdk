@@ -9,20 +9,20 @@
       parent::__construct($data);
       
       // Convert date
-      if( $this->date ) {
-        $this->date = new Date($this->date->toArray());
+      if( $this->getDate() ) {
+        $this->setDate(new Date($this->getDate()->toArray()));
       }
       
       
-      if( $this->place ) {
+      if( $this->getPlace() ) {
       
         // If a place reference exists, remove the # and use the 
         // place reference to lookup the place value from the response
-        if( $this->place->descriptionRef ) {
-          $placeId = substr($this->place->descriptionRef, 1);
-          foreach($response->places as $place) {
-            if( $place->id == $placeId ) {
-              $this->place = new Place($place->toArray());
+        if( $this->getPlace()->getDescriptionRef() ) {
+          $placeId = substr($this->getPlace()->getDescriptionRef(), 1);
+          foreach($response->getPlaces() as $place) {
+            if( $place->getId() == $placeId ) {
+              $this->setPlace(new Place($place->toArray()));
             }
           }
         }
@@ -30,35 +30,23 @@
         // If the place ref doesn't exist, take the original value
         // and convert it into a place
         else {
-          $this->place = new Place( array( 'names' => array( array( 'value' => $this->place->original ) ) ) );
+          $this->setPlace(new Place( array( 'names' => array( array( 'value' => $this->getPlace()->getOriginal())))));
         }
         
       }
       
     }
     
-    public function getType() {
-      return $this->type;
-    }
-    
-    public function getDate() {
-      return $this->date;
-    }
-    
-    public function getPlace() {
-      return $this->place;
-    }
-    
     public function __toString() {
       $parts = array();
-      if( $this->value ) {
-        $parts[] = $this->value;
+      if( $this->getValue() ) {
+        $parts[] = $this->getValue();
       }
-      if( $this->date ) {
-        $parts[] = $this->date;
+      if( $this->getDate() ) {
+        $parts[] = $this->getDate();
       }
-      if( $this->place ) {
-        $parts[] = $this->place;
+      if( $this->getPlace() ) {
+        $parts[] = $this->getPlace();
       }
       return implode(' in ', $parts);
     }

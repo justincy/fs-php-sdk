@@ -5,6 +5,8 @@
   class Relationship extends \Org\Gedcomx\Conclusion\Relationship {
   
     private $client;
+    
+    private $spouse;
   
     public function __construct($data, $client) {
       
@@ -16,6 +18,10 @@
   
     public function getSpouse() {
       return $this->getPerson($this->spouse->resource);
+    }
+    
+    public function setSpouse($spouse) {
+      $this->spouse = $spouse;
     }
     
     public function getPerson1() {

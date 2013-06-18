@@ -9,7 +9,7 @@
     }
     
     public function getValue() {
-      return $this->names[0]->value;
+      return $this->getNames()[0]->getValue();
     }
   
   }

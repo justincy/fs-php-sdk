@@ -8,25 +8,19 @@
       parent::__construct($data);
       
       // Convert the name forms
-      foreach($this->nameForms as $i => $nameForm) {
-        $this->nameForms[$i] = new NameForm($nameForm->toArray());
+      $nameForms = $this->getNameForms();
+      foreach($nameForms as $i => $nameForm) {
+        $nameForms[$i] = new NameForm($nameForm->toArray());
       }
-    }
-    
-    public function getType() {
-      return $this->type;
+      $this->setNameForms($nameForms);
     }
   
     public function getFullText() {
-      return $this->nameForms[0]->fullText;
-    }
-    
-    public function getNameForms() {
-      return $this->nameForms;
+      return $this->getNameForms()[0]->fullText;
     }
     
     public function getNamePart($type) {
-      return $this->nameForms[0]->getNamePart($type);
+      return $this->getNameForms()[0]->getNamePart($type);
     }
     
     public function getGivenName() {
@@ -49,13 +43,11 @@
       parent::__construct($data);
       
       // Convert name parts
-      foreach($this->parts as $i => $namePart) {
-        $this->parts[$i] = new NamePart($namePart->toArray());
+      $parts = $this->getParts();
+      foreach($parts as $i => $namePart) {
+        $parts[$i] = new NamePart($namePart->toArray());
       }
-    }
-    
-    public function getNameParts() {
-      return $this->parts;
+      $this->setParts($parts);
     }
     
     public function getGivenName() {
@@ -67,16 +59,12 @@
     }
   
     public function getNamePart($type) {
-      foreach($this->parts as $namePart) {
-        if( $namePart->type == $type ) {
+      foreach($this->getParts() as $namePart) {
+        if( $namePart->getType() == $type ) {
           return $namePart;
         }
       }
       return null;
-    }
-    
-    public function getFullText() {
-      return $this->fullText;
     }
   
   }
@@ -84,7 +72,7 @@
   class NamePart extends \Org\Gedcomx\Conclusion\NamePart {
   
     public function __toString() {
-      return $this->value;
+      return $this->getValue();
     }
   
   }

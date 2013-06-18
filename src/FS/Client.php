@@ -56,17 +56,17 @@
     public function getDiscovery() {
       if( !$this->discovery ) {
         $response = $this->getFS('/.well-known/app-meta');
-        $this->discovery = $response->links;
+        $this->discovery = $response->getLinks();
         
         // If we're using the mock api, update the discovery links
         // so that they have the correct domain
         if( $this->reference == 'mock-api' ) {
           foreach($this->discovery as $rel => $link) {
-            if(isset($link->template)) {
-              $this->discovery[$rel]->template = str_replace('https://familysearch.org', $this->baseUrl, $link->template);
+            if($link->getTemplate()) {
+              $this->discovery[$rel]->setTemplate(str_replace('https://familysearch.org', $this->baseUrl, $link->getTemplate()));
             }
-            if(isset($link->href)) {
-              $this->discovery[$rel]->href = str_replace('https://familysearch.org', $this->baseUrl, $link->href);
+            if($link->getHref()) {
+              $this->discovery[$rel]->setHref(str_replace('https://familysearch.org', $this->baseUrl, $link->getHref()));
             }
           }
         }
@@ -184,12 +184,12 @@
       // This allows for link objects from the Discovery resource to
       // be passed in as the $url parameter.
       if( $url instanceof \Org\Gedcomx\Links\Link ) {
-        if( isset($url->href) ) {
-          $url = $url->href;
-        } else if( isset($url->template) ) {
-          $url = $url->template;
+        if( $url->getHref() ) {
+          $url = $url->getHref();
+        } else if( $url->getTemplate() ) {
+          $url = $url->getTemplate();
         } else {
-          throw new Exception('Invalid link object given');
+          throw new \Exception('Invalid link object given');
         }
       }
 

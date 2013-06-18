@@ -11,130 +11,64 @@
 
   namespace Org\Gedcomx\Common {
 
-    // A set of data that supports extension elements.
-    class ExtensibleData  {
+    /**
+     * A data qualifier. Qualifiers are used to "qualify" certain data elements to provide additional context, information, or details.
+     */
+    class Qualifier  {
     
     
+      /**
+       * The value of the qualifier.
+       */
+      private $value;
 
-      // constructs a ExtensibleData from a (parsed) JSON hash
+      /**
+       * Constructs a Qualifier from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this ExtensibleData
-      public function toArray() {
-        $a = array();
-        return $a;
+      
+      /**
+       * The value of the qualifier.
+       */
+      public function getValue() {
+        return $this->value;
       }
       
-      // the json (string form) for this ExtensibleData
-      public function toJson() {
-        return json_encode($this->toArray());
+      /**
+       * The value of the qualifier.
+       */
+      public function setValue($value) {
+        $this->value = $value;
       }
-
-      // initializes this ExtensibleData with a json hash
-      public function initFromArray($o) {
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Common {
-
-    // A generic reference to a resource.
-    class ResourceReference  {
-    
-      // The fragment id of the resource being referenced.
-      var $resourceId;
-      // The URI to the resource.
-      var $resource;
-    
-
-      // constructs a ResourceReference from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this ResourceReference
+      
+      /**
+       * Returns the associative array for this Qualifier
+       */
       public function toArray() {
         $a = array();
-        if( $this->resourceId ) {
-          $a["resourceId"] = $this->resourceId;
-        }
-        if( $this->resource ) {
-          $a["resource"] = $this->resource;
+        if( $this->value ) {
+          $a["value"] = $this->value;
         }
         return $a;
       }
       
-      // the json (string form) for this ResourceReference
+      /**
+       * Returns the JSON string for this Qualifier
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this ResourceReference with a json hash
+      /**
+       * Initializes this Qualifier from an associative array
+       */
       public function initFromArray($o) {
-        if( isset($o['resourceId']) ) {
-          $this->resourceId = $o["resourceId"];
-        }
-        if( isset($o['resource']) ) {
-          $this->resource = $o["resource"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Agent {
-
-    // An online account for a web application.
-    class OnlineAccount  {
-    
-    
-      // The name associated the holder of this account with the account.
-      var $accountName;
-      // The homepage of the service that provides this account.
-      var $serviceHomepage;
-
-      // constructs a OnlineAccount from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this OnlineAccount
-      public function toArray() {
-        $a = array();
-        if( $this->accountName ) {
-          $a["accountName"] = $this->accountName;
-        }
-        if( $this->serviceHomepage ) {
-          $a["serviceHomepage"] = $this->serviceHomepage->toArray();
-        }
-        return $a;
-      }
-      
-      // the json (string form) for this OnlineAccount
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      // initializes this OnlineAccount with a json hash
-      public function initFromArray($o) {
-        if( isset($o['accountName']) ) {
-          $this->accountName = $o["accountName"];
-        }
-        if( isset($o['serviceHomepage']) ) {
-          $this->serviceHomepage = new \Org\Gedcomx\Common\ResourceReference($o["serviceHomepage"]);
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
         }
       }
     
@@ -145,23 +79,61 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // An identifier for a resource.
+    /**
+     * An identifier for a resource.
+     */
     class Identifier  {
     
-      // The type of the id.
-      var $type;
+      /**
+       * The type of the id.
+       */
+      private $type;
     
-      // The id value.
-      var $value;
+      /**
+       * The id value.
+       */
+      private $value;
 
-      // constructs a Identifier from a (parsed) JSON hash
+      /**
+       * Constructs a Identifier from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Identifier
+      
+      /**
+       * The type of the id.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the id.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The id value.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The id value.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * Returns the associative array for this Identifier
+       */
       public function toArray() {
         $a = array();
         if( $this->type ) {
@@ -173,12 +145,16 @@
         return $a;
       }
       
-      // the json (string form) for this Identifier
+      /**
+       * Returns the JSON string for this Identifier
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this Identifier with a json hash
+      /**
+       * Initializes this Identifier from an associative array
+       */
       public function initFromArray($o) {
         if( isset($o['type']) ) {
           $this->type = $o["type"];
@@ -193,88 +169,174 @@
   }
 
 
-  namespace Org\Gedcomx\Common {
-
-    // An element representing a text value that may be in a specific language.
-    class TextValue  {
-    
-      // The language of the text value.
-      var $lang;
-    
-      // The text value.
-      var $value;
-
-      // constructs a TextValue from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this TextValue
-      public function toArray() {
-        $a = array();
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
-        }
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        return $a;
-      }
-      
-      // the json (string form) for this TextValue
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      // initializes this TextValue with a json hash
-      public function initFromArray($o) {
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
-        }
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
-      }
-    
-    }
-    
-  }
-
-
   namespace Org\Gedcomx\Links {
 
-    // A hypermedia link, used to drive the state of a hypermedia-enabled genealogical data application.
+    /**
+     * A hypermedia link, used to drive the state of a hypermedia-enabled genealogical data application.
+     */
     class Link  {
     
-      // The language of the resource being linked to.
-      var $hreflang;
-      // A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
-      // URIs, such as for the purpose of linking to a query.
-      var $template;
-      // Human-readable information about the link.
-      var $title;
-      // Metadata about the available media type(s) of the resource being linked to.
-      var $allow;
-      // Metadata about the available media type(s) of the resource being linked to.
-      var $accept;
-      // The link relationship.
-      var $rel;
-      // Metadata about the available media type(s) of the resource being linked to.
-      var $type;
-      // The target IRI of the link.
-      var $href;
+      /**
+       * The language of the resource being linked to.
+       */
+      private $hreflang;
+      /**
+       * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
+     * URIs, such as for the purpose of linking to a query.
+       */
+      private $template;
+      /**
+       * Human-readable information about the link.
+       */
+      private $title;
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      private $allow;
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      private $accept;
+      /**
+       * The link relationship.
+       */
+      private $rel;
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      private $type;
+      /**
+       * The target IRI of the link.
+       */
+      private $href;
     
 
-      // constructs a Link from a (parsed) JSON hash
+      /**
+       * Constructs a Link from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Link
+      
+      /**
+       * The language of the resource being linked to.
+       */
+      public function getHreflang() {
+        return $this->hreflang;
+      }
+      
+      /**
+       * The language of the resource being linked to.
+       */
+      public function setHreflang($hreflang) {
+        $this->hreflang = $hreflang;
+      }
+      
+      /**
+       * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
+       * URIs, such as for the purpose of linking to a query.
+       */
+      public function getTemplate() {
+        return $this->template;
+      }
+      
+      /**
+       * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
+       * URIs, such as for the purpose of linking to a query.
+       */
+      public function setTemplate($template) {
+        $this->template = $template;
+      }
+      
+      /**
+       * Human-readable information about the link.
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * Human-readable information about the link.
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      public function getAllow() {
+        return $this->allow;
+      }
+      
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      public function setAllow($allow) {
+        $this->allow = $allow;
+      }
+      
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      public function getAccept() {
+        return $this->accept;
+      }
+      
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      public function setAccept($accept) {
+        $this->accept = $accept;
+      }
+      
+      /**
+       * The link relationship.
+       */
+      public function getRel() {
+        return $this->rel;
+      }
+      
+      /**
+       * The link relationship.
+       */
+      public function setRel($rel) {
+        $this->rel = $rel;
+      }
+      
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * Metadata about the available media type(s) of the resource being linked to.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The target IRI of the link.
+       */
+      public function getHref() {
+        return $this->href;
+      }
+      
+      /**
+       * The target IRI of the link.
+       */
+      public function setHref($href) {
+        $this->href = $href;
+      }
+      
+      /**
+       * Returns the associative array for this Link
+       */
       public function toArray() {
         $a = array();
         if( $this->hreflang ) {
@@ -304,12 +366,16 @@
         return $a;
       }
       
-      // the json (string form) for this Link
+      /**
+       * Returns the JSON string for this Link
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this Link with a json hash
+      /**
+       * Initializes this Link from an associative array
+       */
       public function initFromArray($o) {
         if( isset($o['hreflang']) ) {
           $this->hreflang = $o["hreflang"];
@@ -342,71 +408,162 @@
   }
 
 
-  namespace Org\Gedcomx\Source {
+  namespace Org\Gedcomx\Records {
 
-    // Represents a source citation.
-    class SourceCitation  {
+    /**
+     * A description of a field in a record.
+     */
+    class FieldDescriptor  {
     
-      // The language of the note.
-      var $lang;
+      /**
+       * Whether the original value should be used when displaying the field.
+       */
+      private $displayOriginalValue;
     
-      // A reference to the citation template for this citation.
-      var $citationTemplate;
-      // The list of citation fields.
-      var $fields;
-      // A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
-      var $value;
+      /**
+       * Human-readable description of the field.
+       */
+      private $description;
+      /**
+       * The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+       */
+      private $displayLabel;
+      /**
+       * The original value of the field label, as it appears on the record.
+       */
+      private $originalLabel;
+      /**
+       * A system-specific identifier for the field.
+       */
+      private $systemLabel;
 
-      // constructs a SourceCitation from a (parsed) JSON hash
+      /**
+       * Constructs a FieldDescriptor from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this SourceCitation
+      
+      /**
+       * Whether the original value should be used when displaying the field.
+       */
+      public function getDisplayOriginalValue() {
+        return $this->displayOriginalValue;
+      }
+      
+      /**
+       * Whether the original value should be used when displaying the field.
+       */
+      public function setDisplayOriginalValue($displayOriginalValue) {
+        $this->displayOriginalValue = $displayOriginalValue;
+      }
+      
+      /**
+       * Human-readable description of the field.
+       */
+      public function getDescription() {
+        return $this->description;
+      }
+      
+      /**
+       * Human-readable description of the field.
+       */
+      public function setDescription($description) {
+        $this->description = $description;
+      }
+      
+      /**
+       * The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+       */
+      public function getDisplayLabel() {
+        return $this->displayLabel;
+      }
+      
+      /**
+       * The way the label of the field should be displayed, taking into account e.g. the language of the consumer.
+       */
+      public function setDisplayLabel($displayLabel) {
+        $this->displayLabel = $displayLabel;
+      }
+      
+      /**
+       * The original value of the field label, as it appears on the record.
+       */
+      public function getOriginalLabel() {
+        return $this->originalLabel;
+      }
+      
+      /**
+       * The original value of the field label, as it appears on the record.
+       */
+      public function setOriginalLabel($originalLabel) {
+        $this->originalLabel = $originalLabel;
+      }
+      
+      /**
+       * A system-specific identifier for the field.
+       */
+      public function getSystemLabel() {
+        return $this->systemLabel;
+      }
+      
+      /**
+       * A system-specific identifier for the field.
+       */
+      public function setSystemLabel($systemLabel) {
+        $this->systemLabel = $systemLabel;
+      }
+      
+      /**
+       * Returns the associative array for this FieldDescriptor
+       */
       public function toArray() {
         $a = array();
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
+        if( $this->displayOriginalValue ) {
+          $a["displayOriginalValue"] = $this->displayOriginalValue;
         }
-        if( $this->citationTemplate ) {
-          $a["citationTemplate"] = $this->citationTemplate->toArray();
+        if( $this->description ) {
+          $a["description"] = $this->description;
         }
-        if( $this->fields ) {
-          $ab = array();
-          foreach( $this->fields as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['fields'] = $ab;
+        if( $this->displayLabel ) {
+          $a["displayLabel"] = $this->displayLabel;
         }
-        if( $this->value ) {
-          $a["value"] = $this->value;
+        if( $this->originalLabel ) {
+          $a["originalLabel"] = $this->originalLabel;
+        }
+        if( $this->systemLabel ) {
+          $a["systemLabel"] = $this->systemLabel;
         }
         return $a;
       }
       
-      // the json (string form) for this SourceCitation
+      /**
+       * Returns the JSON string for this FieldDescriptor
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this SourceCitation with a json hash
+      /**
+       * Initializes this FieldDescriptor from an associative array
+       */
       public function initFromArray($o) {
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
+        if( isset($o['displayOriginalValue']) ) {
+          $this->displayOriginalValue = $o["displayOriginalValue"];
         }
-        if( isset($o['citationTemplate']) ) {
-          $this->citationTemplate = new \Org\Gedcomx\Common\ResourceReference($o["citationTemplate"]);
+        if( isset($o['description']) ) {
+          $this->description = $o["description"];
         }
-        $this->fields = array();
-        if( isset($o['fields']) ) {
-          foreach( $o['fields'] as $i => $x ) {
-            $this->fields[$i] = new \Org\Gedcomx\Source\CitationField($x);
-          }
+        if( isset($o['displayLabel']) ) {
+          $this->displayLabel = $o["displayLabel"];
         }
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
+        if( isset($o['originalLabel']) ) {
+          $this->originalLabel = $o["originalLabel"];
+        }
+        if( isset($o['systemLabel']) ) {
+          $this->systemLabel = $o["systemLabel"];
         }
       }
     
@@ -417,23 +574,61 @@
 
   namespace Org\Gedcomx\Atom {
 
-    // 
+    /**
+     * 
+     */
     class Content  {
     
-      // The type of the content.
-      var $type;
+      /**
+       * The type of the content.
+       */
+      private $type;
     
-      // The genealogical data associated with this entry.
-      var $gedcomx;
+      /**
+       * The genealogical data associated with this entry.
+       */
+      private $gedcomx;
 
-      // constructs a Content from a (parsed) JSON hash
+      /**
+       * Constructs a Content from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Content
+      
+      /**
+       * The type of the content.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the content.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The genealogical data associated with this entry.
+       */
+      public function getGedcomx() {
+        return $this->gedcomx;
+      }
+      
+      /**
+       * The genealogical data associated with this entry.
+       */
+      public function setGedcomx($gedcomx) {
+        $this->gedcomx = $gedcomx;
+      }
+      
+      /**
+       * Returns the associative array for this Content
+       */
       public function toArray() {
         $a = array();
         if( $this->type ) {
@@ -445,12 +640,16 @@
         return $a;
       }
       
-      // the json (string form) for this Content
+      /**
+       * Returns the JSON string for this Content
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this Content with a json hash
+      /**
+       * Initializes this Content from an associative array
+       */
       public function initFromArray($o) {
         if( isset($o['type']) ) {
           $this->type = $o["type"];
@@ -465,31 +664,465 @@
   }
 
 
-  namespace Org\Gedcomx\Atom {
+  namespace Org\Familysearch\Platform {
 
-    // identifies the agent used to generate a feed, for debugging and other purposes.
-    class Generator  {
+    /**
+     * 
+     */
+    class HealthConfig  {
     
-      // The base.
-      var $base;
-      // link to a representation that is relevant to the generating agent.
-      var $uri;
-      // The language.
-      var $lang;
-      // the version of the generating agent
-      var $version;
     
-      // human-readable name for the generating agent
-      var $value;
+      /**
+       * (no documentation provided)
+       */
+      private $buildDate;
+      /**
+       * (no documentation provided)
+       */
+      private $buildVersion;
+      /**
+       * (no documentation provided)
+       */
+      private $databaseVersion;
+      /**
+       * (no documentation provided)
+       */
+      private $platformVersion;
 
-      // constructs a Generator from a (parsed) JSON hash
+      /**
+       * Constructs a HealthConfig from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getBuildDate() {
+        return $this->buildDate;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setBuildDate($buildDate) {
+        $this->buildDate = $buildDate;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getBuildVersion() {
+        return $this->buildVersion;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setBuildVersion($buildVersion) {
+        $this->buildVersion = $buildVersion;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getDatabaseVersion() {
+        return $this->databaseVersion;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setDatabaseVersion($databaseVersion) {
+        $this->databaseVersion = $databaseVersion;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getPlatformVersion() {
+        return $this->platformVersion;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setPlatformVersion($platformVersion) {
+        $this->platformVersion = $platformVersion;
+      }
+      
+      /**
+       * Returns the associative array for this HealthConfig
+       */
+      public function toArray() {
+        $a = array();
+        if( $this->buildDate ) {
+          $a["buildDate"] = $this->buildDate;
+        }
+        if( $this->buildVersion ) {
+          $a["buildVersion"] = $this->buildVersion;
+        }
+        if( $this->databaseVersion ) {
+          $a["databaseVersion"] = $this->databaseVersion;
+        }
+        if( $this->platformVersion ) {
+          $a["platformVersion"] = $this->platformVersion;
+        }
+        return $a;
+      }
+      
+      /**
+       * Returns the JSON string for this HealthConfig
+       */
+      public function toJson() {
+        return json_encode($this->toArray());
+      }
+
+      /**
+       * Initializes this HealthConfig from an associative array
+       */
+      public function initFromArray($o) {
+        if( isset($o['buildDate']) ) {
+          $this->buildDate = $o["buildDate"];
+        }
+        if( isset($o['buildVersion']) ) {
+          $this->buildVersion = $o["buildVersion"];
+        }
+        if( isset($o['databaseVersion']) ) {
+          $this->databaseVersion = $o["databaseVersion"];
+        }
+        if( isset($o['platformVersion']) ) {
+          $this->platformVersion = $o["platformVersion"];
+        }
+      }
     
-      // the json hash for this Generator
+    }
+    
+  }
+
+
+  namespace Org\Familysearch\Platform {
+
+    /**
+     * A tag in the FamilySearch system.
+     */
+    class Tag  {
+    
+      /**
+       * A reference to the value of the tag.
+       */
+      private $resource;
+    
+
+      /**
+       * Constructs a Tag from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * A reference to the value of the tag.
+       */
+      public function getResource() {
+        return $this->resource;
+      }
+      
+      /**
+       * A reference to the value of the tag.
+       */
+      public function setResource($resource) {
+        $this->resource = $resource;
+      }
+      
+      /**
+       * Returns the associative array for this Tag
+       */
+      public function toArray() {
+        $a = array();
+        if( $this->resource ) {
+          $a["resource"] = $this->resource;
+        }
+        return $a;
+      }
+      
+      /**
+       * Returns the JSON string for this Tag
+       */
+      public function toJson() {
+        return json_encode($this->toArray());
+      }
+
+      /**
+       * Initializes this Tag from an associative array
+       */
+      public function initFromArray($o) {
+        if( isset($o['resource']) ) {
+          $this->resource = $o["resource"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Familysearch\Platform {
+
+    /**
+     * A common representation of an error on the FamilySearch platform.
+     */
+    class Error  {
+    
+    
+      /**
+       * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+       */
+      private $code;
+      /**
+       * A text label associated with the error code.
+       */
+      private $label;
+      /**
+       * A message associated with the error.
+       */
+      private $message;
+      /**
+       * The back-end stack trace associated with the error, useful for debugging.
+       */
+      private $stacktrace;
+
+      /**
+       * Constructs a Error from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+       */
+      public function getCode() {
+        return $this->code;
+      }
+      
+      /**
+       * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+       */
+      public function setCode($code) {
+        $this->code = $code;
+      }
+      
+      /**
+       * A text label associated with the error code.
+       */
+      public function getLabel() {
+        return $this->label;
+      }
+      
+      /**
+       * A text label associated with the error code.
+       */
+      public function setLabel($label) {
+        $this->label = $label;
+      }
+      
+      /**
+       * A message associated with the error.
+       */
+      public function getMessage() {
+        return $this->message;
+      }
+      
+      /**
+       * A message associated with the error.
+       */
+      public function setMessage($message) {
+        $this->message = $message;
+      }
+      
+      /**
+       * The back-end stack trace associated with the error, useful for debugging.
+       */
+      public function getStacktrace() {
+        return $this->stacktrace;
+      }
+      
+      /**
+       * The back-end stack trace associated with the error, useful for debugging.
+       */
+      public function setStacktrace($stacktrace) {
+        $this->stacktrace = $stacktrace;
+      }
+      
+      /**
+       * Returns the associative array for this Error
+       */
+      public function toArray() {
+        $a = array();
+        if( $this->code ) {
+          $a["code"] = $this->code;
+        }
+        if( $this->label ) {
+          $a["label"] = $this->label;
+        }
+        if( $this->message ) {
+          $a["message"] = $this->message;
+        }
+        if( $this->stacktrace ) {
+          $a["stacktrace"] = $this->stacktrace;
+        }
+        return $a;
+      }
+      
+      /**
+       * Returns the JSON string for this Error
+       */
+      public function toJson() {
+        return json_encode($this->toArray());
+      }
+
+      /**
+       * Initializes this Error from an associative array
+       */
+      public function initFromArray($o) {
+        if( isset($o['code']) ) {
+          $this->code = $o["code"];
+        }
+        if( isset($o['label']) ) {
+          $this->label = $o["label"];
+        }
+        if( isset($o['message']) ) {
+          $this->message = $o["message"];
+        }
+        if( isset($o['stacktrace']) ) {
+          $this->stacktrace = $o["stacktrace"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Atom {
+
+    /**
+     * identifies the agent used to generate a feed, for debugging and other purposes.
+     */
+    class Generator  {
+    
+      /**
+       * The base.
+       */
+      private $base;
+      /**
+       * link to a representation that is relevant to the generating agent.
+       */
+      private $uri;
+      /**
+       * The language.
+       */
+      private $lang;
+      /**
+       * the version of the generating agent
+       */
+      private $version;
+    
+      /**
+       * human-readable name for the generating agent
+       */
+      private $value;
+
+      /**
+       * Constructs a Generator from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The base.
+       */
+      public function getBase() {
+        return $this->base;
+      }
+      
+      /**
+       * The base.
+       */
+      public function setBase($base) {
+        $this->base = $base;
+      }
+      
+      /**
+       * link to a representation that is relevant to the generating agent.
+       */
+      public function getUri() {
+        return $this->uri;
+      }
+      
+      /**
+       * link to a representation that is relevant to the generating agent.
+       */
+      public function setUri($uri) {
+        $this->uri = $uri;
+      }
+      
+      /**
+       * The language.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * the version of the generating agent
+       */
+      public function getVersion() {
+        return $this->version;
+      }
+      
+      /**
+       * the version of the generating agent
+       */
+      public function setVersion($version) {
+        $this->version = $version;
+      }
+      
+      /**
+       * human-readable name for the generating agent
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * human-readable name for the generating agent
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * Returns the associative array for this Generator
+       */
       public function toArray() {
         $a = array();
         if( $this->base ) {
@@ -510,12 +1143,16 @@
         return $a;
       }
       
-      // the json (string form) for this Generator
+      /**
+       * Returns the JSON string for this Generator
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this Generator with a json hash
+      /**
+       * Initializes this Generator from an associative array
+       */
       public function initFromArray($o) {
         if( isset($o['base']) ) {
           $this->base = $o["base"];
@@ -539,64 +1176,366 @@
   }
 
 
-  namespace Org\Familysearch\Platform {
+  namespace Org\Gedcomx\Atom {
 
-    // 
-    class HealthConfig  {
+    /**
+     * 
+     */
+    class CommonAttributes  {
     
+      /**
+       * The base.
+       */
+      private $base;
+      /**
+       * The language.
+       */
+      private $lang;
     
-      // (no documentation provided)
-      var $buildDate;
-      // (no documentation provided)
-      var $buildVersion;
-      // (no documentation provided)
-      var $databaseVersion;
-      // (no documentation provided)
-      var $platformVersion;
 
-      // constructs a HealthConfig from a (parsed) JSON hash
+      /**
+       * Constructs a CommonAttributes from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this HealthConfig
+      
+      /**
+       * The base.
+       */
+      public function getBase() {
+        return $this->base;
+      }
+      
+      /**
+       * The base.
+       */
+      public function setBase($base) {
+        $this->base = $base;
+      }
+      
+      /**
+       * The language.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * Returns the associative array for this CommonAttributes
+       */
       public function toArray() {
         $a = array();
-        if( $this->buildDate ) {
-          $a["buildDate"] = $this->buildDate;
+        if( $this->base ) {
+          $a["base"] = $this->base;
         }
-        if( $this->buildVersion ) {
-          $a["buildVersion"] = $this->buildVersion;
-        }
-        if( $this->databaseVersion ) {
-          $a["databaseVersion"] = $this->databaseVersion;
-        }
-        if( $this->platformVersion ) {
-          $a["platformVersion"] = $this->platformVersion;
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
         }
         return $a;
       }
       
-      // the json (string form) for this HealthConfig
+      /**
+       * Returns the JSON string for this CommonAttributes
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this HealthConfig with a json hash
+      /**
+       * Initializes this CommonAttributes from an associative array
+       */
       public function initFromArray($o) {
-        if( isset($o['buildDate']) ) {
-          $this->buildDate = $o["buildDate"];
+        if( isset($o['base']) ) {
+          $this->base = $o["base"];
         }
-        if( isset($o['buildVersion']) ) {
-          $this->buildVersion = $o["buildVersion"];
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
         }
-        if( isset($o['databaseVersion']) ) {
-          $this->databaseVersion = $o["databaseVersion"];
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Source {
+
+    /**
+     * Represents a citation field -- its name and value.
+     */
+    class CitationField  {
+    
+      /**
+       * The citation field's name.
+       */
+      private $name;
+    
+      /**
+       * The citation field's value.
+       */
+      private $value;
+
+      /**
+       * Constructs a CitationField from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
         }
-        if( isset($o['platformVersion']) ) {
-          $this->platformVersion = $o["platformVersion"];
+      }
+      
+      /**
+       * The citation field's name.
+       */
+      public function getName() {
+        return $this->name;
+      }
+      
+      /**
+       * The citation field's name.
+       */
+      public function setName($name) {
+        $this->name = $name;
+      }
+      
+      /**
+       * The citation field's value.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The citation field's value.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * Returns the associative array for this CitationField
+       */
+      public function toArray() {
+        $a = array();
+        if( $this->name ) {
+          $a["name"] = $this->name;
+        }
+        if( $this->value ) {
+          $a["value"] = $this->value;
+        }
+        return $a;
+      }
+      
+      /**
+       * Returns the JSON string for this CitationField
+       */
+      public function toJson() {
+        return json_encode($this->toArray());
+      }
+
+      /**
+       * Initializes this CitationField from an associative array
+       */
+      public function initFromArray($o) {
+        if( isset($o['name']) ) {
+          $this->name = $o["name"];
+        }
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Common {
+
+    /**
+     * An element representing a text value that may be in a specific language.
+     */
+    class TextValue  {
+    
+      /**
+       * The language of the text value.
+       */
+      private $lang;
+    
+      /**
+       * The text value.
+       */
+      private $value;
+
+      /**
+       * Constructs a TextValue from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of the text value.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of the text value.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * The text value.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The text value.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * Returns the associative array for this TextValue
+       */
+      public function toArray() {
+        $a = array();
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->value ) {
+          $a["value"] = $this->value;
+        }
+        return $a;
+      }
+      
+      /**
+       * Returns the JSON string for this TextValue
+       */
+      public function toJson() {
+        return json_encode($this->toArray());
+      }
+
+      /**
+       * Initializes this TextValue from an associative array
+       */
+      public function initFromArray($o) {
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Common {
+
+    /**
+     * A generic reference to a resource.
+     */
+    class ResourceReference  {
+    
+      /**
+       * The resource id of the resource being referenced.
+       */
+      private $resourceId;
+      /**
+       * The URI to the resource.
+       */
+      private $resource;
+    
+
+      /**
+       * Constructs a ResourceReference from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The resource id of the resource being referenced.
+       */
+      public function getResourceId() {
+        return $this->resourceId;
+      }
+      
+      /**
+       * The resource id of the resource being referenced.
+       */
+      public function setResourceId($resourceId) {
+        $this->resourceId = $resourceId;
+      }
+      
+      /**
+       * The URI to the resource.
+       */
+      public function getResource() {
+        return $this->resource;
+      }
+      
+      /**
+       * The URI to the resource.
+       */
+      public function setResource($resource) {
+        $this->resource = $resource;
+      }
+      
+      /**
+       * Returns the associative array for this ResourceReference
+       */
+      public function toArray() {
+        $a = array();
+        if( $this->resourceId ) {
+          $a["resourceId"] = $this->resourceId;
+        }
+        if( $this->resource ) {
+          $a["resource"] = $this->resource;
+        }
+        return $a;
+      }
+      
+      /**
+       * Returns the JSON string for this ResourceReference
+       */
+      public function toJson() {
+        return json_encode($this->toArray());
+      }
+
+      /**
+       * Initializes this ResourceReference from an associative array
+       */
+      public function initFromArray($o) {
+        if( isset($o['resourceId']) ) {
+          $this->resourceId = $o["resourceId"];
+        }
+        if( isset($o['resource']) ) {
+          $this->resource = $o["resource"];
         }
       }
     
@@ -607,34 +1546,122 @@
 
   namespace Org\Familysearch\Platform\Ct {
 
-    // 
+    /**
+     * Information about a change.
+     */
     class ChangeInfo  {
     
-      // The operation of the change.
-      var $operation;
-      // The data type to which the operation applies.
-      var $dataType;
-      // (no documentation provided)
-      var $reason;
-      // (no documentation provided)
-      var $parent;
+      /**
+       * An optional modifier for the object to which the operation applies.
+       */
+      private $objectModifier;
+      /**
+       * The operation of the change.
+       */
+      private $operation;
+      /**
+       * The reason for the change.
+       */
+      private $reason;
+      /**
+       * The id of the change that triggered, caused, or included this change.
+       */
+      private $parent;
+      /**
+       * The type of the object to which the operation applies.
+       */
+      private $objectType;
     
 
-      // constructs a ChangeInfo from a (parsed) JSON hash
+      /**
+       * Constructs a ChangeInfo from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this ChangeInfo
+      
+      /**
+       * An optional modifier for the object to which the operation applies.
+       */
+      public function getObjectModifier() {
+        return $this->objectModifier;
+      }
+      
+      /**
+       * An optional modifier for the object to which the operation applies.
+       */
+      public function setObjectModifier($objectModifier) {
+        $this->objectModifier = $objectModifier;
+      }
+      
+      /**
+       * The operation of the change.
+       */
+      public function getOperation() {
+        return $this->operation;
+      }
+      
+      /**
+       * The operation of the change.
+       */
+      public function setOperation($operation) {
+        $this->operation = $operation;
+      }
+      
+      /**
+       * The reason for the change.
+       */
+      public function getReason() {
+        return $this->reason;
+      }
+      
+      /**
+       * The reason for the change.
+       */
+      public function setReason($reason) {
+        $this->reason = $reason;
+      }
+      
+      /**
+       * The id of the change that triggered, caused, or included this change.
+       */
+      public function getParent() {
+        return $this->parent;
+      }
+      
+      /**
+       * The id of the change that triggered, caused, or included this change.
+       */
+      public function setParent($parent) {
+        $this->parent = $parent;
+      }
+      
+      /**
+       * The type of the object to which the operation applies.
+       */
+      public function getObjectType() {
+        return $this->objectType;
+      }
+      
+      /**
+       * The type of the object to which the operation applies.
+       */
+      public function setObjectType($objectType) {
+        $this->objectType = $objectType;
+      }
+      
+      /**
+       * Returns the associative array for this ChangeInfo
+       */
       public function toArray() {
         $a = array();
+        if( $this->objectModifier ) {
+          $a["objectModifier"] = $this->objectModifier;
+        }
         if( $this->operation ) {
           $a["operation"] = $this->operation;
-        }
-        if( $this->dataType ) {
-          $a["dataType"] = $this->dataType;
         }
         if( $this->reason ) {
           $a["reason"] = $this->reason;
@@ -642,27 +1669,37 @@
         if( $this->parent ) {
           $a["parent"] = $this->parent;
         }
+        if( $this->objectType ) {
+          $a["objectType"] = $this->objectType;
+        }
         return $a;
       }
       
-      // the json (string form) for this ChangeInfo
+      /**
+       * Returns the JSON string for this ChangeInfo
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this ChangeInfo with a json hash
+      /**
+       * Initializes this ChangeInfo from an associative array
+       */
       public function initFromArray($o) {
+        if( isset($o['objectModifier']) ) {
+          $this->objectModifier = $o["objectModifier"];
+        }
         if( isset($o['operation']) ) {
           $this->operation = $o["operation"];
-        }
-        if( isset($o['dataType']) ) {
-          $this->dataType = $o["dataType"];
         }
         if( isset($o['reason']) ) {
           $this->reason = $o["reason"];
         }
         if( isset($o['parent']) ) {
           $this->parent = $o["parent"];
+        }
+        if( isset($o['objectType']) ) {
+          $this->objectType = $o["objectType"];
         }
       }
     
@@ -673,23 +1710,61 @@
 
   namespace Org\Familysearch\Platform\Ct {
 
-    // 
+    /**
+     * 
+     */
     class MergeConflict  {
     
     
-      // (no documentation provided)
-      var $survivorResource;
-      // (no documentation provided)
-      var $duplicateResource;
+      /**
+       * (no documentation provided)
+       */
+      private $survivorResource;
+      /**
+       * (no documentation provided)
+       */
+      private $duplicateResource;
 
-      // constructs a MergeConflict from a (parsed) JSON hash
+      /**
+       * Constructs a MergeConflict from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this MergeConflict
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getSurvivorResource() {
+        return $this->survivorResource;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setSurvivorResource($survivorResource) {
+        $this->survivorResource = $survivorResource;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getDuplicateResource() {
+        return $this->duplicateResource;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setDuplicateResource($duplicateResource) {
+        $this->duplicateResource = $duplicateResource;
+      }
+      
+      /**
+       * Returns the associative array for this MergeConflict
+       */
       public function toArray() {
         $a = array();
         if( $this->survivorResource ) {
@@ -701,12 +1776,16 @@
         return $a;
       }
       
-      // the json (string form) for this MergeConflict
+      /**
+       * Returns the JSON string for this MergeConflict
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this MergeConflict with a json hash
+      /**
+       * Initializes this MergeConflict from an associative array
+       */
       public function initFromArray($o) {
         if( isset($o['survivorResource']) ) {
           $this->survivorResource = new \Org\Gedcomx\Common\ResourceReference($o["survivorResource"]);
@@ -723,29 +1802,115 @@
 
   namespace Org\Familysearch\Platform\Ct {
 
-    // 
+    /**
+     * 
+     */
     class MergeAnalysis  {
     
     
-      // (no documentation provided)
-      var $survivorResources;
-      // (no documentation provided)
-      var $duplicateResources;
-      // (no documentation provided)
-      var $conflictingResources;
-      // (no documentation provided)
-      var $survivor;
-      // (no documentation provided)
-      var $duplicate;
+      /**
+       * (no documentation provided)
+       */
+      private $survivorResources;
+      /**
+       * (no documentation provided)
+       */
+      private $duplicateResources;
+      /**
+       * (no documentation provided)
+       */
+      private $conflictingResources;
+      /**
+       * (no documentation provided)
+       */
+      private $survivor;
+      /**
+       * (no documentation provided)
+       */
+      private $duplicate;
 
-      // constructs a MergeAnalysis from a (parsed) JSON hash
+      /**
+       * Constructs a MergeAnalysis from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this MergeAnalysis
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getSurvivorResources() {
+        return $this->survivorResources;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setSurvivorResources($survivorResources) {
+        $this->survivorResources = $survivorResources;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getDuplicateResources() {
+        return $this->duplicateResources;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setDuplicateResources($duplicateResources) {
+        $this->duplicateResources = $duplicateResources;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getConflictingResources() {
+        return $this->conflictingResources;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setConflictingResources($conflictingResources) {
+        $this->conflictingResources = $conflictingResources;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getSurvivor() {
+        return $this->survivor;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setSurvivor($survivor) {
+        $this->survivor = $survivor;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getDuplicate() {
+        return $this->duplicate;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setDuplicate($duplicate) {
+        $this->duplicate = $duplicate;
+      }
+      
+      /**
+       * Returns the associative array for this MergeAnalysis
+       */
       public function toArray() {
         $a = array();
         if( $this->survivorResources ) {
@@ -778,12 +1943,16 @@
         return $a;
       }
       
-      // the json (string form) for this MergeAnalysis
+      /**
+       * Returns the JSON string for this MergeAnalysis
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this MergeAnalysis with a json hash
+      /**
+       * Initializes this MergeAnalysis from an associative array
+       */
       public function initFromArray($o) {
         $this->survivorResources = array();
         if( isset($o['survivorResources']) ) {
@@ -818,23 +1987,61 @@
 
   namespace Org\Familysearch\Platform\Ct {
 
-    // 
+    /**
+     * 
+     */
     class Merge  {
     
     
-      // List of resources to remove from the survivor person.
-      var $resourcesToDelete;
-      // List of resources to copy from the duplicate person to survivor person.
-      var $resourcesToCopy;
+      /**
+       * List of resources to remove from the survivor person.
+       */
+      private $resourcesToDelete;
+      /**
+       * List of resources to copy from the duplicate person to survivor person.
+       */
+      private $resourcesToCopy;
 
-      // constructs a Merge from a (parsed) JSON hash
+      /**
+       * Constructs a Merge from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Merge
+      
+      /**
+       * List of resources to remove from the survivor person.
+       */
+      public function getResourcesToDelete() {
+        return $this->resourcesToDelete;
+      }
+      
+      /**
+       * List of resources to remove from the survivor person.
+       */
+      public function setResourcesToDelete($resourcesToDelete) {
+        $this->resourcesToDelete = $resourcesToDelete;
+      }
+      
+      /**
+       * List of resources to copy from the duplicate person to survivor person.
+       */
+      public function getResourcesToCopy() {
+        return $this->resourcesToCopy;
+      }
+      
+      /**
+       * List of resources to copy from the duplicate person to survivor person.
+       */
+      public function setResourcesToCopy($resourcesToCopy) {
+        $this->resourcesToCopy = $resourcesToCopy;
+      }
+      
+      /**
+       * Returns the associative array for this Merge
+       */
       public function toArray() {
         $a = array();
         if( $this->resourcesToDelete ) {
@@ -854,12 +2061,16 @@
         return $a;
       }
       
-      // the json (string form) for this Merge
+      /**
+       * Returns the JSON string for this Merge
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this Merge with a json hash
+      /**
+       * Initializes this Merge from an associative array
+       */
       public function initFromArray($o) {
         $this->resourcesToDelete = array();
         if( isset($o['resourcesToDelete']) ) {
@@ -880,40 +2091,66 @@
   }
 
 
-  namespace Org\Familysearch\Platform {
+  namespace Org\Gedcomx\Common {
 
-    // A tag in the FamilySearch system.
-    class Tag  {
+    /**
+     * A set of data that supports extension elements.
+     */
+    class ExtensibleData  {
     
-      // A reference to the value of the tag.
-      var $resource;
+      /**
+       * A local, context-specific id for the data.
+       */
+      private $id;
     
 
-      // constructs a Tag from a (parsed) JSON hash
+      /**
+       * Constructs a ExtensibleData from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Tag
+      
+      /**
+       * A local, context-specific id for the data.
+       */
+      public function getId() {
+        return $this->id;
+      }
+      
+      /**
+       * A local, context-specific id for the data.
+       */
+      public function setId($id) {
+        $this->id = $id;
+      }
+      
+      /**
+       * Returns the associative array for this ExtensibleData
+       */
       public function toArray() {
         $a = array();
-        if( $this->resource ) {
-          $a["resource"] = $this->resource;
+        if( $this->id ) {
+          $a["id"] = $this->id;
         }
         return $a;
       }
       
-      // the json (string form) for this Tag
+      /**
+       * Returns the JSON string for this ExtensibleData
+       */
       public function toJson() {
         return json_encode($this->toArray());
       }
 
-      // initializes this Tag with a json hash
+      /**
+       * Initializes this ExtensibleData from an associative array
+       */
       public function initFromArray($o) {
-        if( isset($o['resource']) ) {
-          $this->resource = $o["resource"];
+        if( isset($o['id']) ) {
+          $this->id = $o["id"];
         }
       }
     
@@ -922,64 +2159,116 @@
   }
 
 
-  namespace Org\Familysearch\Platform {
+  namespace Org\Gedcomx\Conclusion {
 
-    // A common representation of an error on the FamilySearch platform.
-    class Error  {
+    /**
+     * A reference to genealogical place.
+     */
+    class PlaceReference extends \Org\Gedcomx\Common\ExtensibleData  {
     
+      /**
+       * A reference to a description of the place being referenced.
+       */
+      private $descriptionRef;
     
-      // The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
-      var $code;
-      // A text label associated with the error code.
-      var $label;
-      // A message associated with the error.
-      var $message;
-      // The back-end stack trace associated with the error, useful for debugging.
-      var $stacktrace;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
+      /**
+       * The original value as supplied by the user.
+       */
+      private $original;
 
-      // constructs a Error from a (parsed) JSON hash
+      /**
+       * Constructs a PlaceReference from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Error
+      
+      /**
+       * A reference to a description of the place being referenced.
+       */
+      public function getDescriptionRef() {
+        return $this->descriptionRef;
+      }
+      
+      /**
+       * A reference to a description of the place being referenced.
+       */
+      public function setDescriptionRef($descriptionRef) {
+        $this->descriptionRef = $descriptionRef;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * The original value as supplied by the user.
+       */
+      public function getOriginal() {
+        return $this->original;
+      }
+      
+      /**
+       * The original value as supplied by the user.
+       */
+      public function setOriginal($original) {
+        $this->original = $original;
+      }
+      
+      /**
+       * Returns the associative array for this PlaceReference
+       */
       public function toArray() {
-        $a = array();
-        if( $this->code ) {
-          $a["code"] = $this->code;
+        $a = parent::toArray();
+        if( $this->descriptionRef ) {
+          $a["description"] = $this->descriptionRef;
         }
-        if( $this->label ) {
-          $a["label"] = $this->label;
+        if( $this->fieldValueReferences ) {
+          $ab = array();
+          foreach( $this->fieldValueReferences as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fieldValues'] = $ab;
         }
-        if( $this->message ) {
-          $a["message"] = $this->message;
-        }
-        if( $this->stacktrace ) {
-          $a["stacktrace"] = $this->stacktrace;
+        if( $this->original ) {
+          $a["original"] = $this->original;
         }
         return $a;
       }
       
-      // the json (string form) for this Error
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
 
-      // initializes this Error with a json hash
+      /**
+       * Initializes this PlaceReference from an associative array
+       */
       public function initFromArray($o) {
-        if( isset($o['code']) ) {
-          $this->code = $o["code"];
+        parent::initFromArray($o);
+        if( isset($o['description']) ) {
+          $this->descriptionRef = $o["description"];
         }
-        if( isset($o['label']) ) {
-          $this->label = $o["label"];
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
+          }
         }
-        if( isset($o['message']) ) {
-          $this->message = $o["message"];
-        }
-        if( isset($o['stacktrace']) ) {
-          $this->stacktrace = $o["stacktrace"];
+        if( isset($o['original']) ) {
+          $this->original = $o["original"];
         }
       }
     
@@ -990,362 +2279,36 @@
 
   namespace Org\Gedcomx\Atom {
 
-    // 
-    class CommonAttributes  {
+    /**
+     * 
+     */
+    class ExtensibleElement extends \Org\Gedcomx\Atom\CommonAttributes  {
     
-      // The base.
-      var $base;
-      // The language.
-      var $lang;
     
 
-      // constructs a CommonAttributes from a (parsed) JSON hash
+      /**
+       * Constructs a ExtensibleElement from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
-      }
-    
-      // the json hash for this CommonAttributes
-      public function toArray() {
-        $a = array();
-        if( $this->base ) {
-          $a["base"] = $this->base;
-        }
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
-        }
-        return $a;
       }
       
-      // the json (string form) for this CommonAttributes
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      // initializes this CommonAttributes with a json hash
-      public function initFromArray($o) {
-        if( isset($o['base']) ) {
-          $this->base = $o["base"];
-        }
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Source {
-
-    // Represents a citation field -- its name and value.
-    class CitationField  {
-    
-      // The citation field's name.
-      var $name;
-    
-      // The citation field's value.
-      var $value;
-
-      // constructs a CitationField from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this CitationField
-      public function toArray() {
-        $a = array();
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        return $a;
-      }
-      
-      // the json (string form) for this CitationField
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      // initializes this CitationField with a json hash
-      public function initFromArray($o) {
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Agent {
-
-    // An address.
-    class Address  {
-    
-    
-      // The city.
-      var $city;
-      // The country.
-      var $country;
-      // The postal code.
-      var $postalCode;
-      // The state or province.
-      var $stateOrProvince;
-      // The street.
-      var $street;
-      // Additional street information.
-      var $street2;
-      // Additional street information.
-      var $street3;
-      // The value of the property.
-      var $value;
-
-      // constructs a Address from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Address
-      public function toArray() {
-        $a = array();
-        if( $this->city ) {
-          $a["city"] = $this->city;
-        }
-        if( $this->country ) {
-          $a["country"] = $this->country;
-        }
-        if( $this->postalCode ) {
-          $a["postalCode"] = $this->postalCode;
-        }
-        if( $this->stateOrProvince ) {
-          $a["stateOrProvince"] = $this->stateOrProvince;
-        }
-        if( $this->street ) {
-          $a["street"] = $this->street;
-        }
-        if( $this->street2 ) {
-          $a["street2"] = $this->street2;
-        }
-        if( $this->street3 ) {
-          $a["street3"] = $this->street3;
-        }
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        return $a;
-      }
-      
-      // the json (string form) for this Address
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      // initializes this Address with a json hash
-      public function initFromArray($o) {
-        if( isset($o['city']) ) {
-          $this->city = $o["city"];
-        }
-        if( isset($o['country']) ) {
-          $this->country = $o["country"];
-        }
-        if( isset($o['postalCode']) ) {
-          $this->postalCode = $o["postalCode"];
-        }
-        if( isset($o['stateOrProvince']) ) {
-          $this->stateOrProvince = $o["stateOrProvince"];
-        }
-        if( isset($o['street']) ) {
-          $this->street = $o["street"];
-        }
-        if( isset($o['street2']) ) {
-          $this->street2 = $o["street2"];
-        }
-        if( isset($o['street3']) ) {
-          $this->street3 = $o["street3"];
-        }
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // A form of a name.
-    class NameForm extends \Org\Gedcomx\Common\ExtensibleData  {
-    
-      // The language of the conclusion.
-      var $lang;
-    
-      // The full text of the name form.
-      var $fullText;
-      // The different parts of the name form.
-      var $parts;
-
-      // constructs a NameForm from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this NameForm
+      /**
+       * Returns the associative array for this ExtensibleElement
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
-        }
-        if( $this->fullText ) {
-          $a["fullText"] = $this->fullText;
-        }
-        if( $this->parts ) {
-          $ab = array();
-          foreach( $this->parts as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['parts'] = $ab;
-        }
         return $a;
       }
       
 
-      // initializes this NameForm with a json hash
+      /**
+       * Initializes this ExtensibleElement from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
-        }
-        if( isset($o['fullText']) ) {
-          $this->fullText = $o["fullText"];
-        }
-        $this->parts = array();
-        if( isset($o['parts']) ) {
-          foreach( $o['parts'] as $i => $x ) {
-            $this->parts[$i] = new \Org\Gedcomx\Conclusion\NamePart($x);
-          }
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // A set of display properties for the convenience of quick display, such as for
-    // a Web-based application. All display properties are provided in the default locale for the current
-    // application context and are NOT considered canonical for the purposes of data exchange.
-    class DisplayProperties extends \Org\Gedcomx\Common\ExtensibleData  {
-    
-    
-      // The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
-      var $ascendancyNumber;
-      // The displayable label for the birth date of the person.
-      var $birthDate;
-      // The displayable label for the birth place of the person.
-      var $birthPlace;
-      // The displayable label for the death date of the person.
-      var $deathDate;
-      // The displayable label for the death place of the person.
-      var $deathPlace;
-      // The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
-      var $descendancyNumber;
-      // The displayable label for the gender of the person.
-      var $gender;
-      // The displayable label for the lifespan of the person.
-      var $lifespan;
-      // The displayable name of the person.
-      var $name;
-
-      // constructs a DisplayProperties from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this DisplayProperties
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->ascendancyNumber ) {
-          $a["ascendancyNumber"] = $this->ascendancyNumber;
-        }
-        if( $this->birthDate ) {
-          $a["birthDate"] = $this->birthDate;
-        }
-        if( $this->birthPlace ) {
-          $a["birthPlace"] = $this->birthPlace;
-        }
-        if( $this->deathDate ) {
-          $a["deathDate"] = $this->deathDate;
-        }
-        if( $this->deathPlace ) {
-          $a["deathPlace"] = $this->deathPlace;
-        }
-        if( $this->descendancyNumber ) {
-          $a["descendancyNumber"] = $this->descendancyNumber;
-        }
-        if( $this->gender ) {
-          $a["gender"] = $this->gender;
-        }
-        if( $this->lifespan ) {
-          $a["lifespan"] = $this->lifespan;
-        }
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        return $a;
-      }
-      
-
-      // initializes this DisplayProperties with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['ascendancyNumber']) ) {
-          $this->ascendancyNumber = $o["ascendancyNumber"];
-        }
-        if( isset($o['birthDate']) ) {
-          $this->birthDate = $o["birthDate"];
-        }
-        if( isset($o['birthPlace']) ) {
-          $this->birthPlace = $o["birthPlace"];
-        }
-        if( isset($o['deathDate']) ) {
-          $this->deathDate = $o["deathDate"];
-        }
-        if( isset($o['deathPlace']) ) {
-          $this->deathPlace = $o["deathPlace"];
-        }
-        if( isset($o['descendancyNumber']) ) {
-          $this->descendancyNumber = $o["descendancyNumber"];
-        }
-        if( isset($o['gender']) ) {
-          $this->gender = $o["gender"];
-        }
-        if( isset($o['lifespan']) ) {
-          $this->lifespan = $o["lifespan"];
-        }
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
       }
     
     }
@@ -1355,21 +2318,43 @@
 
   namespace Org\Gedcomx\Links {
 
-    // An data type that supports hypermedia controls (i.e. links).
+    /**
+     * An data type that supports hypermedia controls (i.e. links).
+     */
     class HypermediaEnabledData extends \Org\Gedcomx\Common\ExtensibleData  {
     
     
-      // The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-      var $links;
+      /**
+       * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      private $links;
 
-      // constructs a HypermediaEnabledData from a (parsed) JSON hash
+      /**
+       * Constructs a HypermediaEnabledData from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this HypermediaEnabledData
+      
+      /**
+       * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      public function getLinks() {
+        return $this->links;
+      }
+      
+      /**
+       * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      public function setLinks($links) {
+        $this->links = $links;
+      }
+      
+      /**
+       * Returns the associative array for this HypermediaEnabledData
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->links ) {
@@ -1383,7 +2368,9 @@
       }
       
 
-      // initializes this HypermediaEnabledData with a json hash
+      /**
+       * Initializes this HypermediaEnabledData from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         $this->links = array();
@@ -1399,230 +2386,81 @@
   }
 
 
-  namespace Org\Gedcomx\Conclusion {
-
-    // A reference to genealogical place.
-    class PlaceReference extends \Org\Gedcomx\Common\ExtensibleData  {
-    
-      // A reference to a description of the place being referenced.
-      var $descriptionRef;
-    
-      // The original value as supplied by the user.
-      var $original;
-
-      // constructs a PlaceReference from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this PlaceReference
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->descriptionRef ) {
-          $a["description"] = $this->descriptionRef;
-        }
-        if( $this->original ) {
-          $a["original"] = $this->original;
-        }
-        return $a;
-      }
-      
-
-      // initializes this PlaceReference with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['description']) ) {
-          $this->descriptionRef = $o["description"];
-        }
-        if( isset($o['original']) ) {
-          $this->original = $o["original"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // A concluded genealogical date.
-    class DateInfo extends \Org\Gedcomx\Common\ExtensibleData  {
-    
-    
-      // The original text as supplied by the user.
-      var $original;
-      // The formal value.
-      var $formal;
-      // The list of normalized values for the date, provided for display purposes by the application. Normalized values
-      // are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-      var $normalizedExtensions;
-
-      // constructs a DateInfo from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this DateInfo
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->original ) {
-          $a["original"] = $this->original;
-        }
-        if( $this->formal ) {
-          $a["formal"] = $this->formal;
-        }
-        if( $this->normalizedExtensions ) {
-          $ab = array();
-          foreach( $this->normalizedExtensions as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['normalized'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      // initializes this DateInfo with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['original']) ) {
-          $this->original = $o["original"];
-        }
-        if( isset($o['formal']) ) {
-          $this->formal = $o["formal"];
-        }
-        $this->normalizedExtensions = array();
-        if( isset($o['normalized']) ) {
-          foreach( $o['normalized'] as $i => $x ) {
-            $this->normalizedExtensions[$i] = new \Org\Gedcomx\Common\TextValue($x);
-          }
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // A part of a name.
-    class NamePart extends \Org\Gedcomx\Common\ExtensibleData  {
-    
-      // The value of the name part.
-      var $value;
-      // The type of the name part.
-      var $type;
-    
-      // The qualifiers associated with this name part.
-      var $qualifiers;
-
-      // constructs a NamePart from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this NamePart
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->qualifiers ) {
-          $ab = array();
-          foreach( $this->qualifiers as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['qualifiers'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      // initializes this NamePart with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        $this->qualifiers = array();
-        if( isset($o['qualifiers']) ) {
-          foreach( $o['qualifiers'] as $i => $x ) {
-            $this->qualifiers[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
-          }
-        }
-      }
-    
-    }
-    
-  }
-
-
   namespace Org\Gedcomx\Atom {
 
-    // 
-    class ExtensibleElement extends \Org\Gedcomx\Atom\CommonAttributes  {
-    
-    
-
-      // constructs a ExtensibleElement from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this ExtensibleElement
-      public function toArray() {
-        $a = parent::toArray();
-        return $a;
-      }
-      
-
-      // initializes this ExtensibleElement with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Atom {
-
-    // conveys information about a category associated with an entry or feed.
+    /**
+     * conveys information about a category associated with an entry or feed.
+     */
     class Category extends \Org\Gedcomx\Atom\CommonAttributes  {
     
-      // identifies a categorization scheme
-      var $scheme;
-      // identifies the category to which the entry or feed belongs
-      var $term;
-      // a human-readable label for display in end-user applications
-      var $label;
+      /**
+       * identifies a categorization scheme
+       */
+      private $scheme;
+      /**
+       * identifies the category to which the entry or feed belongs
+       */
+      private $term;
+      /**
+       * a human-readable label for display in end-user applications
+       */
+      private $label;
     
 
-      // constructs a Category from a (parsed) JSON hash
+      /**
+       * Constructs a Category from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Category
+      
+      /**
+       * identifies a categorization scheme
+       */
+      public function getScheme() {
+        return $this->scheme;
+      }
+      
+      /**
+       * identifies a categorization scheme
+       */
+      public function setScheme($scheme) {
+        $this->scheme = $scheme;
+      }
+      
+      /**
+       * identifies the category to which the entry or feed belongs
+       */
+      public function getTerm() {
+        return $this->term;
+      }
+      
+      /**
+       * identifies the category to which the entry or feed belongs
+       */
+      public function setTerm($term) {
+        $this->term = $term;
+      }
+      
+      /**
+       * a human-readable label for display in end-user applications
+       */
+      public function getLabel() {
+        return $this->label;
+      }
+      
+      /**
+       * a human-readable label for display in end-user applications
+       */
+      public function setLabel($label) {
+        $this->label = $label;
+      }
+      
+      /**
+       * Returns the associative array for this Category
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->scheme ) {
@@ -1638,7 +2476,9 @@
       }
       
 
-      // initializes this Category with a json hash
+      /**
+       * Initializes this Category from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['scheme']) ) {
@@ -1683,29 +2523,728 @@
   }  
     
 
-  namespace Org\Gedcomx\Common {
+  namespace Org\Gedcomx\Agent {
 
-    // Attribution for genealogical information. Attribution is used to model <strong>who</strong> is contributing/modifying
-    // information, <strong>when</strong> they contributed it, and <strong>why</strong> they are making the
-    // contribution/modification.
-    class Attribution extends \Org\Gedcomx\Common\ExtensibleData  {
+    /**
+     * An online account for a web application.
+     */
+    class OnlineAccount extends \Org\Gedcomx\Common\ExtensibleData  {
     
     
-      // Reference to the contributor of the attributed data.
-      var $contributor;
-      // The modified timestamp for the attributed data.
-      var $modified;
-      // The &quot;change message&quot; for the attributed data provided by the contributor.
-      var $changeMessage;
+      /**
+       * The name associated the holder of this account with the account.
+       */
+      private $accountName;
+      /**
+       * The homepage of the service that provides this account.
+       */
+      private $serviceHomepage;
 
-      // constructs a Attribution from a (parsed) JSON hash
+      /**
+       * Constructs a OnlineAccount from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
+      
+      /**
+       * The name associated the holder of this account with the account.
+       */
+      public function getAccountName() {
+        return $this->accountName;
+      }
+      
+      /**
+       * The name associated the holder of this account with the account.
+       */
+      public function setAccountName($accountName) {
+        $this->accountName = $accountName;
+      }
+      
+      /**
+       * The homepage of the service that provides this account.
+       */
+      public function getServiceHomepage() {
+        return $this->serviceHomepage;
+      }
+      
+      /**
+       * The homepage of the service that provides this account.
+       */
+      public function setServiceHomepage($serviceHomepage) {
+        $this->serviceHomepage = $serviceHomepage;
+      }
+      
+      /**
+       * Returns the associative array for this OnlineAccount
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->accountName ) {
+          $a["accountName"] = $this->accountName;
+        }
+        if( $this->serviceHomepage ) {
+          $a["serviceHomepage"] = $this->serviceHomepage->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this OnlineAccount from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['accountName']) ) {
+          $this->accountName = $o["accountName"];
+        }
+        if( isset($o['serviceHomepage']) ) {
+          $this->serviceHomepage = new \Org\Gedcomx\Common\ResourceReference($o["serviceHomepage"]);
+        }
+      }
     
-      // the json hash for this Attribution
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * A concluded genealogical date.
+     */
+    class DateInfo extends \Org\Gedcomx\Common\ExtensibleData  {
+    
+    
+      /**
+       * The original text as supplied by the user.
+       */
+      private $original;
+      /**
+       * The formal value.
+       */
+      private $formal;
+      /**
+       * The list of normalized values for the date, provided for display purposes by the application. Normalized values
+     * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      private $normalizedExtensions;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
+
+      /**
+       * Constructs a DateInfo from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The original text as supplied by the user.
+       */
+      public function getOriginal() {
+        return $this->original;
+      }
+      
+      /**
+       * The original text as supplied by the user.
+       */
+      public function setOriginal($original) {
+        $this->original = $original;
+      }
+      
+      /**
+       * The formal value.
+       */
+      public function getFormal() {
+        return $this->formal;
+      }
+      
+      /**
+       * The formal value.
+       */
+      public function setFormal($formal) {
+        $this->formal = $formal;
+      }
+      
+      /**
+       * The list of normalized values for the date, provided for display purposes by the application. Normalized values
+       * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      public function getNormalizedExtensions() {
+        return $this->normalizedExtensions;
+      }
+      
+      /**
+       * The list of normalized values for the date, provided for display purposes by the application. Normalized values
+       * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      public function setNormalizedExtensions($normalizedExtensions) {
+        $this->normalizedExtensions = $normalizedExtensions;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * Returns the associative array for this DateInfo
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->original ) {
+          $a["original"] = $this->original;
+        }
+        if( $this->formal ) {
+          $a["formal"] = $this->formal;
+        }
+        if( $this->normalizedExtensions ) {
+          $ab = array();
+          foreach( $this->normalizedExtensions as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['normalized'] = $ab;
+        }
+        if( $this->fieldValueReferences ) {
+          $ab = array();
+          foreach( $this->fieldValueReferences as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fieldValues'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this DateInfo from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['original']) ) {
+          $this->original = $o["original"];
+        }
+        if( isset($o['formal']) ) {
+          $this->formal = $o["formal"];
+        }
+        $this->normalizedExtensions = array();
+        if( isset($o['normalized']) ) {
+          foreach( $o['normalized'] as $i => $x ) {
+            $this->normalizedExtensions[$i] = new \Org\Gedcomx\Common\TextValue($x);
+          }
+        }
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * A form of a name.
+     */
+    class NameForm extends \Org\Gedcomx\Common\ExtensibleData  {
+    
+      /**
+       * The language of the conclusion.
+       */
+      private $lang;
+    
+      /**
+       * The full text of the name form.
+       */
+      private $fullText;
+      /**
+       * The different parts of the name form.
+       */
+      private $parts;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
+
+      /**
+       * Constructs a NameForm from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of the conclusion.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of the conclusion.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * The full text of the name form.
+       */
+      public function getFullText() {
+        return $this->fullText;
+      }
+      
+      /**
+       * The full text of the name form.
+       */
+      public function setFullText($fullText) {
+        $this->fullText = $fullText;
+      }
+      
+      /**
+       * The different parts of the name form.
+       */
+      public function getParts() {
+        return $this->parts;
+      }
+      
+      /**
+       * The different parts of the name form.
+       */
+      public function setParts($parts) {
+        $this->parts = $parts;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * Returns the associative array for this NameForm
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->fullText ) {
+          $a["fullText"] = $this->fullText;
+        }
+        if( $this->parts ) {
+          $ab = array();
+          foreach( $this->parts as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['parts'] = $ab;
+        }
+        if( $this->fieldValueReferences ) {
+          $ab = array();
+          foreach( $this->fieldValueReferences as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fieldValues'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this NameForm from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        if( isset($o['fullText']) ) {
+          $this->fullText = $o["fullText"];
+        }
+        $this->parts = array();
+        if( isset($o['parts']) ) {
+          foreach( $o['parts'] as $i => $x ) {
+            $this->parts[$i] = new \Org\Gedcomx\Conclusion\NamePart($x);
+          }
+        }
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * A set of display properties for the convenience of quick display, such as for
+     * a Web-based application. All display properties are provided in the default locale for the current
+     * application context and are NOT considered canonical for the purposes of data exchange.
+     */
+    class DisplayProperties extends \Org\Gedcomx\Common\ExtensibleData  {
+    
+    
+      /**
+       * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
+       */
+      private $ascendancyNumber;
+      /**
+       * The displayable label for the birth date of the person.
+       */
+      private $birthDate;
+      /**
+       * The displayable label for the birth place of the person.
+       */
+      private $birthPlace;
+      /**
+       * The displayable label for the death date of the person.
+       */
+      private $deathDate;
+      /**
+       * The displayable label for the death place of the person.
+       */
+      private $deathPlace;
+      /**
+       * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
+       */
+      private $descendancyNumber;
+      /**
+       * The displayable label for the gender of the person.
+       */
+      private $gender;
+      /**
+       * The displayable label for the lifespan of the person.
+       */
+      private $lifespan;
+      /**
+       * The displayable name of the person.
+       */
+      private $name;
+
+      /**
+       * Constructs a DisplayProperties from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
+       */
+      public function getAscendancyNumber() {
+        return $this->ascendancyNumber;
+      }
+      
+      /**
+       * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
+       */
+      public function setAscendancyNumber($ascendancyNumber) {
+        $this->ascendancyNumber = $ascendancyNumber;
+      }
+      
+      /**
+       * The displayable label for the birth date of the person.
+       */
+      public function getBirthDate() {
+        return $this->birthDate;
+      }
+      
+      /**
+       * The displayable label for the birth date of the person.
+       */
+      public function setBirthDate($birthDate) {
+        $this->birthDate = $birthDate;
+      }
+      
+      /**
+       * The displayable label for the birth place of the person.
+       */
+      public function getBirthPlace() {
+        return $this->birthPlace;
+      }
+      
+      /**
+       * The displayable label for the birth place of the person.
+       */
+      public function setBirthPlace($birthPlace) {
+        $this->birthPlace = $birthPlace;
+      }
+      
+      /**
+       * The displayable label for the death date of the person.
+       */
+      public function getDeathDate() {
+        return $this->deathDate;
+      }
+      
+      /**
+       * The displayable label for the death date of the person.
+       */
+      public function setDeathDate($deathDate) {
+        $this->deathDate = $deathDate;
+      }
+      
+      /**
+       * The displayable label for the death place of the person.
+       */
+      public function getDeathPlace() {
+        return $this->deathPlace;
+      }
+      
+      /**
+       * The displayable label for the death place of the person.
+       */
+      public function setDeathPlace($deathPlace) {
+        $this->deathPlace = $deathPlace;
+      }
+      
+      /**
+       * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
+       */
+      public function getDescendancyNumber() {
+        return $this->descendancyNumber;
+      }
+      
+      /**
+       * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
+       */
+      public function setDescendancyNumber($descendancyNumber) {
+        $this->descendancyNumber = $descendancyNumber;
+      }
+      
+      /**
+       * The displayable label for the gender of the person.
+       */
+      public function getGender() {
+        return $this->gender;
+      }
+      
+      /**
+       * The displayable label for the gender of the person.
+       */
+      public function setGender($gender) {
+        $this->gender = $gender;
+      }
+      
+      /**
+       * The displayable label for the lifespan of the person.
+       */
+      public function getLifespan() {
+        return $this->lifespan;
+      }
+      
+      /**
+       * The displayable label for the lifespan of the person.
+       */
+      public function setLifespan($lifespan) {
+        $this->lifespan = $lifespan;
+      }
+      
+      /**
+       * The displayable name of the person.
+       */
+      public function getName() {
+        return $this->name;
+      }
+      
+      /**
+       * The displayable name of the person.
+       */
+      public function setName($name) {
+        $this->name = $name;
+      }
+      
+      /**
+       * Returns the associative array for this DisplayProperties
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->ascendancyNumber ) {
+          $a["ascendancyNumber"] = $this->ascendancyNumber;
+        }
+        if( $this->birthDate ) {
+          $a["birthDate"] = $this->birthDate;
+        }
+        if( $this->birthPlace ) {
+          $a["birthPlace"] = $this->birthPlace;
+        }
+        if( $this->deathDate ) {
+          $a["deathDate"] = $this->deathDate;
+        }
+        if( $this->deathPlace ) {
+          $a["deathPlace"] = $this->deathPlace;
+        }
+        if( $this->descendancyNumber ) {
+          $a["descendancyNumber"] = $this->descendancyNumber;
+        }
+        if( $this->gender ) {
+          $a["gender"] = $this->gender;
+        }
+        if( $this->lifespan ) {
+          $a["lifespan"] = $this->lifespan;
+        }
+        if( $this->name ) {
+          $a["name"] = $this->name;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this DisplayProperties from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['ascendancyNumber']) ) {
+          $this->ascendancyNumber = $o["ascendancyNumber"];
+        }
+        if( isset($o['birthDate']) ) {
+          $this->birthDate = $o["birthDate"];
+        }
+        if( isset($o['birthPlace']) ) {
+          $this->birthPlace = $o["birthPlace"];
+        }
+        if( isset($o['deathDate']) ) {
+          $this->deathDate = $o["deathDate"];
+        }
+        if( isset($o['deathPlace']) ) {
+          $this->deathPlace = $o["deathPlace"];
+        }
+        if( isset($o['descendancyNumber']) ) {
+          $this->descendancyNumber = $o["descendancyNumber"];
+        }
+        if( isset($o['gender']) ) {
+          $this->gender = $o["gender"];
+        }
+        if( isset($o['lifespan']) ) {
+          $this->lifespan = $o["lifespan"];
+        }
+        if( isset($o['name']) ) {
+          $this->name = $o["name"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Common {
+
+    /**
+     * Attribution for genealogical information. Attribution is used to model <strong>who</strong> is contributing/modifying
+     * information, <strong>when</strong> they contributed it, and <strong>why</strong> they are making the
+     * contribution/modification.
+     */
+    class Attribution extends \Org\Gedcomx\Common\ExtensibleData  {
+    
+    
+      /**
+       * Reference to the contributor of the attributed data.
+       */
+      private $contributor;
+      /**
+       * The modified timestamp for the attributed data.
+       */
+      private $modified;
+      /**
+       * The &quot;change message&quot; for the attributed data provided by the contributor.
+       */
+      private $changeMessage;
+
+      /**
+       * Constructs a Attribution from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * Reference to the contributor of the attributed data.
+       */
+      public function getContributor() {
+        return $this->contributor;
+      }
+      
+      /**
+       * Reference to the contributor of the attributed data.
+       */
+      public function setContributor($contributor) {
+        $this->contributor = $contributor;
+      }
+      
+      /**
+       * The modified timestamp for the attributed data.
+       */
+      public function getModified() {
+        return $this->modified;
+      }
+      
+      /**
+       * The modified timestamp for the attributed data.
+       */
+      public function setModified($modified) {
+        $this->modified = $modified;
+      }
+      
+      /**
+       * The &quot;change message&quot; for the attributed data provided by the contributor.
+       */
+      public function getChangeMessage() {
+        return $this->changeMessage;
+      }
+      
+      /**
+       * The &quot;change message&quot; for the attributed data provided by the contributor.
+       */
+      public function setChangeMessage($changeMessage) {
+        $this->changeMessage = $changeMessage;
+      }
+      
+      /**
+       * Returns the associative array for this Attribution
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->contributor ) {
@@ -1721,7 +3260,9 @@
       }
       
 
-      // initializes this Attribution with a json hash
+      /**
+       * Initializes this Attribution from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['contributor']) ) {
@@ -1742,508 +3283,145 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // A genealogical conclusion.
-    class Conclusion extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    /**
+     * A part of a name.
+     */
+    class NamePart extends \Org\Gedcomx\Common\ExtensibleData  {
     
-      // A local, context-specific id for the data.
-      var $id;
-      // The level of confidence the contributor has about the data.
-      var $confidence;
-      // The language of the conclusion.
-      var $lang;
+      /**
+       * The value of the name part.
+       */
+      private $value;
+      /**
+       * The type of the name part.
+       */
+      private $type;
     
-      // Attribution metadata for a conclusion.
-      var $attribution;
-      // The source references for a conclusion.
-      var $sources;
-      // Notes about a person.
-      var $notes;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
+      /**
+       * The qualifiers associated with this name part.
+       */
+      private $qualifiers;
 
-      // constructs a Conclusion from a (parsed) JSON hash
+      /**
+       * Constructs a NamePart from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Conclusion
+      
+      /**
+       * The value of the name part.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The value of the name part.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * The type of the name part.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the name part.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * The qualifiers associated with this name part.
+       */
+      public function getQualifiers() {
+        return $this->qualifiers;
+      }
+      
+      /**
+       * The qualifiers associated with this name part.
+       */
+      public function setQualifiers($qualifiers) {
+        $this->qualifiers = $qualifiers;
+      }
+      
+      /**
+       * Returns the associative array for this NamePart
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
+        if( $this->value ) {
+          $a["value"] = $this->value;
         }
-        if( $this->confidence ) {
-          $a["confidence"] = $this->confidence;
+        if( $this->type ) {
+          $a["type"] = $this->type;
         }
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
-        }
-        if( $this->attribution ) {
-          $a["attribution"] = $this->attribution->toArray();
-        }
-        if( $this->sources ) {
+        if( $this->fieldValueReferences ) {
           $ab = array();
-          foreach( $this->sources as $i => $x ) {
+          foreach( $this->fieldValueReferences as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['sources'] = $ab;
+          $a['fieldValues'] = $ab;
         }
-        if( $this->notes ) {
+        if( $this->qualifiers ) {
           $ab = array();
-          foreach( $this->notes as $i => $x ) {
+          foreach( $this->qualifiers as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['notes'] = $ab;
+          $a['qualifiers'] = $ab;
         }
         return $a;
       }
       
 
-      // initializes this Conclusion with a json hash
+      /**
+       * Initializes this NamePart from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
         }
-        if( isset($o['confidence']) ) {
-          $this->confidence = $o["confidence"];
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
         }
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
-        }
-        if( isset($o['attribution']) ) {
-          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
-        }
-        $this->sources = array();
-        if( isset($o['sources']) ) {
-          foreach( $o['sources'] as $i => $x ) {
-            $this->sources[$i] = new \Org\Gedcomx\Source\SourceReference($x);
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
           }
         }
-        $this->notes = array();
-        if( isset($o['notes']) ) {
-          foreach( $o['notes'] as $i => $x ) {
-            $this->notes[$i] = new \Org\Gedcomx\Common\Note($x);
+        $this->qualifiers = array();
+        if( isset($o['qualifiers']) ) {
+          foreach( $o['qualifiers'] as $i => $x ) {
+            $this->qualifiers[$i] = new \Org\Gedcomx\Common\Qualifier($x);
           }
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Atom {
-
-    // The "atom:entry" element represents an individual entry, acting as a container for metadata and data associated with the entry.
-    class Entry extends \Org\Gedcomx\Atom\ExtensibleElement  {
-    
-    
-      // The author of the entry.
-      var $authors;
-      // information about a category associated with an entry.
-      var $categories;
-      // The confidence of the result, if this entry represents a search result.
-      var $confidence;
-      // The content of the entry.
-      var $content;
-      // information about a category associated with the entry
-      var $contributors;
-      // a permanent, universally unique identifier for the entry.
-      var $id;
-      // a reference from a entry to a Web resource.
-      var $links;
-      // instant in time associated with an event early in the life cycle of the entry.
-      var $published;
-      // information about rights held in and over the entry.
-      var $rights;
-      // The relevance score.
-      var $score;
-      // a human-readable title for the entry
-      var $title;
-      // the most recent instant in time when the entry was modified in a way the publisher considers significant.
-      var $updated;
-
-      // constructs a Entry from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Entry
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->authors ) {
-          $ab = array();
-          foreach( $this->authors as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['authors'] = $ab;
-        }
-        if( $this->categories ) {
-          $ab = array();
-          foreach( $this->categories as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['categories'] = $ab;
-        }
-        if( $this->confidence ) {
-          $a["confidence"] = $this->confidence;
-        }
-        if( $this->content ) {
-          $a["content"] = $this->content->toArray();
-        }
-        if( $this->contributors ) {
-          $ab = array();
-          foreach( $this->contributors as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['contributors'] = $ab;
-        }
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
-        if( $this->links ) {
-          $ab = array();
-          foreach( $this->links as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['links'] = $ab;
-        }
-        if( $this->published ) {
-          $a["published"] = $this->published;
-        }
-        if( $this->rights ) {
-          $a["rights"] = $this->rights;
-        }
-        if( $this->score ) {
-          $a["score"] = $this->score;
-        }
-        if( $this->title ) {
-          $a["title"] = $this->title;
-        }
-        if( $this->updated ) {
-          $a["updated"] = $this->updated;
-        }
-        return $a;
-      }
-      
-
-      // initializes this Entry with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        $this->authors = array();
-        if( isset($o['authors']) ) {
-          foreach( $o['authors'] as $i => $x ) {
-            $this->authors[$i] = new \Org\Gedcomx\Atom\Person($x);
-          }
-        }
-        $this->categories = array();
-        if( isset($o['categories']) ) {
-          foreach( $o['categories'] as $i => $x ) {
-            $this->categories[$i] = new \Org\Gedcomx\Atom\Category($x);
-          }
-        }
-        if( isset($o['confidence']) ) {
-          $this->confidence = $o["confidence"];
-        }
-        if( isset($o['content']) ) {
-          $this->content = new \Org\Gedcomx\Atom\Content($o["content"]);
-        }
-        $this->contributors = array();
-        if( isset($o['contributors']) ) {
-          foreach( $o['contributors'] as $i => $x ) {
-            $this->contributors[$i] = new \Org\Gedcomx\Atom\Person($x);
-          }
-        }
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
-        $this->links = array();
-        if( isset($o['links']) ) {
-          foreach( $o['links'] as $i => $x ) {
-            $this->links[$i] = new \Org\Gedcomx\Links\Link($x);
-          }
-        }
-        if( isset($o['published']) ) {
-          $this->published = $o["published"];
-        }
-        if( isset($o['rights']) ) {
-          $this->rights = $o["rights"];
-        }
-        if( isset($o['score']) ) {
-          $this->score = $o["score"];
-        }
-        if( isset($o['title']) ) {
-          $this->title = $o["title"];
-        }
-        if( isset($o['updated']) ) {
-          $this->updated = $o["updated"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Source {
-
-    // Represents a description of a source.
-    class SourceDescription extends \Org\Gedcomx\Links\HypermediaEnabledData  {
-    
-      // A local, context-specific id for the data.
-      var $id;
-      // The URI (if applicable) of the actual source.
-      var $about;
-    
-      // The bibliographic citations for this source.
-      var $citations;
-      // A reference to the entity that mediates access to the described source.
-      var $mediator;
-      // References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
-      var $sources;
-      // References to any conclusions extracted from the source description, analyzed and evaluated atomically within on context of the source..
-      var $extractedConclusions;
-      // A reference to the source that contains this source.
-      var $componentOf;
-      // A list of titles for this source.
-      var $titles;
-      // Notes about a source.
-      var $notes;
-      // The attribution metadata for this source description.
-      var $attribution;
-
-      // constructs a SourceDescription from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this SourceDescription
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
-        if( $this->about ) {
-          $a["about"] = $this->about;
-        }
-        if( $this->citations ) {
-          $ab = array();
-          foreach( $this->citations as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['citations'] = $ab;
-        }
-        if( $this->mediator ) {
-          $a["mediator"] = $this->mediator->toArray();
-        }
-        if( $this->sources ) {
-          $ab = array();
-          foreach( $this->sources as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['sources'] = $ab;
-        }
-        if( $this->extractedConclusions ) {
-          $ab = array();
-          foreach( $this->extractedConclusions as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['extractedConclusions'] = $ab;
-        }
-        if( $this->componentOf ) {
-          $a["componentOf"] = $this->componentOf->toArray();
-        }
-        if( $this->titles ) {
-          $ab = array();
-          foreach( $this->titles as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['titles'] = $ab;
-        }
-        if( $this->notes ) {
-          $ab = array();
-          foreach( $this->notes as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['notes'] = $ab;
-        }
-        if( $this->attribution ) {
-          $a["attribution"] = $this->attribution->toArray();
-        }
-        return $a;
-      }
-      
-
-      // initializes this SourceDescription with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
-        if( isset($o['about']) ) {
-          $this->about = $o["about"];
-        }
-        $this->citations = array();
-        if( isset($o['citations']) ) {
-          foreach( $o['citations'] as $i => $x ) {
-            $this->citations[$i] = new \Org\Gedcomx\Source\SourceCitation($x);
-          }
-        }
-        if( isset($o['mediator']) ) {
-          $this->mediator = new \Org\Gedcomx\Common\ResourceReference($o["mediator"]);
-        }
-        $this->sources = array();
-        if( isset($o['sources']) ) {
-          foreach( $o['sources'] as $i => $x ) {
-            $this->sources[$i] = new \Org\Gedcomx\Source\SourceReference($x);
-          }
-        }
-        $this->extractedConclusions = array();
-        if( isset($o['extractedConclusions']) ) {
-          foreach( $o['extractedConclusions'] as $i => $x ) {
-            $this->extractedConclusions[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
-          }
-        }
-        if( isset($o['componentOf']) ) {
-          $this->componentOf = new \Org\Gedcomx\Source\SourceReference($o["componentOf"]);
-        }
-        $this->titles = array();
-        if( isset($o['titles']) ) {
-          foreach( $o['titles'] as $i => $x ) {
-            $this->titles[$i] = new \Org\Gedcomx\Common\TextValue($x);
-          }
-        }
-        $this->notes = array();
-        if( isset($o['notes']) ) {
-          foreach( $o['notes'] as $i => $x ) {
-            $this->notes[$i] = new \Org\Gedcomx\Common\Note($x);
-          }
-        }
-        if( isset($o['attribution']) ) {
-          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Source {
-
-    // An attributable reference to a description of a source.
-    class SourceReference extends \Org\Gedcomx\Links\HypermediaEnabledData  {
-    
-      // A reference to a description of the source being referenced.
-      var $descriptionRef;
-    
-      // The attribution metadata for this source reference.
-      var $attribution;
-
-      // constructs a SourceReference from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this SourceReference
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->descriptionRef ) {
-          $a["description"] = $this->descriptionRef;
-        }
-        if( $this->attribution ) {
-          $a["attribution"] = $this->attribution->toArray();
-        }
-        return $a;
-      }
-      
-
-      // initializes this SourceReference with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['description']) ) {
-          $this->descriptionRef = $o["description"];
-        }
-        if( isset($o['attribution']) ) {
-          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Common {
-
-    // A note about a genealogical resource (e.g. conclusion or source).
-    class Note extends \Org\Gedcomx\Links\HypermediaEnabledData  {
-    
-      // A local, context-specific id for the data.
-      var $id;
-      // The language of the note.
-      var $lang;
-    
-      // The subject of the note.
-      var $subject;
-      // The text of the note.
-      var $text;
-      // Attribution metadata for a note.
-      var $attribution;
-
-      // constructs a Note from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Note
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
-        }
-        if( $this->subject ) {
-          $a["subject"] = $this->subject;
-        }
-        if( $this->text ) {
-          $a["text"] = $this->text;
-        }
-        if( $this->attribution ) {
-          $a["attribution"] = $this->attribution->toArray();
-        }
-        return $a;
-      }
-      
-
-      // initializes this Note with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
-        }
-        if( isset($o['subject']) ) {
-          $this->subject = $o["subject"];
-        }
-        if( isset($o['text']) ) {
-          $this->text = $o["text"];
-        }
-        if( isset($o['attribution']) ) {
-          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
         }
       }
     
@@ -2254,370 +3432,227 @@
 
   namespace Org\Gedcomx\Agent {
 
-    // An agent, e.g. person, organization, or group. In genealogical research, an agent often
-    // takes the role of a contributor.
-    class Agent extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    /**
+     * An address.
+     */
+    class Address extends \Org\Gedcomx\Common\ExtensibleData  {
     
-      // The id of this piece of metadata.
-      var $id;
     
-      // The accounts that belong to this person or organization.
-      var $accounts;
-      // The addresses that belong to this person or organization.
-      var $addresses;
-      // The emails that belong to this person or organization.
-      var $emails;
-      // The homepage.
-      var $homepage;
-      // The list of identifiers for the agent.
-      var $identifiers;
-      // The list of names for the agent.
-      var $names;
-      // The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
-      var $openid;
-      // The phones that belong to this person or organization.
-      var $phones;
+      /**
+       * The city.
+       */
+      private $city;
+      /**
+       * The country.
+       */
+      private $country;
+      /**
+       * The postal code.
+       */
+      private $postalCode;
+      /**
+       * The state or province.
+       */
+      private $stateOrProvince;
+      /**
+       * The street.
+       */
+      private $street;
+      /**
+       * Additional street information.
+       */
+      private $street2;
+      /**
+       * Additional street information.
+       */
+      private $street3;
+      /**
+       * The value of the property.
+       */
+      private $value;
 
-      // constructs a Agent from a (parsed) JSON hash
+      /**
+       * Constructs a Address from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Agent
+      
+      /**
+       * The city.
+       */
+      public function getCity() {
+        return $this->city;
+      }
+      
+      /**
+       * The city.
+       */
+      public function setCity($city) {
+        $this->city = $city;
+      }
+      
+      /**
+       * The country.
+       */
+      public function getCountry() {
+        return $this->country;
+      }
+      
+      /**
+       * The country.
+       */
+      public function setCountry($country) {
+        $this->country = $country;
+      }
+      
+      /**
+       * The postal code.
+       */
+      public function getPostalCode() {
+        return $this->postalCode;
+      }
+      
+      /**
+       * The postal code.
+       */
+      public function setPostalCode($postalCode) {
+        $this->postalCode = $postalCode;
+      }
+      
+      /**
+       * The state or province.
+       */
+      public function getStateOrProvince() {
+        return $this->stateOrProvince;
+      }
+      
+      /**
+       * The state or province.
+       */
+      public function setStateOrProvince($stateOrProvince) {
+        $this->stateOrProvince = $stateOrProvince;
+      }
+      
+      /**
+       * The street.
+       */
+      public function getStreet() {
+        return $this->street;
+      }
+      
+      /**
+       * The street.
+       */
+      public function setStreet($street) {
+        $this->street = $street;
+      }
+      
+      /**
+       * Additional street information.
+       */
+      public function getStreet2() {
+        return $this->street2;
+      }
+      
+      /**
+       * Additional street information.
+       */
+      public function setStreet2($street2) {
+        $this->street2 = $street2;
+      }
+      
+      /**
+       * Additional street information.
+       */
+      public function getStreet3() {
+        return $this->street3;
+      }
+      
+      /**
+       * Additional street information.
+       */
+      public function setStreet3($street3) {
+        $this->street3 = $street3;
+      }
+      
+      /**
+       * The value of the property.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The value of the property.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * Returns the associative array for this Address
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
+        if( $this->city ) {
+          $a["city"] = $this->city;
         }
-        if( $this->accounts ) {
-          $ab = array();
-          foreach( $this->accounts as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['accounts'] = $ab;
+        if( $this->country ) {
+          $a["country"] = $this->country;
         }
-        if( $this->addresses ) {
-          $ab = array();
-          foreach( $this->addresses as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['addresses'] = $ab;
+        if( $this->postalCode ) {
+          $a["postalCode"] = $this->postalCode;
         }
-        if( $this->emails ) {
-          $ab = array();
-          foreach( $this->emails as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['emails'] = $ab;
+        if( $this->stateOrProvince ) {
+          $a["stateOrProvince"] = $this->stateOrProvince;
         }
-        if( $this->homepage ) {
-          $a["homepage"] = $this->homepage->toArray();
+        if( $this->street ) {
+          $a["street"] = $this->street;
         }
-        if( $this->identifiers ) {
-          $ab = array();
-          foreach( $this->identifiers as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['identifiers'] = $ab;
+        if( $this->street2 ) {
+          $a["street2"] = $this->street2;
         }
-        if( $this->names ) {
-          $ab = array();
-          foreach( $this->names as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['names'] = $ab;
+        if( $this->street3 ) {
+          $a["street3"] = $this->street3;
         }
-        if( $this->openid ) {
-          $a["openid"] = $this->openid->toArray();
-        }
-        if( $this->phones ) {
-          $ab = array();
-          foreach( $this->phones as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['phones'] = $ab;
+        if( $this->value ) {
+          $a["value"] = $this->value;
         }
         return $a;
       }
       
 
-      // initializes this Agent with a json hash
+      /**
+       * Initializes this Address from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
+        if( isset($o['city']) ) {
+          $this->city = $o["city"];
         }
-        $this->accounts = array();
-        if( isset($o['accounts']) ) {
-          foreach( $o['accounts'] as $i => $x ) {
-            $this->accounts[$i] = new \Org\Gedcomx\Agent\OnlineAccount($x);
-          }
+        if( isset($o['country']) ) {
+          $this->country = $o["country"];
         }
-        $this->addresses = array();
-        if( isset($o['addresses']) ) {
-          foreach( $o['addresses'] as $i => $x ) {
-            $this->addresses[$i] = new \Org\Gedcomx\Agent\Address($x);
-          }
+        if( isset($o['postalCode']) ) {
+          $this->postalCode = $o["postalCode"];
         }
-        $this->emails = array();
-        if( isset($o['emails']) ) {
-          foreach( $o['emails'] as $i => $x ) {
-            $this->emails[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
-          }
+        if( isset($o['stateOrProvince']) ) {
+          $this->stateOrProvince = $o["stateOrProvince"];
         }
-        if( isset($o['homepage']) ) {
-          $this->homepage = new \Org\Gedcomx\Common\ResourceReference($o["homepage"]);
+        if( isset($o['street']) ) {
+          $this->street = $o["street"];
         }
-        $this->identifiers = array();
-        if( isset($o['identifiers']) ) {
-          foreach( $o['identifiers'] as $i => $x ) {
-            $this->identifiers[$i] = new \Org\Gedcomx\Conclusion\Identifier($x);
-          }
+        if( isset($o['street2']) ) {
+          $this->street2 = $o["street2"];
         }
-        $this->names = array();
-        if( isset($o['names']) ) {
-          foreach( $o['names'] as $i => $x ) {
-            $this->names[$i] = new \Org\Gedcomx\Common\TextValue($x);
-          }
+        if( isset($o['street3']) ) {
+          $this->street3 = $o["street3"];
         }
-        if( isset($o['openid']) ) {
-          $this->openid = new \Org\Gedcomx\Common\ResourceReference($o["openid"]);
-        }
-        $this->phones = array();
-        if( isset($o['phones']) ) {
-          foreach( $o['phones'] as $i => $x ) {
-            $this->phones[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
-          }
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Atom {
-
-    // <p>The Atom media types provide a format for web content and metadata syndication. The XML media type is defined by
-    // <a href="http://tools.ietf.org/html/rfc4287#section-4">RFC 4287</a>. The JSON media type is specific to GEDCOM X and is a
-    // translation to JSON from the XML.</p>
-    class Feed extends \Org\Gedcomx\Atom\ExtensibleElement  {
-    
-    
-      // The author of the feed.
-      var $authors;
-      // information about a category associated with the feed
-      var $contributors;
-      // identifies the agent used to generate the feed
-      var $generator;
-      // identifies an image that provides iconic visual identification for the feed.
-      var $icon;
-      // a permanent, universally unique identifier for the feed.
-      var $id;
-      // The total number of results available, if this feed is supplying a subset of results, such as for a query.
-      var $results;
-      // The index of the first entry in this page of data, if this feed is supplying a page of data.
-      var $index;
-      // a reference from a feed to a Web resource.
-      var $links;
-      // identifies an image that provides visual identification for the feed.
-      var $logo;
-      // information about rights held in and over the feed.
-      var $rights;
-      // a human-readable description or subtitle for the feed.
-      var $subtitle;
-      // a human-readable title for the feed
-      var $title;
-      // the most recent instant in time when the feed was modified in a way the publisher considers significant.
-      var $updated;
-      // The entries in the feed.
-      var $entries;
-
-      // constructs a Feed from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Feed
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->authors ) {
-          $ab = array();
-          foreach( $this->authors as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['authors'] = $ab;
-        }
-        if( $this->contributors ) {
-          $ab = array();
-          foreach( $this->contributors as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['contributors'] = $ab;
-        }
-        if( $this->generator ) {
-          $a["generator"] = $this->generator->toArray();
-        }
-        if( $this->icon ) {
-          $a["icon"] = $this->icon;
-        }
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
-        if( $this->results ) {
-          $a["results"] = $this->results;
-        }
-        if( $this->index ) {
-          $a["index"] = $this->index;
-        }
-        if( $this->links ) {
-          $ab = array();
-          foreach( $this->links as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['links'] = $ab;
-        }
-        if( $this->logo ) {
-          $a["logo"] = $this->logo;
-        }
-        if( $this->rights ) {
-          $a["rights"] = $this->rights;
-        }
-        if( $this->subtitle ) {
-          $a["subtitle"] = $this->subtitle;
-        }
-        if( $this->title ) {
-          $a["title"] = $this->title;
-        }
-        if( $this->updated ) {
-          $a["updated"] = $this->updated;
-        }
-        if( $this->entries ) {
-          $ab = array();
-          foreach( $this->entries as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['entries'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      // initializes this Feed with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        $this->authors = array();
-        if( isset($o['authors']) ) {
-          foreach( $o['authors'] as $i => $x ) {
-            $this->authors[$i] = new \Org\Gedcomx\Atom\Person($x);
-          }
-        }
-        $this->contributors = array();
-        if( isset($o['contributors']) ) {
-          foreach( $o['contributors'] as $i => $x ) {
-            $this->contributors[$i] = new \Org\Gedcomx\Atom\Person($x);
-          }
-        }
-        if( isset($o['generator']) ) {
-          $this->generator = new \Org\Gedcomx\Atom\Generator($o["generator"]);
-        }
-        if( isset($o['icon']) ) {
-          $this->icon = $o["icon"];
-        }
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
-        if( isset($o['results']) ) {
-          $this->results = $o["results"];
-        }
-        if( isset($o['index']) ) {
-          $this->index = $o["index"];
-        }
-        $this->links = array();
-        if( isset($o['links']) ) {
-          foreach( $o['links'] as $i => $x ) {
-            $this->links[$i] = new \Org\Gedcomx\Links\Link($x);
-          }
-        }
-        if( isset($o['logo']) ) {
-          $this->logo = $o["logo"];
-        }
-        if( isset($o['rights']) ) {
-          $this->rights = $o["rights"];
-        }
-        if( isset($o['subtitle']) ) {
-          $this->subtitle = $o["subtitle"];
-        }
-        if( isset($o['title']) ) {
-          $this->title = $o["title"];
-        }
-        if( isset($o['updated']) ) {
-          $this->updated = $o["updated"];
-        }
-        $this->entries = array();
-        if( isset($o['entries']) ) {
-          foreach( $o['entries'] as $i => $x ) {
-            $this->entries[$i] = new \Org\Gedcomx\Atom\Entry($x);
-          }
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Atom {
-
-    // A Person construct is an element that describes a person, corporation, or similar entity
-    class Person extends \Org\Gedcomx\Atom\ExtensibleElement  {
-    
-    
-      // a human-readable name for the person.
-      var $name;
-      // an IRI associated with the person.
-      var $uri;
-      // an e-mail address associated with the person.
-      var $email;
-
-      // constructs a Person from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Person
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        if( $this->uri ) {
-          $a["uri"] = $this->uri;
-        }
-        if( $this->email ) {
-          $a["email"] = $this->email;
-        }
-        return $a;
-      }
-      
-
-      // initializes this Person with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
-        if( isset($o['uri']) ) {
-          $this->uri = $o["uri"];
-        }
-        if( isset($o['email']) ) {
-          $this->email = $o["email"];
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
         }
       }
     
@@ -2628,32 +3663,81 @@
 
   namespace Org\Familysearch\Platform\Discussions {
 
-    // 
+    /**
+     * 
+     */
     class Comment extends \Org\Gedcomx\Links\HypermediaEnabledData  {
     
-      // A local, context-specific id for the data.
-      var $id;
     
-      // The text or &quot;message body&quot; of the comment
-      var $text;
-      // date of creation
-      var $created;
-      // contributor of comment
-      var $contributor;
+      /**
+       * The text or &quot;message body&quot; of the comment
+       */
+      private $text;
+      /**
+       * date of creation
+       */
+      private $created;
+      /**
+       * contributor of comment
+       */
+      private $contributor;
 
-      // constructs a Comment from a (parsed) JSON hash
+      /**
+       * Constructs a Comment from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Comment
+      
+      /**
+       * The text or &quot;message body&quot; of the comment
+       */
+      public function getText() {
+        return $this->text;
+      }
+      
+      /**
+       * The text or &quot;message body&quot; of the comment
+       */
+      public function setText($text) {
+        $this->text = $text;
+      }
+      
+      /**
+       * date of creation
+       */
+      public function getCreated() {
+        return $this->created;
+      }
+      
+      /**
+       * date of creation
+       */
+      public function setCreated($created) {
+        $this->created = $created;
+      }
+      
+      /**
+       * contributor of comment
+       */
+      public function getContributor() {
+        return $this->contributor;
+      }
+      
+      /**
+       * contributor of comment
+       */
+      public function setContributor($contributor) {
+        $this->contributor = $contributor;
+      }
+      
+      /**
+       * Returns the associative array for this Comment
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
         if( $this->text ) {
           $a["text"] = $this->text;
         }
@@ -2667,12 +3751,11 @@
       }
       
 
-      // initializes this Comment with a json hash
+      /**
+       * Initializes this Comment from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
         if( isset($o['text']) ) {
           $this->text = $o["text"];
         }
@@ -2689,120 +3772,351 @@
   }
 
 
-  namespace Org\Familysearch\Platform\Sources {
-
-    // A representation of a folder in the user's source box.
-    class Folder extends \Org\Gedcomx\Links\HypermediaEnabledData  {
-    
-      // A local, context-specific id for the data.
-      var $id;
-      // Number of comments
-      var $sourceCount;
-    
-      // the one-line summary text
-      var $name;
-      // contributor of discussion
-      var $contributor;
-
-      // constructs a Folder from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Folder
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
-        if( $this->sourceCount ) {
-          $a["sourceCount"] = $this->sourceCount;
-        }
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        if( $this->contributor ) {
-          $a["contributor"] = $this->contributor->toArray();
-        }
-        return $a;
-      }
-      
-
-      // initializes this Folder with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
-        if( isset($o['sourceCount']) ) {
-          $this->sourceCount = $o["sourceCount"];
-        }
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
-        if( isset($o['contributor']) ) {
-          $this->contributor = new \Org\Gedcomx\Common\ResourceReference($o["contributor"]);
-        }
-      }
-    
-    }
-    
-  }
-
-
   namespace Org\Familysearch\Platform\Users {
 
-    // Family Tree User Service User
+    /**
+     * Family Tree User Service User
+     */
     class User extends \Org\Gedcomx\Links\HypermediaEnabledData  {
     
     
-      // (no documentation provided)
-      var $alternateEmail;
-      // (no documentation provided)
-      var $birthDate;
-      // (no documentation provided)
-      var $contactName;
-      // (no documentation provided)
-      var $country;
-      // (no documentation provided)
-      var $displayName;
-      // (no documentation provided)
-      var $email;
-      // (no documentation provided)
-      var $familyName;
-      // (no documentation provided)
-      var $fullName;
-      // (no documentation provided)
-      var $gender;
-      // (no documentation provided)
-      var $givenName;
-      // (no documentation provided)
-      var $helperAccessPin;
-      // (no documentation provided)
-      var $id;
-      // (no documentation provided)
-      var $ldsMemberAccount;
-      // (no documentation provided)
-      var $mailingAddress;
-      // (no documentation provided)
-      var $personId;
-      // (no documentation provided)
-      var $phoneNumber;
-      // (no documentation provided)
-      var $preferredLanguage;
-      // (no documentation provided)
-      var $treeUserId;
+      /**
+       * (no documentation provided)
+       */
+      private $alternateEmail;
+      /**
+       * (no documentation provided)
+       */
+      private $birthDate;
+      /**
+       * (no documentation provided)
+       */
+      private $contactName;
+      /**
+       * (no documentation provided)
+       */
+      private $country;
+      /**
+       * (no documentation provided)
+       */
+      private $displayName;
+      /**
+       * (no documentation provided)
+       */
+      private $email;
+      /**
+       * (no documentation provided)
+       */
+      private $familyName;
+      /**
+       * (no documentation provided)
+       */
+      private $fullName;
+      /**
+       * (no documentation provided)
+       */
+      private $gender;
+      /**
+       * (no documentation provided)
+       */
+      private $givenName;
+      /**
+       * (no documentation provided)
+       */
+      private $helperAccessPin;
+      /**
+       * (no documentation provided)
+       */
+      private $id;
+      /**
+       * (no documentation provided)
+       */
+      private $ldsMemberAccount;
+      /**
+       * (no documentation provided)
+       */
+      private $mailingAddress;
+      /**
+       * (no documentation provided)
+       */
+      private $personId;
+      /**
+       * (no documentation provided)
+       */
+      private $phoneNumber;
+      /**
+       * (no documentation provided)
+       */
+      private $preferredLanguage;
+      /**
+       * (no documentation provided)
+       */
+      private $treeUserId;
 
-      // constructs a User from a (parsed) JSON hash
+      /**
+       * Constructs a User from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this User
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getAlternateEmail() {
+        return $this->alternateEmail;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setAlternateEmail($alternateEmail) {
+        $this->alternateEmail = $alternateEmail;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getBirthDate() {
+        return $this->birthDate;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setBirthDate($birthDate) {
+        $this->birthDate = $birthDate;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getContactName() {
+        return $this->contactName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setContactName($contactName) {
+        $this->contactName = $contactName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getCountry() {
+        return $this->country;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setCountry($country) {
+        $this->country = $country;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getDisplayName() {
+        return $this->displayName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setDisplayName($displayName) {
+        $this->displayName = $displayName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getEmail() {
+        return $this->email;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setEmail($email) {
+        $this->email = $email;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getFamilyName() {
+        return $this->familyName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setFamilyName($familyName) {
+        $this->familyName = $familyName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getFullName() {
+        return $this->fullName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setFullName($fullName) {
+        $this->fullName = $fullName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getGender() {
+        return $this->gender;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setGender($gender) {
+        $this->gender = $gender;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getGivenName() {
+        return $this->givenName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setGivenName($givenName) {
+        $this->givenName = $givenName;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getHelperAccessPin() {
+        return $this->helperAccessPin;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setHelperAccessPin($helperAccessPin) {
+        $this->helperAccessPin = $helperAccessPin;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getId() {
+        return $this->id;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setId($id) {
+        $this->id = $id;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getLdsMemberAccount() {
+        return $this->ldsMemberAccount;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setLdsMemberAccount($ldsMemberAccount) {
+        $this->ldsMemberAccount = $ldsMemberAccount;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getMailingAddress() {
+        return $this->mailingAddress;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setMailingAddress($mailingAddress) {
+        $this->mailingAddress = $mailingAddress;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getPersonId() {
+        return $this->personId;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setPersonId($personId) {
+        $this->personId = $personId;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getPhoneNumber() {
+        return $this->phoneNumber;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setPhoneNumber($phoneNumber) {
+        $this->phoneNumber = $phoneNumber;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getPreferredLanguage() {
+        return $this->preferredLanguage;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setPreferredLanguage($preferredLanguage) {
+        $this->preferredLanguage = $preferredLanguage;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function getTreeUserId() {
+        return $this->treeUserId;
+      }
+      
+      /**
+       * (no documentation provided)
+       */
+      public function setTreeUserId($treeUserId) {
+        $this->treeUserId = $treeUserId;
+      }
+      
+      /**
+       * Returns the associative array for this User
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->alternateEmail ) {
@@ -2863,7 +4177,9 @@
       }
       
 
-      // initializes this User with a json hash
+      /**
+       * Initializes this User from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['alternateEmail']) ) {
@@ -2929,40 +4245,153 @@
 
   namespace Org\Familysearch\Platform\Discussions {
 
-    // A discussion.
+    /**
+     * A discussion.
+     */
     class Discussion extends \Org\Gedcomx\Links\HypermediaEnabledData  {
     
-      // A local, context-specific id for the data.
-      var $id;
     
-      // the one-line summary text
-      var $title;
-      // The text or &quot;message body&quot; of the discussion
-      var $details;
-      // date of creation
-      var $created;
-      // contributor of discussion
-      var $contributor;
-      // Date of last modification
-      var $modified;
-      // Number of comments
-      var $numberOfComments;
-      // The comments on this discussion.
-      var $comments;
+      /**
+       * the one-line summary text
+       */
+      private $title;
+      /**
+       * The text or &quot;message body&quot; of the discussion
+       */
+      private $details;
+      /**
+       * date of creation
+       */
+      private $created;
+      /**
+       * contributor of discussion
+       */
+      private $contributor;
+      /**
+       * Date of last modification
+       */
+      private $modified;
+      /**
+       * Number of comments
+       */
+      private $numberOfComments;
+      /**
+       * The comments on this discussion.
+       */
+      private $comments;
 
-      // constructs a Discussion from a (parsed) JSON hash
+      /**
+       * Constructs a Discussion from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Discussion
+      
+      /**
+       * the one-line summary text
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * the one-line summary text
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * The text or &quot;message body&quot; of the discussion
+       */
+      public function getDetails() {
+        return $this->details;
+      }
+      
+      /**
+       * The text or &quot;message body&quot; of the discussion
+       */
+      public function setDetails($details) {
+        $this->details = $details;
+      }
+      
+      /**
+       * date of creation
+       */
+      public function getCreated() {
+        return $this->created;
+      }
+      
+      /**
+       * date of creation
+       */
+      public function setCreated($created) {
+        $this->created = $created;
+      }
+      
+      /**
+       * contributor of discussion
+       */
+      public function getContributor() {
+        return $this->contributor;
+      }
+      
+      /**
+       * contributor of discussion
+       */
+      public function setContributor($contributor) {
+        $this->contributor = $contributor;
+      }
+      
+      /**
+       * Date of last modification
+       */
+      public function getModified() {
+        return $this->modified;
+      }
+      
+      /**
+       * Date of last modification
+       */
+      public function setModified($modified) {
+        $this->modified = $modified;
+      }
+      
+      /**
+       * Number of comments
+       */
+      public function getNumberOfComments() {
+        return $this->numberOfComments;
+      }
+      
+      /**
+       * Number of comments
+       */
+      public function setNumberOfComments($numberOfComments) {
+        $this->numberOfComments = $numberOfComments;
+      }
+      
+      /**
+       * The comments on this discussion.
+       */
+      public function getComments() {
+        return $this->comments;
+      }
+      
+      /**
+       * The comments on this discussion.
+       */
+      public function setComments($comments) {
+        $this->comments = $comments;
+      }
+      
+      /**
+       * Returns the associative array for this Discussion
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
         if( $this->title ) {
           $a["title"] = $this->title;
         }
@@ -2992,12 +4421,11 @@
       }
       
 
-      // initializes this Discussion with a json hash
+      /**
+       * Initializes this Discussion from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
         if( isset($o['title']) ) {
           $this->title = $o["title"];
         }
@@ -3029,23 +4457,218 @@
   }
 
 
-  namespace Org\Familysearch\Platform\Ct {
+  namespace Org\Gedcomx\Records {
 
-    // 
-    class DiscussionReference extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    /**
+     * <p>A <tt>facet</tt> is a logical grouping of resources by specific criteria, used for convenience in browsing a collection or a set of search results.</p>
+     */
+    class Facet extends \Org\Gedcomx\Links\HypermediaEnabledData  {
     
-      // The URI to the resource.
-      var $resource;
+      /**
+       * The type of the facet.
+       */
+      private $type;
     
+      /**
+       * A title for the facet.
+       */
+      private $title;
+      /**
+       * A key unique within the context of this facet, used to apply the facet.
+       */
+      private $key;
+      /**
+       * The set of sub-facets of this facet.
+       */
+      private $facets;
+      /**
+       * The set of values for the field.
+       */
+      private $values;
 
-      // constructs a DiscussionReference from a (parsed) JSON hash
+      /**
+       * Constructs a Facet from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
+      
+      /**
+       * The type of the facet.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the facet.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * A title for the facet.
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * A title for the facet.
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * A key unique within the context of this facet, used to apply the facet.
+       */
+      public function getKey() {
+        return $this->key;
+      }
+      
+      /**
+       * A key unique within the context of this facet, used to apply the facet.
+       */
+      public function setKey($key) {
+        $this->key = $key;
+      }
+      
+      /**
+       * The set of sub-facets of this facet.
+       */
+      public function getFacets() {
+        return $this->facets;
+      }
+      
+      /**
+       * The set of sub-facets of this facet.
+       */
+      public function setFacets($facets) {
+        $this->facets = $facets;
+      }
+      
+      /**
+       * The set of values for the field.
+       */
+      public function getValues() {
+        return $this->values;
+      }
+      
+      /**
+       * The set of values for the field.
+       */
+      public function setValues($values) {
+        $this->values = $values;
+      }
+      
+      /**
+       * Returns the associative array for this Facet
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->title ) {
+          $a["title"] = $this->title;
+        }
+        if( $this->key ) {
+          $a["key"] = $this->key;
+        }
+        if( $this->facets ) {
+          $ab = array();
+          foreach( $this->facets as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['facets'] = $ab;
+        }
+        if( $this->values ) {
+          $ab = array();
+          foreach( $this->values as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['values'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Facet from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        if( isset($o['title']) ) {
+          $this->title = $o["title"];
+        }
+        if( isset($o['key']) ) {
+          $this->key = $o["key"];
+        }
+        $this->facets = array();
+        if( isset($o['facets']) ) {
+          foreach( $o['facets'] as $i => $x ) {
+            $this->facets[$i] = new \Org\Gedcomx\Records\Facet($x);
+          }
+        }
+        $this->values = array();
+        if( isset($o['values']) ) {
+          foreach( $o['values'] as $i => $x ) {
+            $this->values[$i] = new \Org\Gedcomx\Records\FacetValue($x);
+          }
+        }
+      }
     
-      // the json hash for this DiscussionReference
+    }
+    
+  }
+
+
+  namespace Org\Familysearch\Platform\Ct {
+
+    /**
+     * 
+     */
+    class DiscussionReference extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The URI to the resource.
+       */
+      private $resource;
+    
+
+      /**
+       * Constructs a DiscussionReference from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The URI to the resource.
+       */
+      public function getResource() {
+        return $this->resource;
+      }
+      
+      /**
+       * The URI to the resource.
+       */
+      public function setResource($resource) {
+        $this->resource = $resource;
+      }
+      
+      /**
+       * Returns the associative array for this DiscussionReference
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->resource ) {
@@ -3055,7 +4678,9 @@
       }
       
 
-      // initializes this DiscussionReference with a json hash
+      /**
+       * Initializes this DiscussionReference from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['resource']) ) {
@@ -3068,55 +4693,3555 @@
   }
 
 
-  namespace Org\Gedcomx {
+  namespace Org\Gedcomx\Records {
 
-    // <p>The GEDCOM X media types define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
-    // is provided by the formal specification documents:</p>
-    // 
-    // <ul>
-    // <li><a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md">The GEDCOM X Conceptual Model, Version 1.0</a></li>
-    // <li><a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md">The GEDCOM X JSON Format, Version 1.0</a></li>
-    // <li><a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md">The GEDCOM X XML Format, Version 1.0</a></li>
-    // </ul>
-    // 
-    // <p>This documentation is provided as a non-normative reference guide.</p>
-    class Gedcomx extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    /**
+     * A field of a record.
+     */
+    class Field extends \Org\Gedcomx\Links\HypermediaEnabledData  {
     
-      // The id of this genealogical data set.
-      var $id;
-      // The language of the genealogical data.
-      var $lang;
+      /**
+       * The type of the gender.
+       */
+      private $type;
     
-      // The attribution of this genealogical data.
-      var $attribution;
-      // The persons included in this genealogical data set.
-      var $persons;
-      // The relationships included in this genealogical data set.
-      var $relationships;
-      // The descriptions of sources included in this genealogical data set.
-      var $sourceDescriptions;
-      // The agents included in this genealogical data set.
-      var $agents;
-      // The events included in this genealogical data set.
-      var $events;
-      // The places included in this genealogical data set.
-      var $places;
-      // The documents included in this genealogical data set.
-      var $documents;
+      /**
+       * A unique label for the field.
+       */
+      private $label;
+      /**
+       * The set of values for the field.
+       */
+      private $values;
 
-      // constructs a Gedcomx from a (parsed) JSON hash
+      /**
+       * Constructs a Field from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Gedcomx
+      
+      /**
+       * The type of the gender.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the gender.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * A unique label for the field.
+       */
+      public function getLabel() {
+        return $this->label;
+      }
+      
+      /**
+       * A unique label for the field.
+       */
+      public function setLabel($label) {
+        $this->label = $label;
+      }
+      
+      /**
+       * The set of values for the field.
+       */
+      public function getValues() {
+        return $this->values;
+      }
+      
+      /**
+       * The set of values for the field.
+       */
+      public function setValues($values) {
+        $this->values = $values;
+      }
+      
+      /**
+       * Returns the associative array for this Field
+       */
       public function toArray() {
         $a = parent::toArray();
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->label ) {
+          $a["label"] = $this->label;
+        }
+        if( $this->values ) {
+          $ab = array();
+          foreach( $this->values as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['values'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Field from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        if( isset($o['label']) ) {
+          $this->label = $o["label"];
+        }
+        $this->values = array();
+        if( isset($o['values']) ) {
+          foreach( $o['values'] as $i => $x ) {
+            $this->values[$i] = new \Org\Gedcomx\Records\FieldValue($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Atom {
+
+    /**
+     * A Person construct is an element that describes a person, corporation, or similar entity
+     */
+    class Person extends \Org\Gedcomx\Atom\ExtensibleElement  {
+    
+    
+      /**
+       * a human-readable name for the person.
+       */
+      private $name;
+      /**
+       * an IRI associated with the person.
+       */
+      private $uri;
+      /**
+       * an e-mail address associated with the person.
+       */
+      private $email;
+
+      /**
+       * Constructs a Person from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * a human-readable name for the person.
+       */
+      public function getName() {
+        return $this->name;
+      }
+      
+      /**
+       * a human-readable name for the person.
+       */
+      public function setName($name) {
+        $this->name = $name;
+      }
+      
+      /**
+       * an IRI associated with the person.
+       */
+      public function getUri() {
+        return $this->uri;
+      }
+      
+      /**
+       * an IRI associated with the person.
+       */
+      public function setUri($uri) {
+        $this->uri = $uri;
+      }
+      
+      /**
+       * an e-mail address associated with the person.
+       */
+      public function getEmail() {
+        return $this->email;
+      }
+      
+      /**
+       * an e-mail address associated with the person.
+       */
+      public function setEmail($email) {
+        $this->email = $email;
+      }
+      
+      /**
+       * Returns the associative array for this Person
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->name ) {
+          $a["name"] = $this->name;
+        }
+        if( $this->uri ) {
+          $a["uri"] = $this->uri;
+        }
+        if( $this->email ) {
+          $a["email"] = $this->email;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Person from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['name']) ) {
+          $this->name = $o["name"];
+        }
+        if( isset($o['uri']) ) {
+          $this->uri = $o["uri"];
+        }
+        if( isset($o['email']) ) {
+          $this->email = $o["email"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Atom {
+
+    /**
+     * <p>The Atom media types provide a format for web content and metadata syndication. The XML media type is defined by
+     * <a href="http://tools.ietf.org/html/rfc4287#section-4">RFC 4287</a>. The JSON media type is specific to GEDCOM X and is a
+     * translation to JSON from the XML.</p>
+     */
+    class Feed extends \Org\Gedcomx\Atom\ExtensibleElement  {
+    
+    
+      /**
+       * The author of the feed.
+       */
+      private $authors;
+      /**
+       * information about a category associated with the feed
+       */
+      private $contributors;
+      /**
+       * identifies the agent used to generate the feed
+       */
+      private $generator;
+      /**
+       * identifies an image that provides iconic visual identification for the feed.
+       */
+      private $icon;
+      /**
+       * a permanent, universally unique identifier for the feed.
+       */
+      private $id;
+      /**
+       * The total number of results available, if this feed is supplying a subset of results, such as for a query.
+       */
+      private $results;
+      /**
+       * The index of the first entry in this page of data, if this feed is supplying a page of data.
+       */
+      private $index;
+      /**
+       * a reference from a feed to a Web resource.
+       */
+      private $links;
+      /**
+       * identifies an image that provides visual identification for the feed.
+       */
+      private $logo;
+      /**
+       * information about rights held in and over the feed.
+       */
+      private $rights;
+      /**
+       * a human-readable description or subtitle for the feed.
+       */
+      private $subtitle;
+      /**
+       * a human-readable title for the feed
+       */
+      private $title;
+      /**
+       * the most recent instant in time when the feed was modified in a way the publisher considers significant.
+       */
+      private $updated;
+      /**
+       * The entries in the feed.
+       */
+      private $entries;
+      /**
+       * The list of facets for the feed, used for convenience in browsing and filtering.
+       */
+      private $facets;
+
+      /**
+       * Constructs a Feed from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The author of the feed.
+       */
+      public function getAuthors() {
+        return $this->authors;
+      }
+      
+      /**
+       * The author of the feed.
+       */
+      public function setAuthors($authors) {
+        $this->authors = $authors;
+      }
+      
+      /**
+       * information about a category associated with the feed
+       */
+      public function getContributors() {
+        return $this->contributors;
+      }
+      
+      /**
+       * information about a category associated with the feed
+       */
+      public function setContributors($contributors) {
+        $this->contributors = $contributors;
+      }
+      
+      /**
+       * identifies the agent used to generate the feed
+       */
+      public function getGenerator() {
+        return $this->generator;
+      }
+      
+      /**
+       * identifies the agent used to generate the feed
+       */
+      public function setGenerator($generator) {
+        $this->generator = $generator;
+      }
+      
+      /**
+       * identifies an image that provides iconic visual identification for the feed.
+       */
+      public function getIcon() {
+        return $this->icon;
+      }
+      
+      /**
+       * identifies an image that provides iconic visual identification for the feed.
+       */
+      public function setIcon($icon) {
+        $this->icon = $icon;
+      }
+      
+      /**
+       * a permanent, universally unique identifier for the feed.
+       */
+      public function getId() {
+        return $this->id;
+      }
+      
+      /**
+       * a permanent, universally unique identifier for the feed.
+       */
+      public function setId($id) {
+        $this->id = $id;
+      }
+      
+      /**
+       * The total number of results available, if this feed is supplying a subset of results, such as for a query.
+       */
+      public function getResults() {
+        return $this->results;
+      }
+      
+      /**
+       * The total number of results available, if this feed is supplying a subset of results, such as for a query.
+       */
+      public function setResults($results) {
+        $this->results = $results;
+      }
+      
+      /**
+       * The index of the first entry in this page of data, if this feed is supplying a page of data.
+       */
+      public function getIndex() {
+        return $this->index;
+      }
+      
+      /**
+       * The index of the first entry in this page of data, if this feed is supplying a page of data.
+       */
+      public function setIndex($index) {
+        $this->index = $index;
+      }
+      
+      /**
+       * a reference from a feed to a Web resource.
+       */
+      public function getLinks() {
+        return $this->links;
+      }
+      
+      /**
+       * a reference from a feed to a Web resource.
+       */
+      public function setLinks($links) {
+        $this->links = $links;
+      }
+      
+      /**
+       * identifies an image that provides visual identification for the feed.
+       */
+      public function getLogo() {
+        return $this->logo;
+      }
+      
+      /**
+       * identifies an image that provides visual identification for the feed.
+       */
+      public function setLogo($logo) {
+        $this->logo = $logo;
+      }
+      
+      /**
+       * information about rights held in and over the feed.
+       */
+      public function getRights() {
+        return $this->rights;
+      }
+      
+      /**
+       * information about rights held in and over the feed.
+       */
+      public function setRights($rights) {
+        $this->rights = $rights;
+      }
+      
+      /**
+       * a human-readable description or subtitle for the feed.
+       */
+      public function getSubtitle() {
+        return $this->subtitle;
+      }
+      
+      /**
+       * a human-readable description or subtitle for the feed.
+       */
+      public function setSubtitle($subtitle) {
+        $this->subtitle = $subtitle;
+      }
+      
+      /**
+       * a human-readable title for the feed
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * a human-readable title for the feed
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * the most recent instant in time when the feed was modified in a way the publisher considers significant.
+       */
+      public function getUpdated() {
+        return $this->updated;
+      }
+      
+      /**
+       * the most recent instant in time when the feed was modified in a way the publisher considers significant.
+       */
+      public function setUpdated($updated) {
+        $this->updated = $updated;
+      }
+      
+      /**
+       * The entries in the feed.
+       */
+      public function getEntries() {
+        return $this->entries;
+      }
+      
+      /**
+       * The entries in the feed.
+       */
+      public function setEntries($entries) {
+        $this->entries = $entries;
+      }
+      
+      /**
+       * The list of facets for the feed, used for convenience in browsing and filtering.
+       */
+      public function getFacets() {
+        return $this->facets;
+      }
+      
+      /**
+       * The list of facets for the feed, used for convenience in browsing and filtering.
+       */
+      public function setFacets($facets) {
+        $this->facets = $facets;
+      }
+      
+      /**
+       * Returns the associative array for this Feed
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->authors ) {
+          $ab = array();
+          foreach( $this->authors as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['authors'] = $ab;
+        }
+        if( $this->contributors ) {
+          $ab = array();
+          foreach( $this->contributors as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['contributors'] = $ab;
+        }
+        if( $this->generator ) {
+          $a["generator"] = $this->generator->toArray();
+        }
+        if( $this->icon ) {
+          $a["icon"] = $this->icon;
+        }
         if( $this->id ) {
           $a["id"] = $this->id;
         }
+        if( $this->results ) {
+          $a["results"] = $this->results;
+        }
+        if( $this->index ) {
+          $a["index"] = $this->index;
+        }
+        if( $this->links ) {
+          $ab = array();
+          foreach( $this->links as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['links'] = $ab;
+        }
+        if( $this->logo ) {
+          $a["logo"] = $this->logo;
+        }
+        if( $this->rights ) {
+          $a["rights"] = $this->rights;
+        }
+        if( $this->subtitle ) {
+          $a["subtitle"] = $this->subtitle;
+        }
+        if( $this->title ) {
+          $a["title"] = $this->title;
+        }
+        if( $this->updated ) {
+          $a["updated"] = $this->updated;
+        }
+        if( $this->entries ) {
+          $ab = array();
+          foreach( $this->entries as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['entries'] = $ab;
+        }
+        if( $this->facets ) {
+          $ab = array();
+          foreach( $this->facets as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['facets'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Feed from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        $this->authors = array();
+        if( isset($o['authors']) ) {
+          foreach( $o['authors'] as $i => $x ) {
+            $this->authors[$i] = new \Org\Gedcomx\Atom\Person($x);
+          }
+        }
+        $this->contributors = array();
+        if( isset($o['contributors']) ) {
+          foreach( $o['contributors'] as $i => $x ) {
+            $this->contributors[$i] = new \Org\Gedcomx\Atom\Person($x);
+          }
+        }
+        if( isset($o['generator']) ) {
+          $this->generator = new \Org\Gedcomx\Atom\Generator($o["generator"]);
+        }
+        if( isset($o['icon']) ) {
+          $this->icon = $o["icon"];
+        }
+        if( isset($o['id']) ) {
+          $this->id = $o["id"];
+        }
+        if( isset($o['results']) ) {
+          $this->results = $o["results"];
+        }
+        if( isset($o['index']) ) {
+          $this->index = $o["index"];
+        }
+        $this->links = array();
+        if( isset($o['links']) ) {
+          foreach( $o['links'] as $i => $x ) {
+            $this->links[$i] = new \Org\Gedcomx\Links\Link($x);
+          }
+        }
+        if( isset($o['logo']) ) {
+          $this->logo = $o["logo"];
+        }
+        if( isset($o['rights']) ) {
+          $this->rights = $o["rights"];
+        }
+        if( isset($o['subtitle']) ) {
+          $this->subtitle = $o["subtitle"];
+        }
+        if( isset($o['title']) ) {
+          $this->title = $o["title"];
+        }
+        if( isset($o['updated']) ) {
+          $this->updated = $o["updated"];
+        }
+        $this->entries = array();
+        if( isset($o['entries']) ) {
+          foreach( $o['entries'] as $i => $x ) {
+            $this->entries[$i] = new \Org\Gedcomx\Atom\Entry($x);
+          }
+        }
+        $this->facets = array();
+        if( isset($o['facets']) ) {
+          foreach( $o['facets'] as $i => $x ) {
+            $this->facets[$i] = new \Org\Gedcomx\Records\Facet($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Atom {
+
+    /**
+     * The "atom:entry" element represents an individual entry, acting as a container for metadata and data associated with the entry.
+     */
+    class Entry extends \Org\Gedcomx\Atom\ExtensibleElement  {
+    
+    
+      /**
+       * The author of the entry.
+       */
+      private $authors;
+      /**
+       * information about a category associated with an entry.
+       */
+      private $categories;
+      /**
+       * The confidence of the result, if this entry represents a search result.
+       */
+      private $confidence;
+      /**
+       * The content of the entry.
+       */
+      private $content;
+      /**
+       * information about a category associated with the entry
+       */
+      private $contributors;
+      /**
+       * a permanent, universally unique identifier for the entry.
+       */
+      private $id;
+      /**
+       * a reference from a entry to a Web resource.
+       */
+      private $links;
+      /**
+       * instant in time associated with an event early in the life cycle of the entry.
+       */
+      private $published;
+      /**
+       * information about rights held in and over the entry.
+       */
+      private $rights;
+      /**
+       * The relevance score.
+       */
+      private $score;
+      /**
+       * a human-readable title for the entry
+       */
+      private $title;
+      /**
+       * the most recent instant in time when the entry was modified in a way the publisher considers significant.
+       */
+      private $updated;
+
+      /**
+       * Constructs a Entry from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The author of the entry.
+       */
+      public function getAuthors() {
+        return $this->authors;
+      }
+      
+      /**
+       * The author of the entry.
+       */
+      public function setAuthors($authors) {
+        $this->authors = $authors;
+      }
+      
+      /**
+       * information about a category associated with an entry.
+       */
+      public function getCategories() {
+        return $this->categories;
+      }
+      
+      /**
+       * information about a category associated with an entry.
+       */
+      public function setCategories($categories) {
+        $this->categories = $categories;
+      }
+      
+      /**
+       * The confidence of the result, if this entry represents a search result.
+       */
+      public function getConfidence() {
+        return $this->confidence;
+      }
+      
+      /**
+       * The confidence of the result, if this entry represents a search result.
+       */
+      public function setConfidence($confidence) {
+        $this->confidence = $confidence;
+      }
+      
+      /**
+       * The content of the entry.
+       */
+      public function getContent() {
+        return $this->content;
+      }
+      
+      /**
+       * The content of the entry.
+       */
+      public function setContent($content) {
+        $this->content = $content;
+      }
+      
+      /**
+       * information about a category associated with the entry
+       */
+      public function getContributors() {
+        return $this->contributors;
+      }
+      
+      /**
+       * information about a category associated with the entry
+       */
+      public function setContributors($contributors) {
+        $this->contributors = $contributors;
+      }
+      
+      /**
+       * a permanent, universally unique identifier for the entry.
+       */
+      public function getId() {
+        return $this->id;
+      }
+      
+      /**
+       * a permanent, universally unique identifier for the entry.
+       */
+      public function setId($id) {
+        $this->id = $id;
+      }
+      
+      /**
+       * a reference from a entry to a Web resource.
+       */
+      public function getLinks() {
+        return $this->links;
+      }
+      
+      /**
+       * a reference from a entry to a Web resource.
+       */
+      public function setLinks($links) {
+        $this->links = $links;
+      }
+      
+      /**
+       * instant in time associated with an event early in the life cycle of the entry.
+       */
+      public function getPublished() {
+        return $this->published;
+      }
+      
+      /**
+       * instant in time associated with an event early in the life cycle of the entry.
+       */
+      public function setPublished($published) {
+        $this->published = $published;
+      }
+      
+      /**
+       * information about rights held in and over the entry.
+       */
+      public function getRights() {
+        return $this->rights;
+      }
+      
+      /**
+       * information about rights held in and over the entry.
+       */
+      public function setRights($rights) {
+        $this->rights = $rights;
+      }
+      
+      /**
+       * The relevance score.
+       */
+      public function getScore() {
+        return $this->score;
+      }
+      
+      /**
+       * The relevance score.
+       */
+      public function setScore($score) {
+        $this->score = $score;
+      }
+      
+      /**
+       * a human-readable title for the entry
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * a human-readable title for the entry
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * the most recent instant in time when the entry was modified in a way the publisher considers significant.
+       */
+      public function getUpdated() {
+        return $this->updated;
+      }
+      
+      /**
+       * the most recent instant in time when the entry was modified in a way the publisher considers significant.
+       */
+      public function setUpdated($updated) {
+        $this->updated = $updated;
+      }
+      
+      /**
+       * Returns the associative array for this Entry
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->authors ) {
+          $ab = array();
+          foreach( $this->authors as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['authors'] = $ab;
+        }
+        if( $this->categories ) {
+          $ab = array();
+          foreach( $this->categories as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['categories'] = $ab;
+        }
+        if( $this->confidence ) {
+          $a["confidence"] = $this->confidence;
+        }
+        if( $this->content ) {
+          $a["content"] = $this->content->toArray();
+        }
+        if( $this->contributors ) {
+          $ab = array();
+          foreach( $this->contributors as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['contributors'] = $ab;
+        }
+        if( $this->id ) {
+          $a["id"] = $this->id;
+        }
+        if( $this->links ) {
+          $ab = array();
+          foreach( $this->links as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['links'] = $ab;
+        }
+        if( $this->published ) {
+          $a["published"] = $this->published;
+        }
+        if( $this->rights ) {
+          $a["rights"] = $this->rights;
+        }
+        if( $this->score ) {
+          $a["score"] = $this->score;
+        }
+        if( $this->title ) {
+          $a["title"] = $this->title;
+        }
+        if( $this->updated ) {
+          $a["updated"] = $this->updated;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Entry from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        $this->authors = array();
+        if( isset($o['authors']) ) {
+          foreach( $o['authors'] as $i => $x ) {
+            $this->authors[$i] = new \Org\Gedcomx\Atom\Person($x);
+          }
+        }
+        $this->categories = array();
+        if( isset($o['categories']) ) {
+          foreach( $o['categories'] as $i => $x ) {
+            $this->categories[$i] = new \Org\Gedcomx\Atom\Category($x);
+          }
+        }
+        if( isset($o['confidence']) ) {
+          $this->confidence = $o["confidence"];
+        }
+        if( isset($o['content']) ) {
+          $this->content = new \Org\Gedcomx\Atom\Content($o["content"]);
+        }
+        $this->contributors = array();
+        if( isset($o['contributors']) ) {
+          foreach( $o['contributors'] as $i => $x ) {
+            $this->contributors[$i] = new \Org\Gedcomx\Atom\Person($x);
+          }
+        }
+        if( isset($o['id']) ) {
+          $this->id = $o["id"];
+        }
+        $this->links = array();
+        if( isset($o['links']) ) {
+          foreach( $o['links'] as $i => $x ) {
+            $this->links[$i] = new \Org\Gedcomx\Links\Link($x);
+          }
+        }
+        if( isset($o['published']) ) {
+          $this->published = $o["published"];
+        }
+        if( isset($o['rights']) ) {
+          $this->rights = $o["rights"];
+        }
+        if( isset($o['score']) ) {
+          $this->score = $o["score"];
+        }
+        if( isset($o['title']) ) {
+          $this->title = $o["title"];
+        }
+        if( isset($o['updated']) ) {
+          $this->updated = $o["updated"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Source {
+
+    /**
+     * Represents a description of a source.
+     */
+    class SourceDescription extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The URI (if applicable) of the actual source.
+       */
+      private $about;
+      /**
+       * Hint about the media (MIME) type of the resource being described.
+       */
+      private $mediaType;
+      /**
+       * The type of the resource being described.
+       */
+      private $resourceType;
+    
+      /**
+       * The bibliographic citations for this source.
+       */
+      private $citations;
+      /**
+       * A reference to the entity that mediates access to the described source.
+       */
+      private $mediator;
+      /**
+       * References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
+       */
+      private $sources;
+      /**
+       * A reference to the analysis document explaining the analysis that went into this description of the source.
+       */
+      private $analysis;
+      /**
+       * A reference to the source that contains this source.
+       */
+      private $componentOf;
+      /**
+       * A list of titles for this source.
+       */
+      private $titles;
+      /**
+       * Notes about a source.
+       */
+      private $notes;
+      /**
+       * The attribution metadata for this source description.
+       */
+      private $attribution;
+
+      /**
+       * Constructs a SourceDescription from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The URI (if applicable) of the actual source.
+       */
+      public function getAbout() {
+        return $this->about;
+      }
+      
+      /**
+       * The URI (if applicable) of the actual source.
+       */
+      public function setAbout($about) {
+        $this->about = $about;
+      }
+      
+      /**
+       * Hint about the media (MIME) type of the resource being described.
+       */
+      public function getMediaType() {
+        return $this->mediaType;
+      }
+      
+      /**
+       * Hint about the media (MIME) type of the resource being described.
+       */
+      public function setMediaType($mediaType) {
+        $this->mediaType = $mediaType;
+      }
+      
+      /**
+       * The type of the resource being described.
+       */
+      public function getResourceType() {
+        return $this->resourceType;
+      }
+      
+      /**
+       * The type of the resource being described.
+       */
+      public function setResourceType($resourceType) {
+        $this->resourceType = $resourceType;
+      }
+      
+      /**
+       * The bibliographic citations for this source.
+       */
+      public function getCitations() {
+        return $this->citations;
+      }
+      
+      /**
+       * The bibliographic citations for this source.
+       */
+      public function setCitations($citations) {
+        $this->citations = $citations;
+      }
+      
+      /**
+       * A reference to the entity that mediates access to the described source.
+       */
+      public function getMediator() {
+        return $this->mediator;
+      }
+      
+      /**
+       * A reference to the entity that mediates access to the described source.
+       */
+      public function setMediator($mediator) {
+        $this->mediator = $mediator;
+      }
+      
+      /**
+       * References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
+       */
+      public function getSources() {
+        return $this->sources;
+      }
+      
+      /**
+       * References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
+       */
+      public function setSources($sources) {
+        $this->sources = $sources;
+      }
+      
+      /**
+       * A reference to the analysis document explaining the analysis that went into this description of the source.
+       */
+      public function getAnalysis() {
+        return $this->analysis;
+      }
+      
+      /**
+       * A reference to the analysis document explaining the analysis that went into this description of the source.
+       */
+      public function setAnalysis($analysis) {
+        $this->analysis = $analysis;
+      }
+      
+      /**
+       * A reference to the source that contains this source.
+       */
+      public function getComponentOf() {
+        return $this->componentOf;
+      }
+      
+      /**
+       * A reference to the source that contains this source.
+       */
+      public function setComponentOf($componentOf) {
+        $this->componentOf = $componentOf;
+      }
+      
+      /**
+       * A list of titles for this source.
+       */
+      public function getTitles() {
+        return $this->titles;
+      }
+      
+      /**
+       * A list of titles for this source.
+       */
+      public function setTitles($titles) {
+        $this->titles = $titles;
+      }
+      
+      /**
+       * Notes about a source.
+       */
+      public function getNotes() {
+        return $this->notes;
+      }
+      
+      /**
+       * Notes about a source.
+       */
+      public function setNotes($notes) {
+        $this->notes = $notes;
+      }
+      
+      /**
+       * The attribution metadata for this source description.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * The attribution metadata for this source description.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * Returns the associative array for this SourceDescription
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->about ) {
+          $a["about"] = $this->about;
+        }
+        if( $this->mediaType ) {
+          $a["mediaType"] = $this->mediaType;
+        }
+        if( $this->resourceType ) {
+          $a["resourceType"] = $this->resourceType;
+        }
+        if( $this->citations ) {
+          $ab = array();
+          foreach( $this->citations as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['citations'] = $ab;
+        }
+        if( $this->mediator ) {
+          $a["mediator"] = $this->mediator->toArray();
+        }
+        if( $this->sources ) {
+          $ab = array();
+          foreach( $this->sources as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['sources'] = $ab;
+        }
+        if( $this->analysis ) {
+          $a["analysis"] = $this->analysis->toArray();
+        }
+        if( $this->componentOf ) {
+          $a["componentOf"] = $this->componentOf->toArray();
+        }
+        if( $this->titles ) {
+          $ab = array();
+          foreach( $this->titles as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['titles'] = $ab;
+        }
+        if( $this->notes ) {
+          $ab = array();
+          foreach( $this->notes as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['notes'] = $ab;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this SourceDescription from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['about']) ) {
+          $this->about = $o["about"];
+        }
+        if( isset($o['mediaType']) ) {
+          $this->mediaType = $o["mediaType"];
+        }
+        if( isset($o['resourceType']) ) {
+          $this->resourceType = $o["resourceType"];
+        }
+        $this->citations = array();
+        if( isset($o['citations']) ) {
+          foreach( $o['citations'] as $i => $x ) {
+            $this->citations[$i] = new \Org\Gedcomx\Source\SourceCitation($x);
+          }
+        }
+        if( isset($o['mediator']) ) {
+          $this->mediator = new \Org\Gedcomx\Common\ResourceReference($o["mediator"]);
+        }
+        $this->sources = array();
+        if( isset($o['sources']) ) {
+          foreach( $o['sources'] as $i => $x ) {
+            $this->sources[$i] = new \Org\Gedcomx\Source\SourceReference($x);
+          }
+        }
+        if( isset($o['analysis']) ) {
+          $this->analysis = new \Org\Gedcomx\Common\ResourceReference($o["analysis"]);
+        }
+        if( isset($o['componentOf']) ) {
+          $this->componentOf = new \Org\Gedcomx\Source\SourceReference($o["componentOf"]);
+        }
+        $this->titles = array();
+        if( isset($o['titles']) ) {
+          foreach( $o['titles'] as $i => $x ) {
+            $this->titles[$i] = new \Org\Gedcomx\Common\TextValue($x);
+          }
+        }
+        $this->notes = array();
+        if( isset($o['notes']) ) {
+          foreach( $o['notes'] as $i => $x ) {
+            $this->notes[$i] = new \Org\Gedcomx\Common\Note($x);
+          }
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Source {
+
+    /**
+     * An attributable reference to a description of a source.
+     */
+    class SourceReference extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * A reference to a description of the source being referenced.
+       */
+      private $descriptionRef;
+      /**
+       * The URI to the source, or a fragment of the source.
+       */
+      private $resource;
+    
+      /**
+       * The attribution metadata for this source reference.
+       */
+      private $attribution;
+      /**
+       * The qualifiers associated with this source reference.
+       */
+      private $qualifiers;
+
+      /**
+       * Constructs a SourceReference from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * A reference to a description of the source being referenced.
+       */
+      public function getDescriptionRef() {
+        return $this->descriptionRef;
+      }
+      
+      /**
+       * A reference to a description of the source being referenced.
+       */
+      public function setDescriptionRef($descriptionRef) {
+        $this->descriptionRef = $descriptionRef;
+      }
+      
+      /**
+       * The URI to the source, or a fragment of the source.
+       */
+      public function getResource() {
+        return $this->resource;
+      }
+      
+      /**
+       * The URI to the source, or a fragment of the source.
+       */
+      public function setResource($resource) {
+        $this->resource = $resource;
+      }
+      
+      /**
+       * The attribution metadata for this source reference.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * The attribution metadata for this source reference.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * The qualifiers associated with this source reference.
+       */
+      public function getQualifiers() {
+        return $this->qualifiers;
+      }
+      
+      /**
+       * The qualifiers associated with this source reference.
+       */
+      public function setQualifiers($qualifiers) {
+        $this->qualifiers = $qualifiers;
+      }
+      
+      /**
+       * Returns the associative array for this SourceReference
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->descriptionRef ) {
+          $a["description"] = $this->descriptionRef;
+        }
+        if( $this->resource ) {
+          $a["resource"] = $this->resource;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        if( $this->qualifiers ) {
+          $ab = array();
+          foreach( $this->qualifiers as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['qualifiers'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this SourceReference from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['description']) ) {
+          $this->descriptionRef = $o["description"];
+        }
+        if( isset($o['resource']) ) {
+          $this->resource = $o["resource"];
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+        $this->qualifiers = array();
+        if( isset($o['qualifiers']) ) {
+          foreach( $o['qualifiers'] as $i => $x ) {
+            $this->qualifiers[$i] = new \Org\Gedcomx\Common\Qualifier($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Source {
+
+    /**
+     * Represents a source citation.
+     */
+    class SourceCitation extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The language of the note.
+       */
+      private $lang;
+    
+      /**
+       * A reference to the citation template for this citation.
+       */
+      private $citationTemplate;
+      /**
+       * The list of citation fields.
+       */
+      private $fields;
+      /**
+       * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
+       */
+      private $value;
+
+      /**
+       * Constructs a SourceCitation from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of the note.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of the note.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * A reference to the citation template for this citation.
+       */
+      public function getCitationTemplate() {
+        return $this->citationTemplate;
+      }
+      
+      /**
+       * A reference to the citation template for this citation.
+       */
+      public function setCitationTemplate($citationTemplate) {
+        $this->citationTemplate = $citationTemplate;
+      }
+      
+      /**
+       * The list of citation fields.
+       */
+      public function getFields() {
+        return $this->fields;
+      }
+      
+      /**
+       * The list of citation fields.
+       */
+      public function setFields($fields) {
+        $this->fields = $fields;
+      }
+      
+      /**
+       * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * Returns the associative array for this SourceCitation
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->citationTemplate ) {
+          $a["citationTemplate"] = $this->citationTemplate->toArray();
+        }
+        if( $this->fields ) {
+          $ab = array();
+          foreach( $this->fields as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fields'] = $ab;
+        }
+        if( $this->value ) {
+          $a["value"] = $this->value;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this SourceCitation from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        if( isset($o['citationTemplate']) ) {
+          $this->citationTemplate = new \Org\Gedcomx\Common\ResourceReference($o["citationTemplate"]);
+        }
+        $this->fields = array();
+        if( isset($o['fields']) ) {
+          foreach( $o['fields'] as $i => $x ) {
+            $this->fields[$i] = new \Org\Gedcomx\Source\CitationField($x);
+          }
+        }
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Records {
+
+    /**
+     * A descriptor for a common set of records.
+     */
+    class RecordDescriptor extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The language of this record description.
+       */
+      private $lang;
+    
+      /**
+       * The fields that are applicable to this record.
+       */
+      private $fields;
+
+      /**
+       * Constructs a RecordDescriptor from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of this record description.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of this record description.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * The fields that are applicable to this record.
+       */
+      public function getFields() {
+        return $this->fields;
+      }
+      
+      /**
+       * The fields that are applicable to this record.
+       */
+      public function setFields($fields) {
+        $this->fields = $fields;
+      }
+      
+      /**
+       * Returns the associative array for this RecordDescriptor
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->fields ) {
+          $ab = array();
+          foreach( $this->fields as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fields'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this RecordDescriptor from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        $this->fields = array();
+        if( isset($o['fields']) ) {
+          foreach( $o['fields'] as $i => $x ) {
+            $this->fields[$i] = new \Org\Gedcomx\Records\FieldDescriptor($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Records {
+
+    /**
+     * A "record" describes the set of fields and other conclusions that are directly extracted from a source
+     * during field-based indexed record extraction. A record is designed to more closely match the fields and structure
+     * of the sources from which the data is being extracted.
+     */
+    class Record extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The type of the record.
+       */
+      private $type;
+    
+      /**
+       * The source references for a record.
+       */
+      private $sources;
+      /**
+       * The list of identifiers for the person.
+       */
+      private $identifiers;
+      /**
+       * The principal person(s) of this record.
+       */
+      private $principalPersons;
+      /**
+       * The primary event of this record.
+       */
+      private $primaryEvent;
+      /**
+       * A reference to the collection containing the record.
+       */
+      private $collectionRef;
+      /**
+       * A reference to a descriptor for the record.
+       */
+      private $descriptorRef;
+      /**
+       * The fields that were extracted from the source of this record.
+       */
+      private $fields;
+      /**
+       * Notes about a source.
+       */
+      private $notes;
+      /**
+       * The attribution metadata for this source description.
+       */
+      private $attribution;
+
+      /**
+       * Constructs a Record from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The type of the record.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the record.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The source references for a record.
+       */
+      public function getSources() {
+        return $this->sources;
+      }
+      
+      /**
+       * The source references for a record.
+       */
+      public function setSources($sources) {
+        $this->sources = $sources;
+      }
+      
+      /**
+       * The list of identifiers for the person.
+       */
+      public function getIdentifiers() {
+        return $this->identifiers;
+      }
+      
+      /**
+       * The list of identifiers for the person.
+       */
+      public function setIdentifiers($identifiers) {
+        $this->identifiers = $identifiers;
+      }
+      
+      /**
+       * The principal person(s) of this record.
+       */
+      public function getPrincipalPersons() {
+        return $this->principalPersons;
+      }
+      
+      /**
+       * The principal person(s) of this record.
+       */
+      public function setPrincipalPersons($principalPersons) {
+        $this->principalPersons = $principalPersons;
+      }
+      
+      /**
+       * The primary event of this record.
+       */
+      public function getPrimaryEvent() {
+        return $this->primaryEvent;
+      }
+      
+      /**
+       * The primary event of this record.
+       */
+      public function setPrimaryEvent($primaryEvent) {
+        $this->primaryEvent = $primaryEvent;
+      }
+      
+      /**
+       * A reference to the collection containing the record.
+       */
+      public function getCollectionRef() {
+        return $this->collectionRef;
+      }
+      
+      /**
+       * A reference to the collection containing the record.
+       */
+      public function setCollectionRef($collectionRef) {
+        $this->collectionRef = $collectionRef;
+      }
+      
+      /**
+       * A reference to a descriptor for the record.
+       */
+      public function getDescriptorRef() {
+        return $this->descriptorRef;
+      }
+      
+      /**
+       * A reference to a descriptor for the record.
+       */
+      public function setDescriptorRef($descriptorRef) {
+        $this->descriptorRef = $descriptorRef;
+      }
+      
+      /**
+       * The fields that were extracted from the source of this record.
+       */
+      public function getFields() {
+        return $this->fields;
+      }
+      
+      /**
+       * The fields that were extracted from the source of this record.
+       */
+      public function setFields($fields) {
+        $this->fields = $fields;
+      }
+      
+      /**
+       * Notes about a source.
+       */
+      public function getNotes() {
+        return $this->notes;
+      }
+      
+      /**
+       * Notes about a source.
+       */
+      public function setNotes($notes) {
+        $this->notes = $notes;
+      }
+      
+      /**
+       * The attribution metadata for this source description.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * The attribution metadata for this source description.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * Returns the associative array for this Record
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->sources ) {
+          $ab = array();
+          foreach( $this->sources as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['sources'] = $ab;
+        }
+        if( $this->identifiers ) {
+          $ab = array();
+          foreach( $this->identifiers as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['identifiers'] = $ab;
+        }
+        if( $this->principalPersons ) {
+          $ab = array();
+          foreach( $this->principalPersons as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['principalPersons'] = $ab;
+        }
+        if( $this->primaryEvent ) {
+          $a["primaryEvent"] = $this->primaryEvent->toArray();
+        }
+        if( $this->collectionRef ) {
+          $a["collection"] = $this->collectionRef->toArray();
+        }
+        if( $this->descriptorRef ) {
+          $a["descriptor"] = $this->descriptorRef->toArray();
+        }
+        if( $this->fields ) {
+          $ab = array();
+          foreach( $this->fields as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fields'] = $ab;
+        }
+        if( $this->notes ) {
+          $ab = array();
+          foreach( $this->notes as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['notes'] = $ab;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Record from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        $this->sources = array();
+        if( isset($o['sources']) ) {
+          foreach( $o['sources'] as $i => $x ) {
+            $this->sources[$i] = new \Org\Gedcomx\Source\SourceReference($x);
+          }
+        }
+        $this->identifiers = array();
+        if( isset($o['identifiers']) ) {
+          foreach( $o['identifiers'] as $i => $x ) {
+            $this->identifiers[$i] = new \Org\Gedcomx\Conclusion\Identifier($x);
+          }
+        }
+        $this->principalPersons = array();
+        if( isset($o['principalPersons']) ) {
+          foreach( $o['principalPersons'] as $i => $x ) {
+            $this->principalPersons[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
+          }
+        }
+        if( isset($o['primaryEvent']) ) {
+          $this->primaryEvent = new \Org\Gedcomx\Common\ResourceReference($o["primaryEvent"]);
+        }
+        if( isset($o['collection']) ) {
+          $this->collectionRef = new \Org\Gedcomx\Common\ResourceReference($o["collection"]);
+        }
+        if( isset($o['descriptor']) ) {
+          $this->descriptorRef = new \Org\Gedcomx\Common\ResourceReference($o["descriptor"]);
+        }
+        $this->fields = array();
+        if( isset($o['fields']) ) {
+          foreach( $o['fields'] as $i => $x ) {
+            $this->fields[$i] = new \Org\Gedcomx\Records\Field($x);
+          }
+        }
+        $this->notes = array();
+        if( isset($o['notes']) ) {
+          foreach( $o['notes'] as $i => $x ) {
+            $this->notes[$i] = new \Org\Gedcomx\Common\Note($x);
+          }
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Records {
+
+    /**
+     * <p>A facet value is the value that is used by a facet to group related resources.</p>
+     */
+    class FacetValue extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+    
+      /**
+       * A title for the facet value.
+       */
+      private $title;
+      /**
+       * The value.
+       */
+      private $value;
+      /**
+       * The number of resources applicable to this value.
+       */
+      private $count;
+
+      /**
+       * Constructs a FacetValue from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * A title for the facet value.
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * A title for the facet value.
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * The value.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The value.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * The number of resources applicable to this value.
+       */
+      public function getCount() {
+        return $this->count;
+      }
+      
+      /**
+       * The number of resources applicable to this value.
+       */
+      public function setCount($count) {
+        $this->count = $count;
+      }
+      
+      /**
+       * Returns the associative array for this FacetValue
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->title ) {
+          $a["title"] = $this->title;
+        }
+        if( $this->value ) {
+          $a["value"] = $this->value;
+        }
+        if( $this->count ) {
+          $a["count"] = $this->count;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this FacetValue from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['title']) ) {
+          $this->title = $o["title"];
+        }
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
+        }
+        if( isset($o['count']) ) {
+          $this->count = $o["count"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Records {
+
+    /**
+     * A description of the coverage of a collection by resource type.
+     */
+    class CollectionCoverage extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+    
+      /**
+       * A completeness factor for this coverage aspect, a value between 0 and 1.
+       */
+      private $completeness;
+      /**
+       * The count of the items applicable to this coverage aspect.
+       */
+      private $count;
+      /**
+       * The type of record being covered in this collection.
+       */
+      private $recordType;
+      /**
+       * The type of resource being covered in this collection.
+       */
+      private $resourceType;
+      /**
+       * Spatial coverage.
+       */
+      private $spatial;
+      /**
+       * Temporal coverage.
+       */
+      private $temporal;
+
+      /**
+       * Constructs a CollectionCoverage from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * A completeness factor for this coverage aspect, a value between 0 and 1.
+       */
+      public function getCompleteness() {
+        return $this->completeness;
+      }
+      
+      /**
+       * A completeness factor for this coverage aspect, a value between 0 and 1.
+       */
+      public function setCompleteness($completeness) {
+        $this->completeness = $completeness;
+      }
+      
+      /**
+       * The count of the items applicable to this coverage aspect.
+       */
+      public function getCount() {
+        return $this->count;
+      }
+      
+      /**
+       * The count of the items applicable to this coverage aspect.
+       */
+      public function setCount($count) {
+        $this->count = $count;
+      }
+      
+      /**
+       * The type of record being covered in this collection.
+       */
+      public function getRecordType() {
+        return $this->recordType;
+      }
+      
+      /**
+       * The type of record being covered in this collection.
+       */
+      public function setRecordType($recordType) {
+        $this->recordType = $recordType;
+      }
+      
+      /**
+       * The type of resource being covered in this collection.
+       */
+      public function getResourceType() {
+        return $this->resourceType;
+      }
+      
+      /**
+       * The type of resource being covered in this collection.
+       */
+      public function setResourceType($resourceType) {
+        $this->resourceType = $resourceType;
+      }
+      
+      /**
+       * Spatial coverage.
+       */
+      public function getSpatial() {
+        return $this->spatial;
+      }
+      
+      /**
+       * Spatial coverage.
+       */
+      public function setSpatial($spatial) {
+        $this->spatial = $spatial;
+      }
+      
+      /**
+       * Temporal coverage.
+       */
+      public function getTemporal() {
+        return $this->temporal;
+      }
+      
+      /**
+       * Temporal coverage.
+       */
+      public function setTemporal($temporal) {
+        $this->temporal = $temporal;
+      }
+      
+      /**
+       * Returns the associative array for this CollectionCoverage
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->completeness ) {
+          $a["completeness"] = $this->completeness;
+        }
+        if( $this->count ) {
+          $a["count"] = $this->count;
+        }
+        if( $this->recordType ) {
+          $a["recordType"] = $this->recordType;
+        }
+        if( $this->resourceType ) {
+          $a["resourceType"] = $this->resourceType;
+        }
+        if( $this->spatial ) {
+          $a["spatial"] = $this->spatial->toArray();
+        }
+        if( $this->temporal ) {
+          $a["temporal"] = $this->temporal->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this CollectionCoverage from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['completeness']) ) {
+          $this->completeness = $o["completeness"];
+        }
+        if( isset($o['count']) ) {
+          $this->count = $o["count"];
+        }
+        if( isset($o['recordType']) ) {
+          $this->recordType = $o["recordType"];
+        }
+        if( isset($o['resourceType']) ) {
+          $this->resourceType = $o["resourceType"];
+        }
+        if( isset($o['spatial']) ) {
+          $this->spatial = new \Org\Gedcomx\Conclusion\PlaceReference($o["spatial"]);
+        }
+        if( isset($o['temporal']) ) {
+          $this->temporal = new \Org\Gedcomx\Conclusion\DateInfo($o["temporal"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Common {
+
+    /**
+     * A reference to a resource that is being used as evidence.
+     */
+    class EvidenceReference extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The resource id of the resource being referenced.
+       */
+      private $resourceId;
+      /**
+       * The URI to the resource.
+       */
+      private $resource;
+    
+      /**
+       * Attribution metadata for evidence reference.
+       */
+      private $attribution;
+
+      /**
+       * Constructs a EvidenceReference from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The resource id of the resource being referenced.
+       */
+      public function getResourceId() {
+        return $this->resourceId;
+      }
+      
+      /**
+       * The resource id of the resource being referenced.
+       */
+      public function setResourceId($resourceId) {
+        $this->resourceId = $resourceId;
+      }
+      
+      /**
+       * The URI to the resource.
+       */
+      public function getResource() {
+        return $this->resource;
+      }
+      
+      /**
+       * The URI to the resource.
+       */
+      public function setResource($resource) {
+        $this->resource = $resource;
+      }
+      
+      /**
+       * Attribution metadata for evidence reference.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * Attribution metadata for evidence reference.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * Returns the associative array for this EvidenceReference
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->resourceId ) {
+          $a["resourceId"] = $this->resourceId;
+        }
+        if( $this->resource ) {
+          $a["resource"] = $this->resource;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this EvidenceReference from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['resourceId']) ) {
+          $this->resourceId = $o["resourceId"];
+        }
+        if( isset($o['resource']) ) {
+          $this->resource = $o["resource"];
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * A genealogical conclusion.
+     */
+    class Conclusion extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The level of confidence the contributor has about the data.
+       */
+      private $confidence;
+      /**
+       * The language of the conclusion.
+       */
+      private $lang;
+    
+      /**
+       * Attribution metadata for a conclusion.
+       */
+      private $attribution;
+      /**
+       * The source references for a conclusion.
+       */
+      private $sources;
+      /**
+       * A reference to the analysis document explaining the analysis that went into this conclusion.
+       */
+      private $analysis;
+      /**
+       * Notes about a person.
+       */
+      private $notes;
+
+      /**
+       * Constructs a Conclusion from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The level of confidence the contributor has about the data.
+       */
+      public function getConfidence() {
+        return $this->confidence;
+      }
+      
+      /**
+       * The level of confidence the contributor has about the data.
+       */
+      public function setConfidence($confidence) {
+        $this->confidence = $confidence;
+      }
+      
+      /**
+       * The language of the conclusion.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of the conclusion.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * Attribution metadata for a conclusion.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * Attribution metadata for a conclusion.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * The source references for a conclusion.
+       */
+      public function getSources() {
+        return $this->sources;
+      }
+      
+      /**
+       * The source references for a conclusion.
+       */
+      public function setSources($sources) {
+        $this->sources = $sources;
+      }
+      
+      /**
+       * A reference to the analysis document explaining the analysis that went into this conclusion.
+       */
+      public function getAnalysis() {
+        return $this->analysis;
+      }
+      
+      /**
+       * A reference to the analysis document explaining the analysis that went into this conclusion.
+       */
+      public function setAnalysis($analysis) {
+        $this->analysis = $analysis;
+      }
+      
+      /**
+       * Notes about a person.
+       */
+      public function getNotes() {
+        return $this->notes;
+      }
+      
+      /**
+       * Notes about a person.
+       */
+      public function setNotes($notes) {
+        $this->notes = $notes;
+      }
+      
+      /**
+       * Returns the associative array for this Conclusion
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->confidence ) {
+          $a["confidence"] = $this->confidence;
+        }
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        if( $this->sources ) {
+          $ab = array();
+          foreach( $this->sources as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['sources'] = $ab;
+        }
+        if( $this->analysis ) {
+          $a["analysis"] = $this->analysis->toArray();
+        }
+        if( $this->notes ) {
+          $ab = array();
+          foreach( $this->notes as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['notes'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Conclusion from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['confidence']) ) {
+          $this->confidence = $o["confidence"];
+        }
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+        $this->sources = array();
+        if( isset($o['sources']) ) {
+          foreach( $o['sources'] as $i => $x ) {
+            $this->sources[$i] = new \Org\Gedcomx\Source\SourceReference($x);
+          }
+        }
+        if( isset($o['analysis']) ) {
+          $this->analysis = new \Org\Gedcomx\Common\ResourceReference($o["analysis"]);
+        }
+        $this->notes = array();
+        if( isset($o['notes']) ) {
+          foreach( $o['notes'] as $i => $x ) {
+            $this->notes[$i] = new \Org\Gedcomx\Common\Note($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Common {
+
+    /**
+     * A note about a genealogical resource (e.g. conclusion or source).
+     */
+    class Note extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The language of the note.
+       */
+      private $lang;
+    
+      /**
+       * The subject of the note.
+       */
+      private $subject;
+      /**
+       * The text of the note.
+       */
+      private $text;
+      /**
+       * Attribution metadata for a note.
+       */
+      private $attribution;
+
+      /**
+       * Constructs a Note from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of the note.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of the note.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * The subject of the note.
+       */
+      public function getSubject() {
+        return $this->subject;
+      }
+      
+      /**
+       * The subject of the note.
+       */
+      public function setSubject($subject) {
+        $this->subject = $subject;
+      }
+      
+      /**
+       * The text of the note.
+       */
+      public function getText() {
+        return $this->text;
+      }
+      
+      /**
+       * The text of the note.
+       */
+      public function setText($text) {
+        $this->text = $text;
+      }
+      
+      /**
+       * Attribution metadata for a note.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * Attribution metadata for a note.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * Returns the associative array for this Note
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->subject ) {
+          $a["subject"] = $this->subject;
+        }
+        if( $this->text ) {
+          $a["text"] = $this->text;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Note from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        if( isset($o['subject']) ) {
+          $this->subject = $o["subject"];
+        }
+        if( isset($o['text']) ) {
+          $this->text = $o["text"];
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Records {
+
+    /**
+     * A collection of genealogical resources.
+     */
+    class Collection extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The language of this description of the collection
+       */
+      private $lang;
+    
+      /**
+       * A title for the collection.
+       */
+      private $title;
+      /**
+       * A description for the collection.
+       */
+      private $description;
+      /**
+       * A reference to the collection containing this collection.
+       */
+      private $collectionRef;
+      /**
+       * The size of the collection, in terms of the number of items in this collection.
+       */
+      private $size;
+      /**
+       * The coverage of the collection.
+       */
+      private $coverage;
+      /**
+       * The list of facets for the collection, used for convenience in browsing and filtering.
+       */
+      private $facets;
+      /**
+       * Attribution metadata for this collection.
+       */
+      private $attribution;
+
+      /**
+       * Constructs a Collection from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of this description of the collection
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of this description of the collection
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * A title for the collection.
+       */
+      public function getTitle() {
+        return $this->title;
+      }
+      
+      /**
+       * A title for the collection.
+       */
+      public function setTitle($title) {
+        $this->title = $title;
+      }
+      
+      /**
+       * A description for the collection.
+       */
+      public function getDescription() {
+        return $this->description;
+      }
+      
+      /**
+       * A description for the collection.
+       */
+      public function setDescription($description) {
+        $this->description = $description;
+      }
+      
+      /**
+       * A reference to the collection containing this collection.
+       */
+      public function getCollectionRef() {
+        return $this->collectionRef;
+      }
+      
+      /**
+       * A reference to the collection containing this collection.
+       */
+      public function setCollectionRef($collectionRef) {
+        $this->collectionRef = $collectionRef;
+      }
+      
+      /**
+       * The size of the collection, in terms of the number of items in this collection.
+       */
+      public function getSize() {
+        return $this->size;
+      }
+      
+      /**
+       * The size of the collection, in terms of the number of items in this collection.
+       */
+      public function setSize($size) {
+        $this->size = $size;
+      }
+      
+      /**
+       * The coverage of the collection.
+       */
+      public function getCoverage() {
+        return $this->coverage;
+      }
+      
+      /**
+       * The coverage of the collection.
+       */
+      public function setCoverage($coverage) {
+        $this->coverage = $coverage;
+      }
+      
+      /**
+       * The list of facets for the collection, used for convenience in browsing and filtering.
+       */
+      public function getFacets() {
+        return $this->facets;
+      }
+      
+      /**
+       * The list of facets for the collection, used for convenience in browsing and filtering.
+       */
+      public function setFacets($facets) {
+        $this->facets = $facets;
+      }
+      
+      /**
+       * Attribution metadata for this collection.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * Attribution metadata for this collection.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * Returns the associative array for this Collection
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->lang ) {
+          $a["lang"] = $this->lang;
+        }
+        if( $this->title ) {
+          $a["title"] = $this->title;
+        }
+        if( $this->description ) {
+          $a["description"] = $this->description;
+        }
+        if( $this->collectionRef ) {
+          $a["collection"] = $this->collectionRef->toArray();
+        }
+        if( $this->size ) {
+          $a["size"] = $this->size;
+        }
+        if( $this->coverage ) {
+          $ab = array();
+          foreach( $this->coverage as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['coverage'] = $ab;
+        }
+        if( $this->facets ) {
+          $ab = array();
+          foreach( $this->facets as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['facets'] = $ab;
+        }
+        if( $this->attribution ) {
+          $a["attribution"] = $this->attribution->toArray();
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Collection from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['lang']) ) {
+          $this->lang = $o["lang"];
+        }
+        if( isset($o['title']) ) {
+          $this->title = $o["title"];
+        }
+        if( isset($o['description']) ) {
+          $this->description = $o["description"];
+        }
+        if( isset($o['collection']) ) {
+          $this->collectionRef = new \Org\Gedcomx\Common\ResourceReference($o["collection"]);
+        }
+        if( isset($o['size']) ) {
+          $this->size = $o["size"];
+        }
+        $this->coverage = array();
+        if( isset($o['coverage']) ) {
+          foreach( $o['coverage'] as $i => $x ) {
+            $this->coverage[$i] = new \Org\Gedcomx\Records\CollectionCoverage($x);
+          }
+        }
+        $this->facets = array();
+        if( isset($o['facets']) ) {
+          foreach( $o['facets'] as $i => $x ) {
+            $this->facets[$i] = new \Org\Gedcomx\Records\Facet($x);
+          }
+        }
+        if( isset($o['attribution']) ) {
+          $this->attribution = new \Org\Gedcomx\Common\Attribution($o["attribution"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Agent {
+
+    /**
+     * An agent, e.g. person, organization, or group. In genealogical research, an agent often
+     * takes the role of a contributor.
+     */
+    class Agent extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+    
+      /**
+       * The accounts that belong to this person or organization.
+       */
+      private $accounts;
+      /**
+       * The addresses that belong to this person or organization.
+       */
+      private $addresses;
+      /**
+       * The emails that belong to this person or organization.
+       */
+      private $emails;
+      /**
+       * The homepage.
+       */
+      private $homepage;
+      /**
+       * The list of identifiers for the agent.
+       */
+      private $identifiers;
+      /**
+       * The list of names for the agent.
+       */
+      private $names;
+      /**
+       * The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
+       */
+      private $openid;
+      /**
+       * The phones that belong to this person or organization.
+       */
+      private $phones;
+
+      /**
+       * Constructs a Agent from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The accounts that belong to this person or organization.
+       */
+      public function getAccounts() {
+        return $this->accounts;
+      }
+      
+      /**
+       * The accounts that belong to this person or organization.
+       */
+      public function setAccounts($accounts) {
+        $this->accounts = $accounts;
+      }
+      
+      /**
+       * The addresses that belong to this person or organization.
+       */
+      public function getAddresses() {
+        return $this->addresses;
+      }
+      
+      /**
+       * The addresses that belong to this person or organization.
+       */
+      public function setAddresses($addresses) {
+        $this->addresses = $addresses;
+      }
+      
+      /**
+       * The emails that belong to this person or organization.
+       */
+      public function getEmails() {
+        return $this->emails;
+      }
+      
+      /**
+       * The emails that belong to this person or organization.
+       */
+      public function setEmails($emails) {
+        $this->emails = $emails;
+      }
+      
+      /**
+       * The homepage.
+       */
+      public function getHomepage() {
+        return $this->homepage;
+      }
+      
+      /**
+       * The homepage.
+       */
+      public function setHomepage($homepage) {
+        $this->homepage = $homepage;
+      }
+      
+      /**
+       * The list of identifiers for the agent.
+       */
+      public function getIdentifiers() {
+        return $this->identifiers;
+      }
+      
+      /**
+       * The list of identifiers for the agent.
+       */
+      public function setIdentifiers($identifiers) {
+        $this->identifiers = $identifiers;
+      }
+      
+      /**
+       * The list of names for the agent.
+       */
+      public function getNames() {
+        return $this->names;
+      }
+      
+      /**
+       * The list of names for the agent.
+       */
+      public function setNames($names) {
+        $this->names = $names;
+      }
+      
+      /**
+       * The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
+       */
+      public function getOpenid() {
+        return $this->openid;
+      }
+      
+      /**
+       * The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
+       */
+      public function setOpenid($openid) {
+        $this->openid = $openid;
+      }
+      
+      /**
+       * The phones that belong to this person or organization.
+       */
+      public function getPhones() {
+        return $this->phones;
+      }
+      
+      /**
+       * The phones that belong to this person or organization.
+       */
+      public function setPhones($phones) {
+        $this->phones = $phones;
+      }
+      
+      /**
+       * Returns the associative array for this Agent
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->accounts ) {
+          $ab = array();
+          foreach( $this->accounts as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['accounts'] = $ab;
+        }
+        if( $this->addresses ) {
+          $ab = array();
+          foreach( $this->addresses as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['addresses'] = $ab;
+        }
+        if( $this->emails ) {
+          $ab = array();
+          foreach( $this->emails as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['emails'] = $ab;
+        }
+        if( $this->homepage ) {
+          $a["homepage"] = $this->homepage->toArray();
+        }
+        if( $this->identifiers ) {
+          $ab = array();
+          foreach( $this->identifiers as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['identifiers'] = $ab;
+        }
+        if( $this->names ) {
+          $ab = array();
+          foreach( $this->names as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['names'] = $ab;
+        }
+        if( $this->openid ) {
+          $a["openid"] = $this->openid->toArray();
+        }
+        if( $this->phones ) {
+          $ab = array();
+          foreach( $this->phones as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['phones'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Agent from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        $this->accounts = array();
+        if( isset($o['accounts']) ) {
+          foreach( $o['accounts'] as $i => $x ) {
+            $this->accounts[$i] = new \Org\Gedcomx\Agent\OnlineAccount($x);
+          }
+        }
+        $this->addresses = array();
+        if( isset($o['addresses']) ) {
+          foreach( $o['addresses'] as $i => $x ) {
+            $this->addresses[$i] = new \Org\Gedcomx\Agent\Address($x);
+          }
+        }
+        $this->emails = array();
+        if( isset($o['emails']) ) {
+          foreach( $o['emails'] as $i => $x ) {
+            $this->emails[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
+          }
+        }
+        if( isset($o['homepage']) ) {
+          $this->homepage = new \Org\Gedcomx\Common\ResourceReference($o["homepage"]);
+        }
+        $this->identifiers = array();
+        if( isset($o['identifiers']) ) {
+          foreach( $o['identifiers'] as $i => $x ) {
+            $this->identifiers[$i] = new \Org\Gedcomx\Conclusion\Identifier($x);
+          }
+        }
+        $this->names = array();
+        if( isset($o['names']) ) {
+          foreach( $o['names'] as $i => $x ) {
+            $this->names[$i] = new \Org\Gedcomx\Common\TextValue($x);
+          }
+        }
+        if( isset($o['openid']) ) {
+          $this->openid = new \Org\Gedcomx\Common\ResourceReference($o["openid"]);
+        }
+        $this->phones = array();
+        if( isset($o['phones']) ) {
+          foreach( $o['phones'] as $i => $x ) {
+            $this->phones[$i] = new \Org\Gedcomx\Common\ResourceReference($x);
+          }
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx {
+
+    /**
+     * <p>The GEDCOM X media types define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
+     * is provided by the formal specification documents:</p>
+     * 
+     * <ul>
+     * <li><a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md">The GEDCOM X Conceptual Model, Version 1.0</a></li>
+     * <li><a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/json-format-specification.md">The GEDCOM X JSON Format, Version 1.0</a></li>
+     * <li><a href="https://github.com/FamilySearch/gedcomx/blob/master/specifications/xml-format-specification.md">The GEDCOM X XML Format, Version 1.0</a></li>
+     * </ul>
+     * 
+     * <p>This documentation is provided as a non-normative reference guide.</p>
+     */
+    class Gedcomx extends \Org\Gedcomx\Links\HypermediaEnabledData  {
+    
+      /**
+       * The language of the genealogical data.
+       */
+      private $lang;
+    
+      /**
+       * The attribution of this genealogical data.
+       */
+      private $attribution;
+      /**
+       * The persons included in this genealogical data set.
+       */
+      private $persons;
+      /**
+       * The relationships included in this genealogical data set.
+       */
+      private $relationships;
+      /**
+       * The descriptions of sources included in this genealogical data set.
+       */
+      private $sourceDescriptions;
+      /**
+       * The agents included in this genealogical data set.
+       */
+      private $agents;
+      /**
+       * The events included in this genealogical data set.
+       */
+      private $events;
+      /**
+       * The places included in this genealogical data set.
+       */
+      private $places;
+      /**
+       * The documents included in this genealogical data set.
+       */
+      private $documents;
+      /**
+       * The collections included in this genealogical data set.
+       */
+      private $collections;
+      /**
+       * The records included in this genealogical data set.
+       */
+      private $records;
+      /**
+       * The record descriptors included in this genealogical data set.
+       */
+      private $recordDescriptors;
+
+      /**
+       * Constructs a Gedcomx from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The language of the genealogical data.
+       */
+      public function getLang() {
+        return $this->lang;
+      }
+      
+      /**
+       * The language of the genealogical data.
+       */
+      public function setLang($lang) {
+        $this->lang = $lang;
+      }
+      
+      /**
+       * The attribution of this genealogical data.
+       */
+      public function getAttribution() {
+        return $this->attribution;
+      }
+      
+      /**
+       * The attribution of this genealogical data.
+       */
+      public function setAttribution($attribution) {
+        $this->attribution = $attribution;
+      }
+      
+      /**
+       * The persons included in this genealogical data set.
+       */
+      public function getPersons() {
+        return $this->persons;
+      }
+      
+      /**
+       * The persons included in this genealogical data set.
+       */
+      public function setPersons($persons) {
+        $this->persons = $persons;
+      }
+      
+      /**
+       * The relationships included in this genealogical data set.
+       */
+      public function getRelationships() {
+        return $this->relationships;
+      }
+      
+      /**
+       * The relationships included in this genealogical data set.
+       */
+      public function setRelationships($relationships) {
+        $this->relationships = $relationships;
+      }
+      
+      /**
+       * The descriptions of sources included in this genealogical data set.
+       */
+      public function getSourceDescriptions() {
+        return $this->sourceDescriptions;
+      }
+      
+      /**
+       * The descriptions of sources included in this genealogical data set.
+       */
+      public function setSourceDescriptions($sourceDescriptions) {
+        $this->sourceDescriptions = $sourceDescriptions;
+      }
+      
+      /**
+       * The agents included in this genealogical data set.
+       */
+      public function getAgents() {
+        return $this->agents;
+      }
+      
+      /**
+       * The agents included in this genealogical data set.
+       */
+      public function setAgents($agents) {
+        $this->agents = $agents;
+      }
+      
+      /**
+       * The events included in this genealogical data set.
+       */
+      public function getEvents() {
+        return $this->events;
+      }
+      
+      /**
+       * The events included in this genealogical data set.
+       */
+      public function setEvents($events) {
+        $this->events = $events;
+      }
+      
+      /**
+       * The places included in this genealogical data set.
+       */
+      public function getPlaces() {
+        return $this->places;
+      }
+      
+      /**
+       * The places included in this genealogical data set.
+       */
+      public function setPlaces($places) {
+        $this->places = $places;
+      }
+      
+      /**
+       * The documents included in this genealogical data set.
+       */
+      public function getDocuments() {
+        return $this->documents;
+      }
+      
+      /**
+       * The documents included in this genealogical data set.
+       */
+      public function setDocuments($documents) {
+        $this->documents = $documents;
+      }
+      
+      /**
+       * The collections included in this genealogical data set.
+       */
+      public function getCollections() {
+        return $this->collections;
+      }
+      
+      /**
+       * The collections included in this genealogical data set.
+       */
+      public function setCollections($collections) {
+        $this->collections = $collections;
+      }
+      
+      /**
+       * The records included in this genealogical data set.
+       */
+      public function getRecords() {
+        return $this->records;
+      }
+      
+      /**
+       * The records included in this genealogical data set.
+       */
+      public function setRecords($records) {
+        $this->records = $records;
+      }
+      
+      /**
+       * The record descriptors included in this genealogical data set.
+       */
+      public function getRecordDescriptors() {
+        return $this->recordDescriptors;
+      }
+      
+      /**
+       * The record descriptors included in this genealogical data set.
+       */
+      public function setRecordDescriptors($recordDescriptors) {
+        $this->recordDescriptors = $recordDescriptors;
+      }
+      
+      /**
+       * Returns the associative array for this Gedcomx
+       */
+      public function toArray() {
+        $a = parent::toArray();
         if( $this->lang ) {
           $a["lang"] = $this->lang;
         }
@@ -3172,16 +8297,36 @@
           }
           $a['documents'] = $ab;
         }
+        if( $this->collections ) {
+          $ab = array();
+          foreach( $this->collections as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['collections'] = $ab;
+        }
+        if( $this->records ) {
+          $ab = array();
+          foreach( $this->records as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['records'] = $ab;
+        }
+        if( $this->recordDescriptors ) {
+          $ab = array();
+          foreach( $this->recordDescriptors as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['recordDescriptors'] = $ab;
+        }
         return $a;
       }
       
 
-      // initializes this Gedcomx with a json hash
+      /**
+       * Initializes this Gedcomx from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
         if( isset($o['lang']) ) {
           $this->lang = $o["lang"];
         }
@@ -3230,6 +8375,24 @@
             $this->documents[$i] = new \Org\Gedcomx\Conclusion\Document($x);
           }
         }
+        $this->collections = array();
+        if( isset($o['collections']) ) {
+          foreach( $o['collections'] as $i => $x ) {
+            $this->collections[$i] = new \Org\Gedcomx\Records\Collection($x);
+          }
+        }
+        $this->records = array();
+        if( isset($o['records']) ) {
+          foreach( $o['records'] as $i => $x ) {
+            $this->records[$i] = new \Org\Gedcomx\Records\Record($x);
+          }
+        }
+        $this->recordDescriptors = array();
+        if( isset($o['recordDescriptors']) ) {
+          foreach( $o['recordDescriptors'] as $i => $x ) {
+            $this->recordDescriptors[$i] = new \Org\Gedcomx\Records\RecordDescriptor($x);
+          }
+        }
       }
     
     }
@@ -3237,98 +8400,164 @@
   }
 
 
-  namespace Org\Gedcomx\Conclusion {
+  namespace Org\Gedcomx\Records {
 
-    // A person.
-    class Person extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * An element representing a value in a record field.
+     */
+    class FieldValue extends \Org\Gedcomx\Conclusion\Conclusion  {
     
+      /**
+       * URI that resolves to the value of the field.
+       */
+      private $resource;
+      /**
+       * The datatype of the text value of the field.
+       */
+      private $datatype;
+      /**
+       * The type of the field value.
+       */
+      private $type;
     
-      // The list of identifiers for the person.
-      var $identifiers;
-      // Living status of the person as treated by the system.
-      var $living;
-      // The gender conclusion for the person.
-      var $gender;
-      // The name conclusions for the person.
-      var $names;
-      // The fact conclusions for the person.
-      var $facts;
-      // Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
-      var $displayExtension;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
+      /**
+       * The text value.
+       */
+      private $text;
 
-      // constructs a Person from a (parsed) JSON hash
+      /**
+       * Constructs a FieldValue from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Person
+      
+      /**
+       * URI that resolves to the value of the field.
+       */
+      public function getResource() {
+        return $this->resource;
+      }
+      
+      /**
+       * URI that resolves to the value of the field.
+       */
+      public function setResource($resource) {
+        $this->resource = $resource;
+      }
+      
+      /**
+       * The datatype of the text value of the field.
+       */
+      public function getDatatype() {
+        return $this->datatype;
+      }
+      
+      /**
+       * The datatype of the text value of the field.
+       */
+      public function setDatatype($datatype) {
+        $this->datatype = $datatype;
+      }
+      
+      /**
+       * The type of the field value.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the field value.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * The text value.
+       */
+      public function getText() {
+        return $this->text;
+      }
+      
+      /**
+       * The text value.
+       */
+      public function setText($text) {
+        $this->text = $text;
+      }
+      
+      /**
+       * Returns the associative array for this FieldValue
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->identifiers ) {
+        if( $this->resource ) {
+          $a["resource"] = $this->resource;
+        }
+        if( $this->datatype ) {
+          $a["datatype"] = $this->datatype;
+        }
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->fieldValueReferences ) {
           $ab = array();
-          foreach( $this->identifiers as $i => $x ) {
+          foreach( $this->fieldValueReferences as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['identifiers'] = $ab;
+          $a['fieldValues'] = $ab;
         }
-        if( $this->living ) {
-          $a["living"] = $this->living;
-        }
-        if( $this->gender ) {
-          $a["gender"] = $this->gender->toArray();
-        }
-        if( $this->names ) {
-          $ab = array();
-          foreach( $this->names as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['names'] = $ab;
-        }
-        if( $this->facts ) {
-          $ab = array();
-          foreach( $this->facts as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['facts'] = $ab;
-        }
-        if( $this->displayExtension ) {
-          $a["display"] = $this->displayExtension->toArray();
+        if( $this->text ) {
+          $a["text"] = $this->text;
         }
         return $a;
       }
       
 
-      // initializes this Person with a json hash
+      /**
+       * Initializes this FieldValue from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        $this->identifiers = array();
-        if( isset($o['identifiers']) ) {
-          foreach( $o['identifiers'] as $i => $x ) {
-            $this->identifiers[$i] = new \Org\Gedcomx\Conclusion\Identifier($x);
+        if( isset($o['resource']) ) {
+          $this->resource = $o["resource"];
+        }
+        if( isset($o['datatype']) ) {
+          $this->datatype = $o["datatype"];
+        }
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
           }
         }
-        if( isset($o['living']) ) {
-          $this->living = $o["living"];
-        }
-        if( isset($o['gender']) ) {
-          $this->gender = new \Org\Gedcomx\Conclusion\Gender($o["gender"]);
-        }
-        $this->names = array();
-        if( isset($o['names']) ) {
-          foreach( $o['names'] as $i => $x ) {
-            $this->names[$i] = new \Org\Gedcomx\Conclusion\Name($x);
-          }
-        }
-        $this->facts = array();
-        if( isset($o['facts']) ) {
-          foreach( $o['facts'] as $i => $x ) {
-            $this->facts[$i] = new \Org\Gedcomx\Conclusion\Fact($x);
-          }
-        }
-        if( isset($o['display']) ) {
-          $this->displayExtension = new \Org\Gedcomx\Conclusion\DisplayProperties($o["display"]);
+        if( isset($o['text']) ) {
+          $this->text = $o["text"];
         }
       }
     
@@ -3339,84 +8568,192 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // A relationship between two or more persons.
-    class Relationship extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * A conclusion about a fact applicable to a person or relationship.
+     */
+    class Fact extends \Org\Gedcomx\Conclusion\Conclusion  {
     
-      // The type of this relationship.
-      var $type;
+      /**
+       * The type of the fact.
+       */
+      private $type;
     
-      // A reference to a person in the relationship. The name &quot;person1&quot; is used only to distinguish it from
-      // the other person in this relationship and implies neither order nor role. When the relationship type
-      // implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
-      var $person1;
-      // A reference to a person in the relationship. The name &quot;person2&quot; is used only to distinguish it from
-      // the other person in this relationship and implies neither order nor role. When the relationship type
-      // implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
-      var $person2;
-      // The fact conclusions for the relationship.
-      var $facts;
-      // The list of identifiers for the relationship.
-      var $identifiers;
+      /**
+       * The date of applicability of this fact.
+       */
+      private $date;
+      /**
+       * The place of applicability of this fact.
+       */
+      private $place;
+      /**
+       * The value as supplied by the user.
+       */
+      private $value;
+      /**
+       * The qualifiers associated with this fact.
+       */
+      private $qualifiers;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
 
-      // constructs a Relationship from a (parsed) JSON hash
+      /**
+       * Constructs a Fact from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Relationship
+      
+      /**
+       * The type of the fact.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the fact.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The date of applicability of this fact.
+       */
+      public function getDate() {
+        return $this->date;
+      }
+      
+      /**
+       * The date of applicability of this fact.
+       */
+      public function setDate($date) {
+        $this->date = $date;
+      }
+      
+      /**
+       * The place of applicability of this fact.
+       */
+      public function getPlace() {
+        return $this->place;
+      }
+      
+      /**
+       * The place of applicability of this fact.
+       */
+      public function setPlace($place) {
+        $this->place = $place;
+      }
+      
+      /**
+       * The value as supplied by the user.
+       */
+      public function getValue() {
+        return $this->value;
+      }
+      
+      /**
+       * The value as supplied by the user.
+       */
+      public function setValue($value) {
+        $this->value = $value;
+      }
+      
+      /**
+       * The qualifiers associated with this fact.
+       */
+      public function getQualifiers() {
+        return $this->qualifiers;
+      }
+      
+      /**
+       * The qualifiers associated with this fact.
+       */
+      public function setQualifiers($qualifiers) {
+        $this->qualifiers = $qualifiers;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * Returns the associative array for this Fact
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->type ) {
           $a["type"] = $this->type;
         }
-        if( $this->person1 ) {
-          $a["person1"] = $this->person1->toArray();
+        if( $this->date ) {
+          $a["date"] = $this->date->toArray();
         }
-        if( $this->person2 ) {
-          $a["person2"] = $this->person2->toArray();
+        if( $this->place ) {
+          $a["place"] = $this->place->toArray();
         }
-        if( $this->facts ) {
+        if( $this->value ) {
+          $a["value"] = $this->value;
+        }
+        if( $this->qualifiers ) {
           $ab = array();
-          foreach( $this->facts as $i => $x ) {
+          foreach( $this->qualifiers as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['facts'] = $ab;
+          $a['qualifiers'] = $ab;
         }
-        if( $this->identifiers ) {
+        if( $this->fieldValueReferences ) {
           $ab = array();
-          foreach( $this->identifiers as $i => $x ) {
+          foreach( $this->fieldValueReferences as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['identifiers'] = $ab;
+          $a['fieldValues'] = $ab;
         }
         return $a;
       }
       
 
-      // initializes this Relationship with a json hash
+      /**
+       * Initializes this Fact from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['type']) ) {
           $this->type = $o["type"];
         }
-        if( isset($o['person1']) ) {
-          $this->person1 = new \Org\Gedcomx\Common\ResourceReference($o["person1"]);
+        if( isset($o['date']) ) {
+          $this->date = new \Org\Gedcomx\Conclusion\DateInfo($o["date"]);
         }
-        if( isset($o['person2']) ) {
-          $this->person2 = new \Org\Gedcomx\Common\ResourceReference($o["person2"]);
+        if( isset($o['place']) ) {
+          $this->place = new \Org\Gedcomx\Conclusion\PlaceReference($o["place"]);
         }
-        $this->facts = array();
-        if( isset($o['facts']) ) {
-          foreach( $o['facts'] as $i => $x ) {
-            $this->facts[$i] = new \Org\Gedcomx\Conclusion\Fact($x);
+        if( isset($o['value']) ) {
+          $this->value = $o["value"];
+        }
+        $this->qualifiers = array();
+        if( isset($o['qualifiers']) ) {
+          foreach( $o['qualifiers'] as $i => $x ) {
+            $this->qualifiers[$i] = new \Org\Gedcomx\Common\Qualifier($x);
           }
         }
-        $this->identifiers = array();
-        if( isset($o['identifiers']) ) {
-          foreach( $o['identifiers'] as $i => $x ) {
-            $this->identifiers[$i] = new \Org\Gedcomx\Conclusion\Identifier($x);
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
           }
         }
       }
@@ -3428,63 +8765,212 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // A PlaceDescription is used to describe the details of a place in terms of its name
-    // and possibly its type, time period, and/or a geospatial description -- a description
-    // of a place as a snapshot in time.
-    class PlaceDescription extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * A gender conclusion.
+     */
+    class Gender extends \Org\Gedcomx\Conclusion\Conclusion  {
     
-      // A uniform resource identifier (URI) for the place being described.
-      var $about;
-      // An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
-      var $type;
+      /**
+       * The type of the gender.
+       */
+      private $type;
     
-      // An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
-      var $names;
-      // A description of the time period to which this place description is relevant.
-      var $temporalDescription;
-      // Degrees north or south of the Equator.
-      var $latitude;
-      // Angular distance in degrees, relative to the Prime Meridian.
-      var $longitude;
-      // A reference to a geospatial description of this place.
-      var $spatialDescription;
-      // A list of known identifiers for this place description.
-      var $identifiers;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
 
-      // constructs a PlaceDescription from a (parsed) JSON hash
+      /**
+       * Constructs a Gender from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this PlaceDescription
+      
+      /**
+       * The type of the gender.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the gender.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * Returns the associative array for this Gender
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->about ) {
-          $a["about"] = $this->about;
-        }
         if( $this->type ) {
           $a["type"] = $this->type;
         }
-        if( $this->names ) {
+        if( $this->fieldValueReferences ) {
           $ab = array();
-          foreach( $this->names as $i => $x ) {
+          foreach( $this->fieldValueReferences as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['names'] = $ab;
+          $a['fieldValues'] = $ab;
         }
-        if( $this->temporalDescription ) {
-          $a["temporalDescription"] = $this->temporalDescription->toArray();
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Gender from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
         }
-        if( $this->latitude ) {
-          $a["latitude"] = $this->latitude;
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
+          }
         }
-        if( $this->longitude ) {
-          $a["longitude"] = $this->longitude;
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * The <tt>Subject</tt> data type defines the abstract concept of a genealogical <em>subject</em>. A <em>subject</em> is something with a unique and
+     * intrinsic identity, e.g., a person, a location on the surface of the earth. We identify that <em>subject</em> in time and space using various supporting
+     * <em>conclusions</em>, e.g. for a person: things like name, birth date, age, address, etc. We aggregate these supporting <em>conclusions</em> to form an
+     * apparently-unique identity by which we can distinguish our<em>subject</em> from all other possible <em>subjects</em>.
+     */
+    class Subject extends \Org\Gedcomx\Conclusion\Conclusion  {
+    
+      /**
+       * Whether this subject has been identified as &quot;extracted&quot;.
+       */
+      private $extracted;
+    
+      /**
+       * References to the evidence being referenced.
+       */
+      private $evidence;
+      /**
+       * References to multimedia resources associated with this subject.
+       */
+      private $media;
+      /**
+       * The list of identifiers for the subject.
+       */
+      private $identifiers;
+
+      /**
+       * Constructs a Subject from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
         }
-        if( $this->spatialDescription ) {
-          $a["spatialDescription"] = $this->spatialDescription->toArray();
+      }
+      
+      /**
+       * Whether this subject has been identified as &quot;extracted&quot;.
+       */
+      public function getExtracted() {
+        return $this->extracted;
+      }
+      
+      /**
+       * Whether this subject has been identified as &quot;extracted&quot;.
+       */
+      public function setExtracted($extracted) {
+        $this->extracted = $extracted;
+      }
+      
+      /**
+       * References to the evidence being referenced.
+       */
+      public function getEvidence() {
+        return $this->evidence;
+      }
+      
+      /**
+       * References to the evidence being referenced.
+       */
+      public function setEvidence($evidence) {
+        $this->evidence = $evidence;
+      }
+      
+      /**
+       * References to multimedia resources associated with this subject.
+       */
+      public function getMedia() {
+        return $this->media;
+      }
+      
+      /**
+       * References to multimedia resources associated with this subject.
+       */
+      public function setMedia($media) {
+        $this->media = $media;
+      }
+      
+      /**
+       * The list of identifiers for the subject.
+       */
+      public function getIdentifiers() {
+        return $this->identifiers;
+      }
+      
+      /**
+       * The list of identifiers for the subject.
+       */
+      public function setIdentifiers($identifiers) {
+        $this->identifiers = $identifiers;
+      }
+      
+      /**
+       * Returns the associative array for this Subject
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->extracted ) {
+          $a["extracted"] = $this->extracted;
+        }
+        if( $this->evidence ) {
+          $ab = array();
+          foreach( $this->evidence as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['evidence'] = $ab;
+        }
+        if( $this->media ) {
+          $ab = array();
+          foreach( $this->media as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['media'] = $ab;
         }
         if( $this->identifiers ) {
           $ab = array();
@@ -3497,32 +8983,25 @@
       }
       
 
-      // initializes this PlaceDescription with a json hash
+      /**
+       * Initializes this Subject from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['about']) ) {
-          $this->about = $o["about"];
+        if( isset($o['extracted']) ) {
+          $this->extracted = $o["extracted"];
         }
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        $this->names = array();
-        if( isset($o['names']) ) {
-          foreach( $o['names'] as $i => $x ) {
-            $this->names[$i] = new \Org\Gedcomx\Common\TextValue($x);
+        $this->evidence = array();
+        if( isset($o['evidence']) ) {
+          foreach( $o['evidence'] as $i => $x ) {
+            $this->evidence[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
           }
         }
-        if( isset($o['temporalDescription']) ) {
-          $this->temporalDescription = new \Org\Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
-        }
-        if( isset($o['latitude']) ) {
-          $this->latitude = $o["latitude"];
-        }
-        if( isset($o['longitude']) ) {
-          $this->longitude = $o["longitude"];
-        }
-        if( isset($o['spatialDescription']) ) {
-          $this->spatialDescription = new \Org\Gedcomx\Common\ResourceReference($o["spatialDescription"]);
+        $this->media = array();
+        if( isset($o['media']) ) {
+          foreach( $o['media'] as $i => $x ) {
+            $this->media[$i] = new \Org\Gedcomx\Source\SourceReference($x);
+          }
         }
         $this->identifiers = array();
         if( isset($o['identifiers']) ) {
@@ -3539,33 +9018,117 @@
 
   namespace Org\Familysearch\Platform {
 
-    // <p>The FamilySearch media types define serialization formats that are specific the FamilySearch developer platform. These
-    // media types are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
-    // that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
+    /**
+     * <p>The FamilySearch media types define serialization formats that are specific the FamilySearch developer platform. These
+     * media types are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
+     * that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
+     */
     class FamilySearchPlatform extends \Org\Gedcomx\Gedcomx  {
     
     
-      // The child-and-parents relationships for this data set.
-      var $childAndParentsRelationships;
-      // The discussions included in this data set.
-      var $discussions;
-      // The source folders included in this data set.
-      var $sourceFolders;
-      // The users included in this genealogical data set.
-      var $users;
-      // The merges for this data set.
-      var $merges;
-      // The merge analysis results for this data set.
-      var $mergeAnalyses;
+      /**
+       * The child-and-parents relationships for this data set.
+       */
+      private $childAndParentsRelationships;
+      /**
+       * The discussions included in this data set.
+       */
+      private $discussions;
+      /**
+       * The users included in this genealogical data set.
+       */
+      private $users;
+      /**
+       * The merges for this data set.
+       */
+      private $merges;
+      /**
+       * The merge analysis results for this data set.
+       */
+      private $mergeAnalyses;
 
-      // constructs a FamilySearchPlatform from a (parsed) JSON hash
+      /**
+       * Constructs a FamilySearchPlatform from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this FamilySearchPlatform
+      
+      /**
+       * The child-and-parents relationships for this data set.
+       */
+      public function getChildAndParentsRelationships() {
+        return $this->childAndParentsRelationships;
+      }
+      
+      /**
+       * The child-and-parents relationships for this data set.
+       */
+      public function setChildAndParentsRelationships($childAndParentsRelationships) {
+        $this->childAndParentsRelationships = $childAndParentsRelationships;
+      }
+      
+      /**
+       * The discussions included in this data set.
+       */
+      public function getDiscussions() {
+        return $this->discussions;
+      }
+      
+      /**
+       * The discussions included in this data set.
+       */
+      public function setDiscussions($discussions) {
+        $this->discussions = $discussions;
+      }
+      
+      /**
+       * The users included in this genealogical data set.
+       */
+      public function getUsers() {
+        return $this->users;
+      }
+      
+      /**
+       * The users included in this genealogical data set.
+       */
+      public function setUsers($users) {
+        $this->users = $users;
+      }
+      
+      /**
+       * The merges for this data set.
+       */
+      public function getMerges() {
+        return $this->merges;
+      }
+      
+      /**
+       * The merges for this data set.
+       */
+      public function setMerges($merges) {
+        $this->merges = $merges;
+      }
+      
+      /**
+       * The merge analysis results for this data set.
+       */
+      public function getMergeAnalyses() {
+        return $this->mergeAnalyses;
+      }
+      
+      /**
+       * The merge analysis results for this data set.
+       */
+      public function setMergeAnalyses($mergeAnalyses) {
+        $this->mergeAnalyses = $mergeAnalyses;
+      }
+      
+      /**
+       * Returns the associative array for this FamilySearchPlatform
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->childAndParentsRelationships ) {
@@ -3581,13 +9144,6 @@
             $ab[$i] = $x->toArray();
           }
           $a['discussions'] = $ab;
-        }
-        if( $this->sourceFolders ) {
-          $ab = array();
-          foreach( $this->sourceFolders as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['sourceFolders'] = $ab;
         }
         if( $this->users ) {
           $ab = array();
@@ -3614,7 +9170,9 @@
       }
       
 
-      // initializes this FamilySearchPlatform with a json hash
+      /**
+       * Initializes this FamilySearchPlatform from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         $this->childAndParentsRelationships = array();
@@ -3627,12 +9185,6 @@
         if( isset($o['discussions']) ) {
           foreach( $o['discussions'] as $i => $x ) {
             $this->discussions[$i] = new \Org\Familysearch\Platform\Discussions\Discussion($x);
-          }
-        }
-        $this->sourceFolders = array();
-        if( isset($o['sourceFolders']) ) {
-          foreach( $o['sourceFolders'] as $i => $x ) {
-            $this->sourceFolders[$i] = new \Org\Familysearch\Platform\Sources\Folder($x);
           }
         }
         $this->users = array();
@@ -3660,31 +9212,505 @@
   }
 
 
-  namespace Org\Familysearch\Platform\Ct {
+  namespace Org\Gedcomx\Conclusion {
 
-    // The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
-    class ChildAndParentsRelationship extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * A name conclusion.
+     */
+    class Name extends \Org\Gedcomx\Conclusion\Conclusion  {
     
+      /**
+       * The type of the name.
+       */
+      private $type;
     
-      // The father of the child.
-      var $father;
-      // The mother of the child.
-      var $mother;
-      // child in the relationship.
-      var $child;
-      // The fact conclusions for the father.
-      var $fatherFacts;
-      // The fact conclusions for the mother.
-      var $motherFacts;
+      /**
+       * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+       */
+      private $preferred;
+      /**
+       * The date the name was first applied or adopted.
+       */
+      private $date;
+      /**
+       * Alternate forms of the name, such as the romanized form of a non-latin name.
+       */
+      private $nameForms;
 
-      // constructs a ChildAndParentsRelationship from a (parsed) JSON hash
+      /**
+       * Constructs a Name from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
+      
+      /**
+       * The type of the name.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the name.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+       */
+      public function getPreferred() {
+        return $this->preferred;
+      }
+      
+      /**
+       * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+       */
+      public function setPreferred($preferred) {
+        $this->preferred = $preferred;
+      }
+      
+      /**
+       * The date the name was first applied or adopted.
+       */
+      public function getDate() {
+        return $this->date;
+      }
+      
+      /**
+       * The date the name was first applied or adopted.
+       */
+      public function setDate($date) {
+        $this->date = $date;
+      }
+      
+      /**
+       * Alternate forms of the name, such as the romanized form of a non-latin name.
+       */
+      public function getNameForms() {
+        return $this->nameForms;
+      }
+      
+      /**
+       * Alternate forms of the name, such as the romanized form of a non-latin name.
+       */
+      public function setNameForms($nameForms) {
+        $this->nameForms = $nameForms;
+      }
+      
+      /**
+       * Returns the associative array for this Name
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->preferred ) {
+          $a["preferred"] = $this->preferred;
+        }
+        if( $this->date ) {
+          $a["date"] = $this->date->toArray();
+        }
+        if( $this->nameForms ) {
+          $ab = array();
+          foreach( $this->nameForms as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['nameForms'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Name from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        if( isset($o['preferred']) ) {
+          $this->preferred = $o["preferred"];
+        }
+        if( isset($o['date']) ) {
+          $this->date = new \Org\Gedcomx\Conclusion\DateInfo($o["date"]);
+        }
+        $this->nameForms = array();
+        if( isset($o['nameForms']) ) {
+          foreach( $o['nameForms'] as $i => $x ) {
+            $this->nameForms[$i] = new \Org\Gedcomx\Conclusion\NameForm($x);
+          }
+        }
+      }
     
-      // the json hash for this ChildAndParentsRelationship
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * A role that a specific person plays in an event.
+     */
+    class EventRole extends \Org\Gedcomx\Conclusion\Conclusion  {
+    
+      /**
+       * The role type.
+       */
+      private $type;
+    
+      /**
+       * Reference to the person playing the role in the event.
+       */
+      private $person;
+      /**
+       * Details about the role of the person in the event.
+       */
+      private $details;
+
+      /**
+       * Constructs a EventRole from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The role type.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The role type.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * Reference to the person playing the role in the event.
+       */
+      public function getPerson() {
+        return $this->person;
+      }
+      
+      /**
+       * Reference to the person playing the role in the event.
+       */
+      public function setPerson($person) {
+        $this->person = $person;
+      }
+      
+      /**
+       * Details about the role of the person in the event.
+       */
+      public function getDetails() {
+        return $this->details;
+      }
+      
+      /**
+       * Details about the role of the person in the event.
+       */
+      public function setDetails($details) {
+        $this->details = $details;
+      }
+      
+      /**
+       * Returns the associative array for this EventRole
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->person ) {
+          $a["person"] = $this->person->toArray();
+        }
+        if( $this->details ) {
+          $a["details"] = $this->details;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this EventRole from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        if( isset($o['person']) ) {
+          $this->person = new \Org\Gedcomx\Common\ResourceReference($o["person"]);
+        }
+        if( isset($o['details']) ) {
+          $this->details = $o["details"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * An abstract document that contains derived (conclusionary) text -- for example, a transcription or researcher analysis.
+     */
+    class Document extends \Org\Gedcomx\Conclusion\Conclusion  {
+    
+      /**
+       * The text type of the document.
+       */
+      private $textType;
+      /**
+       * Whether this document has been identified as &quot;extracted&quot;.
+       */
+      private $extracted;
+      /**
+       * The type of the document.
+       */
+      private $type;
+    
+      /**
+       * The document text.
+       */
+      private $text;
+
+      /**
+       * Constructs a Document from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The text type of the document.
+       */
+      public function getTextType() {
+        return $this->textType;
+      }
+      
+      /**
+       * The text type of the document.
+       */
+      public function setTextType($textType) {
+        $this->textType = $textType;
+      }
+      
+      /**
+       * Whether this document has been identified as &quot;extracted&quot;.
+       */
+      public function getExtracted() {
+        return $this->extracted;
+      }
+      
+      /**
+       * Whether this document has been identified as &quot;extracted&quot;.
+       */
+      public function setExtracted($extracted) {
+        $this->extracted = $extracted;
+      }
+      
+      /**
+       * The type of the document.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of the document.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * The document text.
+       */
+      public function getText() {
+        return $this->text;
+      }
+      
+      /**
+       * The document text.
+       */
+      public function setText($text) {
+        $this->text = $text;
+      }
+      
+      /**
+       * Returns the associative array for this Document
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->textType ) {
+          $a["textType"] = $this->textType;
+        }
+        if( $this->extracted ) {
+          $a["extracted"] = $this->extracted;
+        }
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->text ) {
+          $a["text"] = $this->text;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Document from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['textType']) ) {
+          $this->textType = $o["textType"];
+        }
+        if( isset($o['extracted']) ) {
+          $this->extracted = $o["extracted"];
+        }
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        if( isset($o['text']) ) {
+          $this->text = $o["text"];
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Familysearch\Platform\Ct {
+
+    /**
+     * The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
+     */
+    class ChildAndParentsRelationship extends \Org\Gedcomx\Conclusion\Subject  {
+    
+    
+      /**
+       * The father of the child.
+       */
+      private $father;
+      /**
+       * The mother of the child.
+       */
+      private $mother;
+      /**
+       * child in the relationship.
+       */
+      private $child;
+      /**
+       * The fact conclusions for the father.
+       */
+      private $fatherFacts;
+      /**
+       * The fact conclusions for the mother.
+       */
+      private $motherFacts;
+
+      /**
+       * Constructs a ChildAndParentsRelationship from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The father of the child.
+       */
+      public function getFather() {
+        return $this->father;
+      }
+      
+      /**
+       * The father of the child.
+       */
+      public function setFather($father) {
+        $this->father = $father;
+      }
+      
+      /**
+       * The mother of the child.
+       */
+      public function getMother() {
+        return $this->mother;
+      }
+      
+      /**
+       * The mother of the child.
+       */
+      public function setMother($mother) {
+        $this->mother = $mother;
+      }
+      
+      /**
+       * child in the relationship.
+       */
+      public function getChild() {
+        return $this->child;
+      }
+      
+      /**
+       * child in the relationship.
+       */
+      public function setChild($child) {
+        $this->child = $child;
+      }
+      
+      /**
+       * The fact conclusions for the father.
+       */
+      public function getFatherFacts() {
+        return $this->fatherFacts;
+      }
+      
+      /**
+       * The fact conclusions for the father.
+       */
+      public function setFatherFacts($fatherFacts) {
+        $this->fatherFacts = $fatherFacts;
+      }
+      
+      /**
+       * The fact conclusions for the mother.
+       */
+      public function getMotherFacts() {
+        return $this->motherFacts;
+      }
+      
+      /**
+       * The fact conclusions for the mother.
+       */
+      public function setMotherFacts($motherFacts) {
+        $this->motherFacts = $motherFacts;
+      }
+      
+      /**
+       * Returns the associative array for this ChildAndParentsRelationship
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->father ) {
@@ -3714,7 +9740,9 @@
       }
       
 
-      // initializes this ChildAndParentsRelationship with a json hash
+      /**
+       * Initializes this ChildAndParentsRelationship from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['father']) ) {
@@ -3747,65 +9775,372 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // A name conclusion.
-    class Name extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * A PlaceDescription is used to describe the details of a place in terms of its name
+     * and possibly its type, time period, and/or a geospatial description -- a description
+     * of a place as a snapshot in time.
+     */
+    class PlaceDescription extends \Org\Gedcomx\Conclusion\Subject  {
     
-      // The type of the name.
-      var $type;
+      /**
+       * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
+       */
+      private $type;
     
-      // Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
-      var $preferred;
-      // The date the name was first applied or adopted.
-      var $date;
-      // Alternate forms of the name, such as the romanized form of a non-latin name.
-      var $nameForms;
+      /**
+       * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
+       */
+      private $names;
+      /**
+       * A description of the time period to which this place description is relevant.
+       */
+      private $temporalDescription;
+      /**
+       * Degrees north or south of the Equator.
+       */
+      private $latitude;
+      /**
+       * Angular distance in degrees, relative to the Prime Meridian.
+       */
+      private $longitude;
+      /**
+       * A reference to a geospatial description of this place.
+       */
+      private $spatialDescription;
 
-      // constructs a Name from a (parsed) JSON hash
+      /**
+       * Constructs a PlaceDescription from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this Name
+      
+      /**
+       * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
+       */
+      public function getNames() {
+        return $this->names;
+      }
+      
+      /**
+       * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
+       */
+      public function setNames($names) {
+        $this->names = $names;
+      }
+      
+      /**
+       * A description of the time period to which this place description is relevant.
+       */
+      public function getTemporalDescription() {
+        return $this->temporalDescription;
+      }
+      
+      /**
+       * A description of the time period to which this place description is relevant.
+       */
+      public function setTemporalDescription($temporalDescription) {
+        $this->temporalDescription = $temporalDescription;
+      }
+      
+      /**
+       * Degrees north or south of the Equator.
+       */
+      public function getLatitude() {
+        return $this->latitude;
+      }
+      
+      /**
+       * Degrees north or south of the Equator.
+       */
+      public function setLatitude($latitude) {
+        $this->latitude = $latitude;
+      }
+      
+      /**
+       * Angular distance in degrees, relative to the Prime Meridian.
+       */
+      public function getLongitude() {
+        return $this->longitude;
+      }
+      
+      /**
+       * Angular distance in degrees, relative to the Prime Meridian.
+       */
+      public function setLongitude($longitude) {
+        $this->longitude = $longitude;
+      }
+      
+      /**
+       * A reference to a geospatial description of this place.
+       */
+      public function getSpatialDescription() {
+        return $this->spatialDescription;
+      }
+      
+      /**
+       * A reference to a geospatial description of this place.
+       */
+      public function setSpatialDescription($spatialDescription) {
+        $this->spatialDescription = $spatialDescription;
+      }
+      
+      /**
+       * Returns the associative array for this PlaceDescription
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->type ) {
           $a["type"] = $this->type;
         }
-        if( $this->preferred ) {
-          $a["preferred"] = $this->preferred;
-        }
-        if( $this->date ) {
-          $a["date"] = $this->date->toArray();
-        }
-        if( $this->nameForms ) {
+        if( $this->names ) {
           $ab = array();
-          foreach( $this->nameForms as $i => $x ) {
+          foreach( $this->names as $i => $x ) {
             $ab[$i] = $x->toArray();
           }
-          $a['nameForms'] = $ab;
+          $a['names'] = $ab;
+        }
+        if( $this->temporalDescription ) {
+          $a["temporalDescription"] = $this->temporalDescription->toArray();
+        }
+        if( $this->latitude ) {
+          $a["latitude"] = $this->latitude;
+        }
+        if( $this->longitude ) {
+          $a["longitude"] = $this->longitude;
+        }
+        if( $this->spatialDescription ) {
+          $a["spatialDescription"] = $this->spatialDescription->toArray();
         }
         return $a;
       }
       
 
-      // initializes this Name with a json hash
+      /**
+       * Initializes this PlaceDescription from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['type']) ) {
           $this->type = $o["type"];
         }
-        if( isset($o['preferred']) ) {
-          $this->preferred = $o["preferred"];
+        $this->names = array();
+        if( isset($o['names']) ) {
+          foreach( $o['names'] as $i => $x ) {
+            $this->names[$i] = new \Org\Gedcomx\Common\TextValue($x);
+          }
         }
-        if( isset($o['date']) ) {
-          $this->date = new \Org\Gedcomx\Conclusion\DateInfo($o["date"]);
+        if( isset($o['temporalDescription']) ) {
+          $this->temporalDescription = new \Org\Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
         }
-        $this->nameForms = array();
-        if( isset($o['nameForms']) ) {
-          foreach( $o['nameForms'] as $i => $x ) {
-            $this->nameForms[$i] = new \Org\Gedcomx\Conclusion\NameForm($x);
+        if( isset($o['latitude']) ) {
+          $this->latitude = $o["latitude"];
+        }
+        if( isset($o['longitude']) ) {
+          $this->longitude = $o["longitude"];
+        }
+        if( isset($o['spatialDescription']) ) {
+          $this->spatialDescription = new \Org\Gedcomx\Common\ResourceReference($o["spatialDescription"]);
+        }
+      }
+    
+    }
+    
+  }
+
+
+  namespace Org\Gedcomx\Conclusion {
+
+    /**
+     * A relationship between two or more persons.
+     */
+    class Relationship extends \Org\Gedcomx\Conclusion\Subject  {
+    
+      /**
+       * The type of this relationship.
+       */
+      private $type;
+    
+      /**
+       * A reference to a person in the relationship. The name &quot;person1&quot; is used only to distinguish it from
+     * the other person in this relationship and implies neither order nor role. When the relationship type
+     * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
+       */
+      private $person1;
+      /**
+       * A reference to a person in the relationship. The name &quot;person2&quot; is used only to distinguish it from
+     * the other person in this relationship and implies neither order nor role. When the relationship type
+     * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
+       */
+      private $person2;
+      /**
+       * The fact conclusions for the relationship.
+       */
+      private $facts;
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      private $fieldValueReferences;
+
+      /**
+       * Constructs a Relationship from a (parsed) JSON hash
+       */
+      public function __construct($o = null) {
+        if( $o ) {
+          $this->initFromArray($o);
+        }
+      }
+      
+      /**
+       * The type of this relationship.
+       */
+      public function getType() {
+        return $this->type;
+      }
+      
+      /**
+       * The type of this relationship.
+       */
+      public function setType($type) {
+        $this->type = $type;
+      }
+      
+      /**
+       * A reference to a person in the relationship. The name &quot;person1&quot; is used only to distinguish it from
+       * the other person in this relationship and implies neither order nor role. When the relationship type
+       * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
+       */
+      public function getPerson1() {
+        return $this->person1;
+      }
+      
+      /**
+       * A reference to a person in the relationship. The name &quot;person1&quot; is used only to distinguish it from
+       * the other person in this relationship and implies neither order nor role. When the relationship type
+       * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
+       */
+      public function setPerson1($person1) {
+        $this->person1 = $person1;
+      }
+      
+      /**
+       * A reference to a person in the relationship. The name &quot;person2&quot; is used only to distinguish it from
+       * the other person in this relationship and implies neither order nor role. When the relationship type
+       * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
+       */
+      public function getPerson2() {
+        return $this->person2;
+      }
+      
+      /**
+       * A reference to a person in the relationship. The name &quot;person2&quot; is used only to distinguish it from
+       * the other person in this relationship and implies neither order nor role. When the relationship type
+       * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
+       */
+      public function setPerson2($person2) {
+        $this->person2 = $person2;
+      }
+      
+      /**
+       * The fact conclusions for the relationship.
+       */
+      public function getFacts() {
+        return $this->facts;
+      }
+      
+      /**
+       * The fact conclusions for the relationship.
+       */
+      public function setFacts($facts) {
+        $this->facts = $facts;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function getFieldValueReferences() {
+        return $this->fieldValueReferences;
+      }
+      
+      /**
+       * The references to the record field values being used as evidence.
+       */
+      public function setFieldValueReferences($fieldValueReferences) {
+        $this->fieldValueReferences = $fieldValueReferences;
+      }
+      
+      /**
+       * Returns the associative array for this Relationship
+       */
+      public function toArray() {
+        $a = parent::toArray();
+        if( $this->type ) {
+          $a["type"] = $this->type;
+        }
+        if( $this->person1 ) {
+          $a["person1"] = $this->person1->toArray();
+        }
+        if( $this->person2 ) {
+          $a["person2"] = $this->person2->toArray();
+        }
+        if( $this->facts ) {
+          $ab = array();
+          foreach( $this->facts as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['facts'] = $ab;
+        }
+        if( $this->fieldValueReferences ) {
+          $ab = array();
+          foreach( $this->fieldValueReferences as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['fieldValues'] = $ab;
+        }
+        return $a;
+      }
+      
+
+      /**
+       * Initializes this Relationship from an associative array
+       */
+      public function initFromArray($o) {
+        parent::initFromArray($o);
+        if( isset($o['type']) ) {
+          $this->type = $o["type"];
+        }
+        if( isset($o['person1']) ) {
+          $this->person1 = new \Org\Gedcomx\Common\ResourceReference($o["person1"]);
+        }
+        if( isset($o['person2']) ) {
+          $this->person2 = new \Org\Gedcomx\Common\ResourceReference($o["person2"]);
+        }
+        $this->facts = array();
+        if( isset($o['facts']) ) {
+          foreach( $o['facts'] as $i => $x ) {
+            $this->facts[$i] = new \Org\Gedcomx\Conclusion\Fact($x);
+          }
+        }
+        $this->fieldValueReferences = array();
+        if( isset($o['fieldValues']) ) {
+          foreach( $o['fieldValues'] as $i => $x ) {
+            $this->fieldValueReferences[$i] = new \Org\Gedcomx\Common\EvidenceReference($x);
           }
         }
       }
@@ -3817,51 +10152,217 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // A role that a specific person plays in an event.
-    class EventRole extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * A person.
+     */
+    class Person extends \Org\Gedcomx\Conclusion\Subject  {
     
-      // The role type.
-      var $type;
+      /**
+       * A reference to the collection containing the person.
+       */
+      private $collectionRef;
+      /**
+       * Whether this person has been designated for limited distribution or display.
+       */
+      private $private;
     
-      // Reference to the person playing the role in the event.
-      var $person;
-      // Details about the role of the person in the event.
-      var $details;
+      /**
+       * Living status of the person as treated by the system.
+       */
+      private $living;
+      /**
+       * The gender conclusion for the person.
+       */
+      private $gender;
+      /**
+       * The name conclusions for the person.
+       */
+      private $names;
+      /**
+       * The fact conclusions for the person.
+       */
+      private $facts;
+      /**
+       * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      private $displayExtension;
 
-      // constructs a EventRole from a (parsed) JSON hash
+      /**
+       * Constructs a Person from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
       }
-    
-      // the json hash for this EventRole
+      
+      /**
+       * A reference to the collection containing the person.
+       */
+      public function getCollectionRef() {
+        return $this->collectionRef;
+      }
+      
+      /**
+       * A reference to the collection containing the person.
+       */
+      public function setCollectionRef($collectionRef) {
+        $this->collectionRef = $collectionRef;
+      }
+      
+      /**
+       * Whether this person has been designated for limited distribution or display.
+       */
+      public function getPrivate() {
+        return $this->private;
+      }
+      
+      /**
+       * Whether this person has been designated for limited distribution or display.
+       */
+      public function setPrivate($private) {
+        $this->private = $private;
+      }
+      
+      /**
+       * Living status of the person as treated by the system.
+       */
+      public function getLiving() {
+        return $this->living;
+      }
+      
+      /**
+       * Living status of the person as treated by the system.
+       */
+      public function setLiving($living) {
+        $this->living = $living;
+      }
+      
+      /**
+       * The gender conclusion for the person.
+       */
+      public function getGender() {
+        return $this->gender;
+      }
+      
+      /**
+       * The gender conclusion for the person.
+       */
+      public function setGender($gender) {
+        $this->gender = $gender;
+      }
+      
+      /**
+       * The name conclusions for the person.
+       */
+      public function getNames() {
+        return $this->names;
+      }
+      
+      /**
+       * The name conclusions for the person.
+       */
+      public function setNames($names) {
+        $this->names = $names;
+      }
+      
+      /**
+       * The fact conclusions for the person.
+       */
+      public function getFacts() {
+        return $this->facts;
+      }
+      
+      /**
+       * The fact conclusions for the person.
+       */
+      public function setFacts($facts) {
+        $this->facts = $facts;
+      }
+      
+      /**
+       * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      public function getDisplayExtension() {
+        return $this->displayExtension;
+      }
+      
+      /**
+       * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+       */
+      public function setDisplayExtension($displayExtension) {
+        $this->displayExtension = $displayExtension;
+      }
+      
+      /**
+       * Returns the associative array for this Person
+       */
       public function toArray() {
         $a = parent::toArray();
-        if( $this->type ) {
-          $a["type"] = $this->type;
+        if( $this->collectionRef ) {
+          $a["collection"] = $this->collectionRef;
         }
-        if( $this->person ) {
-          $a["person"] = $this->person->toArray();
+        if( $this->private ) {
+          $a["private"] = $this->private;
         }
-        if( $this->details ) {
-          $a["details"] = $this->details;
+        if( $this->living ) {
+          $a["living"] = $this->living;
+        }
+        if( $this->gender ) {
+          $a["gender"] = $this->gender->toArray();
+        }
+        if( $this->names ) {
+          $ab = array();
+          foreach( $this->names as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['names'] = $ab;
+        }
+        if( $this->facts ) {
+          $ab = array();
+          foreach( $this->facts as $i => $x ) {
+            $ab[$i] = $x->toArray();
+          }
+          $a['facts'] = $ab;
+        }
+        if( $this->displayExtension ) {
+          $a["display"] = $this->displayExtension->toArray();
         }
         return $a;
       }
       
 
-      // initializes this EventRole with a json hash
+      /**
+       * Initializes this Person from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
+        if( isset($o['collection']) ) {
+          $this->collectionRef = $o["collection"];
         }
-        if( isset($o['person']) ) {
-          $this->person = new \Org\Gedcomx\Common\ResourceReference($o["person"]);
+        if( isset($o['private']) ) {
+          $this->private = $o["private"];
         }
-        if( isset($o['details']) ) {
-          $this->details = $o["details"];
+        if( isset($o['living']) ) {
+          $this->living = $o["living"];
+        }
+        if( isset($o['gender']) ) {
+          $this->gender = new \Org\Gedcomx\Conclusion\Gender($o["gender"]);
+        }
+        $this->names = array();
+        if( isset($o['names']) ) {
+          foreach( $o['names'] as $i => $x ) {
+            $this->names[$i] = new \Org\Gedcomx\Conclusion\Name($x);
+          }
+        }
+        $this->facts = array();
+        if( isset($o['facts']) ) {
+          foreach( $o['facts'] as $i => $x ) {
+            $this->facts[$i] = new \Org\Gedcomx\Conclusion\Fact($x);
+          }
+        }
+        if( isset($o['display']) ) {
+          $this->displayExtension = new \Org\Gedcomx\Conclusion\DisplayProperties($o["display"]);
         }
       }
     
@@ -3872,129 +10373,97 @@
 
   namespace Org\Gedcomx\Conclusion {
 
-    // A gender conclusion.
-    class Gender extends \Org\Gedcomx\Conclusion\Conclusion  {
+    /**
+     * A historical event.
+     */
+    class Event extends \Org\Gedcomx\Conclusion\Subject  {
     
-      // The type of the gender.
-      var $type;
+      /**
+       * The type of the event.
+       */
+      private $type;
     
+      /**
+       * The date of this event.
+       */
+      private $date;
+      /**
+       * The place of this event.
+       */
+      private $place;
+      /**
+       * The roles played in this event.
+       */
+      private $roles;
 
-      // constructs a Gender from a (parsed) JSON hash
+      /**
+       * Constructs a Event from a (parsed) JSON hash
+       */
       public function __construct($o = null) {
         if( $o ) {
           $this->initFromArray($o);
         }
-      }
-    
-      // the json hash for this Gender
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        return $a;
       }
       
-
-      // initializes this Gender with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // A conclusion about a fact applicable to a person or relationship.
-    class Fact extends \Org\Gedcomx\Conclusion\Conclusion  {
-    
-      // The type of the fact.
-      var $type;
-    
-      // The date of applicability of this fact.
-      var $date;
-      // The place of applicability of this fact.
-      var $place;
-      // The value as supplied by the user.
-      var $value;
-
-      // constructs a Fact from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Fact
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->date ) {
-          $a["date"] = $this->date->toArray();
-        }
-        if( $this->place ) {
-          $a["place"] = $this->place->toArray();
-        }
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        return $a;
+      /**
+       * The type of the event.
+       */
+      public function getType() {
+        return $this->type;
       }
       
-
-      // initializes this Fact with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        if( isset($o['date']) ) {
-          $this->date = new \Org\Gedcomx\Conclusion\DateInfo($o["date"]);
-        }
-        if( isset($o['place']) ) {
-          $this->place = new \Org\Gedcomx\Conclusion\PlaceReference($o["place"]);
-        }
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
+      /**
+       * The type of the event.
+       */
+      public function setType($type) {
+        $this->type = $type;
       }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // A historical event.
-    class Event extends \Org\Gedcomx\Conclusion\Conclusion  {
-    
-      // The type of the event.
-      var $type;
-    
-      // The date of this event.
-      var $date;
-      // The place of this event.
-      var $place;
-      // The roles played in this event.
-      var $roles;
-
-      // constructs a Event from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+      
+      /**
+       * The date of this event.
+       */
+      public function getDate() {
+        return $this->date;
       }
-    
-      // the json hash for this Event
+      
+      /**
+       * The date of this event.
+       */
+      public function setDate($date) {
+        $this->date = $date;
+      }
+      
+      /**
+       * The place of this event.
+       */
+      public function getPlace() {
+        return $this->place;
+      }
+      
+      /**
+       * The place of this event.
+       */
+      public function setPlace($place) {
+        $this->place = $place;
+      }
+      
+      /**
+       * The roles played in this event.
+       */
+      public function getRoles() {
+        return $this->roles;
+      }
+      
+      /**
+       * The roles played in this event.
+       */
+      public function setRoles($roles) {
+        $this->roles = $roles;
+      }
+      
+      /**
+       * Returns the associative array for this Event
+       */
       public function toArray() {
         $a = parent::toArray();
         if( $this->type ) {
@@ -4017,7 +10486,9 @@
       }
       
 
-      // initializes this Event with a json hash
+      /**
+       * Initializes this Event from an associative array
+       */
       public function initFromArray($o) {
         parent::initFromArray($o);
         if( isset($o['type']) ) {
@@ -4034,53 +10505,6 @@
           foreach( $o['roles'] as $i => $x ) {
             $this->roles[$i] = new \Org\Gedcomx\Conclusion\EventRole($x);
           }
-        }
-      }
-    
-    }
-    
-  }
-
-
-  namespace Org\Gedcomx\Conclusion {
-
-    // An abstract document that contains derived (conclusionary) text -- for example, a transcription or researcher analysis.
-    class Document extends \Org\Gedcomx\Conclusion\Conclusion  {
-    
-      // The type of the document.
-      var $type;
-    
-      // The document text.
-      var $text;
-
-      // constructs a Document from a (parsed) JSON hash
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
-      }
-    
-      // the json hash for this Document
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->text ) {
-          $a["text"] = $this->text;
-        }
-        return $a;
-      }
-      
-
-      // initializes this Document with a json hash
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        if( isset($o['text']) ) {
-          $this->text = $o["text"];
         }
       }
     

@@ -20,17 +20,12 @@
       
       // Convert all of the entries[x].content.gedcomx attributes 
       // to Response objects
-      foreach($this->entries as $i => $entry) {
-        $this->entries[$i]->content->gedcomx = new Response($entry->content->gedcomx->toArray(), $client);
+      $entries = $this->getEntries();
+      foreach($entries as $i => $entry) {
+        $entries[$i]->getContent()->setGedcomx(new Response($entry->getContent()->getGedcomx()->toArray(), $client));
       }
+      $this->setEntries($entries);
       
-    }
-    
-    /**
-     * Get a list of the entries in the feed
-     */
-    public function getEntries() {
-      return $this->entries;
     }
   
   }

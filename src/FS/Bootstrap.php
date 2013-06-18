@@ -9,7 +9,7 @@
     'Fact.php',
     'Place.php',
     'Date.php',
-    'Relationships.php',
+    'Relationship.php',
     'Response.php',
     'AtomResponse.php',
     'Client.php'

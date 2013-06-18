@@ -25,24 +25,24 @@
             
       // Convert the names and separate the
       // preferred name from the alternate names
-      foreach($this->names as $i => $name) {
-      
-        $this->names[$i] = $name = new Name($name->toArray());
-        
-        if( $name->preferred ) {
+      $names = $this->getNames();
+      foreach($names as $i => $name) {
+        $names[$i] = $name = new Name($name->toArray());
+        if( $name->getPreferred() ) {
           $this->preferredName = $name;
         } else {
           $this->alternateNames[] = $name;
-        }
-        
+        }  
       }
+      $this->setNames($names);
       
       // Convert the facts and find the vital events
-      foreach($this->facts as $i => $fact) {
+      $facts = parent::getFacts();
+      foreach($facts as $i => $fact) {
       
-        $this->facts[$i] = $fact = new Fact($fact->toArray(), $response);
+        $facts[$i] = $fact = new Fact($fact->toArray(), $response);
         
-        switch($fact->type) {
+        switch($fact->getType()) {
           case 'http://gedcomx.org/Birth':
             $this->birth = $fact;
             break;
@@ -61,14 +61,8 @@
         }
         
       }
+      $this->setFacts($facts);
       
-    }
-  
-    /**
-     * Returns the list of all names for a person
-     */
-    public function getNames() {
-      return $this->names;
     }
     
     /**
@@ -115,8 +109,8 @@
           $types = array($types);
         }
         
-        foreach($this->facts as $fact) {
-          if( in_array($fact->type, $types) ) {
+        foreach(parent::getFacts() as $fact) {
+          if( in_array($fact->getType(), $types) ) {
             $filteredFacts[] = $fact;
           }
         }
@@ -126,7 +120,7 @@
       
       // Return all facts if no type was given
       else {
-        return $this->facts;
+        return parent::getFacts();
       }
       
     }

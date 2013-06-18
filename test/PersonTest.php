@@ -9,7 +9,7 @@
       $response = self::$client->getPerson($id);
       $person = $response->getPerson();
             
-      $this->assertEquals($id, $person->id);
+      $this->assertEquals($id, $person->getId());
       
       //
       // Names
@@ -26,13 +26,13 @@
       
       // First name form
       $this->assertEquals('Anastasia Aleksandrova', $nameForm0->getFullText());
-      $this->assertCount(2, $nameForm0->getNameParts());
+      $this->assertCount(2, $nameForm0->getParts());
       $this->assertEquals('Anastasia', $nameForm0->getGivenName());
       $this->assertEquals('Aleksandrova', $nameForm0->getSurname());
       
       /* UTF-8 Problems
       $this->assertEquals('Анастасия Александрова', $nameForm1->getFullText());
-      $this->assertCount(2, $nameForm1->getNameParts());
+      $this->assertCount(2, $nameForm1->getParts());
       $this->assertEquals('Анастасия', $nameForm1->getGivenName());
       $this->assertEquals('Александрова', $nameForm1->getSurname());
       */

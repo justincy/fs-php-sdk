@@ -42,17 +42,23 @@
       $this->client = $client;
       
       // Replace person objects with our wrapper object
-      foreach($this->persons as $i => $person) {
-        $this->persons[$i] = new Person($person->toArray(), $this, $client);
+      $persons = $this->getPersons();
+      foreach($persons as $i => $person) {
+        $persons[$i] = new Person($person->toArray(), $this, $client);
       }
+      $this->setPersons($persons);
       
       // Convert relationships
-      foreach($this->relationships as $i => $relationship) {
-        $this->relationships[$i] = new Relationship($relationship->toArray(), $client);
+      $relationships = $this->getRelationships();
+      foreach($relationships as $i => $relationship) {
+        $relationships[$i] = new Relationship($relationship->toArray(), $client);
       }
-      foreach($this->childAndParentsRelationships as $i => $relationship) {
-        $this->childAndParentsRelationships[$i] = new ChildAndParentsRelationship($relationship->toArray(), $client);
+      $this->setRelationships($relationships);
+      $childRelationships = $this->getChildAndParentsRelationships();
+      foreach($childRelationships as $i => $relationship) {
+        $childRelationships[$i] = new ChildAndParentsRelationship($relationship->toArray(), $client);
       }
+      $this->setChildAndParentsRelationships($childRelationships);
     }
     
     public function getClient() {
@@ -64,11 +70,11 @@
      * if the response doesn't contain exactly 1 person
      */
     public function getPerson() {
-      $numPersons = count($this->persons);
+      $numPersons = count($this->getPersons());
       if( $numPersons != 1 ) {
         throw new Exception("Only allowed to use the method when the response contains exactly 1 person; response contains $numPersons");
       }
-      return $this->persons[0];      
+      return $this->getPersons()[0];      
     }
     
     /**
@@ -91,11 +97,11 @@
       
       $person = $this->getPerson();
       
-      foreach($this->childAndParentsRelationships as $rel) {
+      foreach($this->getChildAndParentsRelationships() as $rel) {
         
         // If the current person the child then store the relationship
         // as a parent relationship
-        if( $person->id == $rel->child->resourceId ) {
+        if( $person->getId() == $rel->getChild()->getResourceId() ) {
           $this->parents[] = $rel;
         } 
         
@@ -124,12 +130,12 @@
       
       $person = $this->getPerson();
       
-      foreach($this->relationships as $rel) {
-        if( $rel->type == 'http://gedcomx.org/Couple' ) {
-          if( $rel->person1->resourceId == $person->id ) {
-            $rel->spouse = $rel->person2;
-          } else if( $rel->person2->resourceId == $person->id ) {
-            $rel->spouse = $rel->person1;
+      foreach($this->getRelationships() as $rel) {
+        if( $rel->getType() == 'http://gedcomx.org/Couple' ) {
+          if( $rel->getPerson1()->getResourceId() == $person->getId() ) {
+            $rel->setSpouse($rel->getPerson2());
+          } else if( $rel->getPerson2()->getResourceId() == $person->getId() ) {
+            $rel->setSpouse($rel->getPerson1());
           } else {
             throw new Exception("Found a spouse relationship that is not applicable to this person");
           }
