@@ -2,7 +2,7 @@
 
   include_once(dirname(__FILE__) . "/FSTest.php");
   
-  class PersonTest extends FSTest {
+  class DiscoveryTest extends FSTest {
   
     public function testDiscoveryGet() {
       $discovery = self::$client->getDiscovery();

@@ -117,6 +117,13 @@
     }
     
     /**
+     * Get the current user's profile information
+     */
+    public function getCurrentUser() {
+      return $this->getDLink('current-user')->getUsers()[0];
+    }
+    
+    /**
      * Get the current user's person in the tree
      */
     public function getCurrentUserPerson() {
