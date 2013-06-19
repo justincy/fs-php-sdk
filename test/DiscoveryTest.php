@@ -6,7 +6,7 @@
   
     public function testDiscoveryGet() {
       $discovery = self::$client->getDiscovery();
-      $this->assertEquals($discovery['user-collections']->href, TestConfig::$apiHost . '/platform/sources/collections');
+      $this->assertEquals($discovery['user-collections']->getHref(), TestConfig::$apiHost . '/platform/sources/collections');
     }
   
   }

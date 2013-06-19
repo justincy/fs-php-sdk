@@ -10,6 +10,7 @@
       $person = $response->getPerson();
             
       $this->assertEquals($id, $person->getId());
+      $this->assertEquals($person->getGender()->getType(), 'http://gedcomx.org/Female');
       
       //
       // Names
