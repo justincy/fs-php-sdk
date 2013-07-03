@@ -32,7 +32,7 @@
     }
     
     public function __toString() {
-      return $this->getText();
+      return $this->getFullText();
     }
   
   }
