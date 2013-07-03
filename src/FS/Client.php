@@ -97,7 +97,7 @@
      */
     public function getOAuth2AuthorizeUrl($redirectUri) {
       $link = $this->getDiscoveryLink('http://oauth.net/core/2.0/endpoint/authorize');
-      $authorizeUrl = $link->href;
+      $authorizeUrl = $link->getHref();
       return $authorizeUrl . '?response_type=code&client_id=' 
           . $this->devKey . '&redirect_uri=' . $redirectUri;
     }
@@ -107,7 +107,7 @@
      */
     public function getOAuth2AccessToken($code) {
       $link = $this->getDiscoveryLink('http://oauth.net/core/2.0/endpoint/token');
-      $tokenUrl = $link->href
+      $tokenUrl = $link->getHref()
           . '?grant_type=authorization_code&client_id=' . $this->devKey 
           . '&code=' . $code;
       $response = $this->post($tokenUrl)
