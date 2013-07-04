@@ -19,6 +19,10 @@
       $this->spouse = $spouse;
     }
     
+    public function getSpouse() {
+      return $this->spouse;
+    }
+    
   }
   
   class ChildAndParentsRelationship extends \Org\Familysearch\Platform\Ct\ChildAndParentsRelationship {

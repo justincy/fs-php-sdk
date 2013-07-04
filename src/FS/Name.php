@@ -16,7 +16,7 @@
     }
   
     public function getFullText() {
-      return $this->getNameForms()[0]->fullText;
+      return $this->getNameForms()[0]->getFullText();
     }
     
     public function getNamePart($type) {
